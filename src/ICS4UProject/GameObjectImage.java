@@ -34,8 +34,9 @@ public class GameObjectImage extends GameObject {
         motionBlur.setAngle(getVelocity().getAngle());
         motionBlur.setRadius(getVelocity().length()*0.01);
         image.setEffect(motionBlur);
-        image.setX(getPosition().getX());
-        image.setY(getPosition().getY());
+        image.setX(getRelativePosition().getX());
+        System.out.println(getRelativePosition());
+        image.setY(getRelativePosition().getY());
     }
 
     public ImageView getImage(){

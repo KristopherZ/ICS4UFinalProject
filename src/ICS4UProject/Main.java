@@ -48,7 +48,7 @@ public class Main extends Application{
         player.getForceList().add(friction);
 
 
-        root.getChildren().addAll(frictionLayer.getRectangle(),player.getImage(),ground.getRectangle());
+        root.getChildren().addAll(player.getImage(),ground.getRectangle());
         primaryStage.setScene(scene);
         primaryStage.setWidth(500);
         primaryStage.setHeight(500);
@@ -102,8 +102,18 @@ public class Main extends Application{
                 APressed = true;
             }
             if(e.getCode().equals(KeyCode.W)&&player.isCollide(frictionLayer.getRectangle())){
-                player.addAppliedForce(new Vector(0,-7500),150);
+                player.addAppliedForce(new Vector(0,-5000),150);
                 normalForce.set(new Vector());
+            }
+            if (e.getCode().equals(KeyCode.L)){
+                player.addCameraPosition(new Vector(10,0));
+                ground.addCameraPosition(new Vector(10,0));
+                frictionLayer.addCameraPosition(new Vector(10,0));
+            }
+            if (e.getCode().equals(KeyCode.K)){
+                player.addCameraPosition(new Vector(-10,0));
+                ground.addCameraPosition(new Vector(-10,0));
+                frictionLayer.addCameraPosition(new Vector(-10,0));
             }
         });
         scene.setOnKeyReleased(e ->{
@@ -115,6 +125,7 @@ public class Main extends Application{
             }
 
         });
+
         primaryStage.show();
     }
 

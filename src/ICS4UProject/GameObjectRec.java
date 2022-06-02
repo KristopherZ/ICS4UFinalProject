@@ -29,8 +29,8 @@ public class GameObjectRec extends GameObject {
         motionBlur.setAngle(getVelocity().getAngle());
         motionBlur.setRadius(getVelocity().length()*0.01);
         rec.setEffect(motionBlur);
-        rec.setX(getPosition().getX());
-        rec.setY(getPosition().getY());
+        rec.setX(getRelativePosition().getX());
+        rec.setY(getRelativePosition().getY());
     }
 
     public Rectangle getRectangle(){
