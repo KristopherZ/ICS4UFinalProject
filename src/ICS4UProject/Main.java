@@ -49,10 +49,6 @@ public class Main extends Application{
         player.getForceList().add(friction);
 
 
-
-
-
-
         root.getChildren().addAll(frictionLayer,player,ground);
         primaryStage.setScene(scene);
         primaryStage.setWidth(500);
