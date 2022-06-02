@@ -1,12 +1,8 @@
 package ICS4UProject;
 
-import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-
-import java.util.ArrayList;
 
 public class GameObjectRec extends GameObject {
 
