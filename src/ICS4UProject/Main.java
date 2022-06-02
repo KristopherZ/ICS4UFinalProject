@@ -95,12 +95,10 @@ public class Main extends Application{
                     }
                     if(player.isCollide(frictionLayer.getRectangle())){
                         normalForce.set(new Vector(0,-gravity.getY()));
-                        if(player.getVelocity().getX()>0.1){
-                            friction.set(new Vector(-2000,0));
-                        }else if(player.getVelocity().getX()<-0.1){
-                            friction.set(new Vector(2000,0));
-                        }else {
-                            friction.set(new Vector(0,0));
+                        if(Math.abs(player.getVelocity().getX())<100){
+                            friction.set(new Vector(-player.getVelocity().getX()*20,0));
+                        }else{
+                            friction.set(new Vector(-player.getVelocity().getX()*2000/player.getVelocity().length(),0));
                         }
                     }else{
                         normalForce.set(new Vector());
@@ -108,13 +106,6 @@ public class Main extends Application{
                     }
                     if(rec.isCollide(frictionLayer.getRectangle())){
                         rec.setNormalForce(new Vector(0,-gravity.getY()));
-                        if(rec.getVelocity().getX()>0.1){
-                            rec.setFriction(new Vector(-2000,0));
-                        }else if(rec.getVelocity().getX()<-0.1){
-                            rec.setFriction(new Vector(2000,0));
-                        }else {
-                            rec.setFriction(new Vector(0,0));
-                        }
                     }else{
                         rec.setNormalForce(new Vector());
                     }
