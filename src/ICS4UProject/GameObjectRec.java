@@ -43,7 +43,6 @@ public class GameObjectRec extends Rectangle implements PhysicsUpdate, Kinetic {
             acceleration = acceleration.add(forceList.get(i).getCurrentValue());
 
         }
-
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         position = position.add(velocity.multiply(elapsedSeconds));
         motionBlur.setAngle(velocity.getAngle());
