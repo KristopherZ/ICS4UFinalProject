@@ -13,7 +13,9 @@ public class Drag extends Vector{
 
     @Override
     public Vector getCurrentValue() {
-        return obj.getVelocity().multiply(obj.getVelocity().length()* dragCoe).multiply(-1);
+        Vector tempDrag = obj.getVelocity().multiply(obj.getVelocity().length()* dragCoe).multiply(-1);
+        this.set(tempDrag);
+        return tempDrag;
     }
 
     public double getDragCoe() {
