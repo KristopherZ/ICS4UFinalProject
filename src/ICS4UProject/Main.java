@@ -43,7 +43,6 @@ public class Main extends Application{
         Vector friction = new Vector();
         player.getForceList().add(friction);
 
-//        player.addAppliedForce(new Vector(0,-20),150);
 
         root.getChildren().addAll(frictionLayer,player,ground);
         primaryStage.setScene(scene);

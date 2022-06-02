@@ -1,12 +1,15 @@
 package ICS4UProject;
 
 import javafx.concurrent.Task;
+import javafx.scene.effect.MotionBlur;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 
 public class GameObjectRec extends Rectangle implements PhysicsUpdate, Kinetic {
+
+    private MotionBlur motionBlur = new MotionBlur();
     private Vector position;
     private Vector velocity;
     private Vector acceleration;
@@ -43,6 +46,9 @@ public class GameObjectRec extends Rectangle implements PhysicsUpdate, Kinetic {
 
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         position = position.add(velocity.multiply(elapsedSeconds));
+        motionBlur.setAngle(velocity.getAngle());
+        motionBlur.setRadius(velocity.length()*0.01);
+        setEffect(motionBlur);
         setX(position.getX());
         setY(position.getY());
     }

@@ -66,4 +66,8 @@ public class Vector {
         return this;
     }
 
+    public double getAngle(){
+        return Math.toDegrees(Math.atan2(y,x));
+    }
+
 }

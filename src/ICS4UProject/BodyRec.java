@@ -2,6 +2,7 @@ package ICS4UProject;
 
 public class BodyRec extends GameObjectRec implements Body{
 
+
     private Vector gravity = new Vector();
     private Drag drag = new Drag(this,0);
     private Vector friction  = new Vector();
