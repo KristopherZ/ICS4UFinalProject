@@ -8,9 +8,7 @@ import javafx.scene.image.ImageView;
 
 public class GameObjectImage extends GameObject {
 
-    private MotionBlur motionBlur = new MotionBlur();
     ImageView image;
-
 
     public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x,y);
@@ -31,12 +29,9 @@ public class GameObjectImage extends GameObject {
     @Override
     public void update(long elapsedTime) {
         super.update(elapsedTime);
-        motionBlur.setAngle(getVelocity().getAngle());
-        motionBlur.setRadius(getVelocity().length()*0.01);
-        image.setEffect(motionBlur);
         image.setX(getRelativePosition().getX());
-        System.out.println(getRelativePosition());
         image.setY(getRelativePosition().getY());
+
     }
 
     public ImageView getImage(){

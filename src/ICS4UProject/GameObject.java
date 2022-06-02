@@ -36,8 +36,8 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     public void update(long elapsedTime) {
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
         Vector tempA = new Vector();
-        for(int i=0;i<forceList.size();i++){
-            tempA = tempA.add(forceList.get(i).getCurrentValue());
+        for(Vector v:forceList){
+            tempA = tempA.add(v.getCurrentValue());
         }
         acceleration = tempA;
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
