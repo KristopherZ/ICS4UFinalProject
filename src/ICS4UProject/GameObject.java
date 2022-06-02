@@ -4,56 +4,47 @@ import javafx.concurrent.Task;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+import java.util.ArrayList;
+
 public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
     private Vector position;
     private Vector velocity;
     private Vector acceleration;
-    private Vector g;
-    private Vector airDrag;
-    private Vector friction;
+    private ArrayList<Vector> forceList;
     private Vector appliedForce;
-    private Vector normalForce;
-    private double dragCeo;
 
     public GameObject(double x, double y,double sizeX,double sizeY) {
         super(x,y,sizeX,sizeY);
         position = new Vector(x,y);
         velocity = new Vector();
         acceleration = new Vector();
-        g = new Vector();
-        airDrag = new Vector();
-        friction = new Vector();
         appliedForce = new Vector();
-        normalForce = new Vector();
-        dragCeo = 0;
+        forceList = new ArrayList<>();
+        forceList.add(appliedForce);
     }
 
     public GameObject(Vector v,double sizeX,double sizeY){
         this(v.getX(),v.getY(),sizeX,sizeY);
     }
 
-    public boolean isCollide(GameObject o){
-        return Shape.intersect(this,o).getBoundsInLocal().getWidth() != -1;
+    @Override
+    public boolean isCollide(Object o){
+        return Shape.intersect(this,(GameObject)o).getBoundsInLocal().getWidth() != -1;
     }
 
     @Override
     public void update(long elapsedTime) {
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
+        acceleration = new Vector();
+        for(int i=0;i<forceList.size();i++){
+            acceleration = acceleration.add(forceList.get(i).getCurrentValue());
 
-        airDrag = velocity.multiply(velocity.length()* dragCeo).multiply(-1);
-        acceleration = g.add(airDrag).add(friction).add(appliedForce).add(normalForce);
+        }
+
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         position = position.add(velocity.multiply(elapsedSeconds));
         setX(position.getX());
         setY(position.getY());
-    }
-
-    public void setGravity(double g){
-        this.g = new Vector(0,g);
-    }
-
-    public void setDrag(double coe){
-        dragCeo = coe;
     }
 
     @Override
@@ -102,15 +93,15 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
     }
 
     public void setAppliedForce(Vector v) {
-        appliedForce = v;
+        appliedForce.set(v);
     }
 
     public void addAppliedForce(Vector v){
-        appliedForce = appliedForce.add(v);
+        appliedForce.set(appliedForce.add(v));
     }
 
     public void addAppliedForce(Vector v,int duration){
-        appliedForce = appliedForce.add(v);
+        appliedForce.set(appliedForce.add(v));
         Thread t = new Thread(new Task() {
             @Override
             protected Object call() throws Exception {
@@ -120,7 +111,7 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    appliedForce = appliedForce.add(v.multiply(-1));
+                    appliedForce.set(appliedForce.add(v.multiply(-1)));
                 }
                 return null;
             }
@@ -128,41 +119,11 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
         t.start();
     }
 
-    public Vector getNormalForce() {
-        return normalForce;
-    }
-
-    public void setNormalForce(Vector normalForce) {
-        this.normalForce = normalForce;
-    }
-
-    public Vector getG(){
-        return g;
-    }
-
-    public Vector getFriction() {
-        return friction;
-    }
-
-    public void setFriction(Vector friction) {
-        this.friction = friction;
-    }
-
     public Vector getAppliedForce() {
         return appliedForce;
     }
 
-    public double getDragCeo() {
-        return dragCeo;
+    public ArrayList<Vector> getForceList() {
+        return forceList;
     }
-
-    public Vector getAirDrag() {
-        return airDrag;
-    }
-
-    //    public CollisionPosition getCollisionPosition(GameObject o){
-//        if()
-//    }
-
-
 }

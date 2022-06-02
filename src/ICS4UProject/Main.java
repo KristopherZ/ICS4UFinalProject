@@ -34,8 +34,15 @@ public class Main extends Application{
         player.setFill(Color.RED);
         ground.setFill(Color.BLUE);
         frictionLayer.setFill(Color.GREEN);
-        player.setGravity(2000);
-        player.setDrag(0.001);
+        Vector gravity = new Vector(0,2000);
+        player.getForceList().add(gravity);
+        Drag d = new Drag(player,0.001);
+        player.getForceList().add(d);
+        Vector normalForce = new Vector();
+        player.getForceList().add(normalForce);
+        Vector friction = new Vector();
+        player.getForceList().add(friction);
+
 //        player.addAppliedForce(new Vector(0,-20),150);
 
         root.getChildren().addAll(frictionLayer,player,ground);
@@ -65,17 +72,17 @@ public class Main extends Application{
                         player.setPosition(new Vector(player.getPosition().getX(),ground.getPosition().getY()-player.getHeight()-2));
                     }
                     if(player.isCollide(frictionLayer)){
-                        player.setNormalForce(new Vector(0,-player.getG().getY()));
+                        normalForce.set(new Vector(0,-gravity.getY()));
                         if(player.getVelocity().getX()>0.1){
-                            player.setFriction(new Vector(-800,0));
+                            friction.set(new Vector(-800,0));
                         }else if(player.getVelocity().getX()<-0.1){
-                            player.setFriction(new Vector(800,0));
+                            friction.set(new Vector(800,0));
                         }else {
-                            player.setFriction(new Vector(0,0));
+                            friction.set(new Vector(0,0));
                         }
                     }else{
-                        player.setNormalForce(new Vector());
-                        player.setFriction(new Vector());
+                        normalForce.set(new Vector());
+                        friction.set(new Vector());
                     }
                 }
                 lastUpdatedTime[0] = timestam;
@@ -93,7 +100,7 @@ public class Main extends Application{
             }
             if(e.getCode().equals(KeyCode.W)&&player.isCollide(frictionLayer)){
                 player.addAppliedForce(new Vector(0,-7500),150);
-                player.setNormalForce(new Vector());
+                normalForce.set(new Vector());
 
             }
         });

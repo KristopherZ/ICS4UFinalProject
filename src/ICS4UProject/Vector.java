@@ -15,6 +15,11 @@ public class Vector {
         this.y=0;
     }
 
+    public void set(Vector v){
+        x=v.x;
+        y=v.y;
+    }
+
     public double getX() {
         return x;
     }
@@ -55,6 +60,10 @@ public class Vector {
     @Override
     public boolean equals(Object o) {
         return x==((Vector)o).x && y==((Vector)o).y;
+    }
+
+    public Vector getCurrentValue() {
+        return this;
     }
 
 }
