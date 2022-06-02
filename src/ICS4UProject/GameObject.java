@@ -13,7 +13,7 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
     private Vector friction;
     private Vector appliedForce;
     private Vector normalForce;
-    private double DragCeo;
+    private double dragCeo;
 
     public GameObject(double x, double y,double sizeX,double sizeY) {
         super(x,y,sizeX,sizeY);
@@ -25,7 +25,7 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
         friction = new Vector();
         appliedForce = new Vector();
         normalForce = new Vector();
-        DragCeo = 0;
+        dragCeo = 0;
     }
 
     public GameObject(Vector v,double sizeX,double sizeY){
@@ -40,7 +40,7 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
     public void update(long elapsedTime) {
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
 
-        airDrag = velocity.multiply(velocity.length()*DragCeo).multiply(-1);
+        airDrag = velocity.multiply(velocity.length()* dragCeo).multiply(-1);
         acceleration = g.add(airDrag).add(friction).add(appliedForce).add(normalForce);
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         position = position.add(velocity.multiply(elapsedSeconds));
@@ -53,7 +53,7 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
     }
 
     public void setDrag(double coe){
-        DragCeo = coe;
+        dragCeo = coe;
     }
 
     @Override
@@ -153,7 +153,7 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
     }
 
     public double getDragCeo() {
-        return DragCeo;
+        return dragCeo;
     }
 
     public Vector getAirDrag() {
