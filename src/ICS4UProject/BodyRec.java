@@ -9,10 +9,14 @@ public class BodyRec extends GameObjectRec implements Body{
 
     public BodyRec(double x, double y, double sizeX, double sizeY) {
         super(x, y, sizeX, sizeY);
+        getForceList().add(gravity);
+        getForceList().add(drag);
+        getForceList().add(friction);
+        getForceList().add(normalForce);
     }
 
     public BodyRec(Vector v, double sizeX, double sizeY) {
-        super(v, sizeX, sizeY);
+        this(v.getX(),v.getY(),sizeX,sizeY);
     }
 
     @Override
