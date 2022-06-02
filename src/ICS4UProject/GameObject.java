@@ -4,7 +4,7 @@ import javafx.concurrent.Task;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-public class GameObject extends Rectangle implements Physics, Kinetic {
+public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
     private Vector position;
     private Vector velocity;
     private Vector acceleration;

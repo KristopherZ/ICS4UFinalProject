@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Main extends Application{
 
-    ArrayList<Physics> list = new ArrayList<Physics>();
+    ArrayList<PhysicsUpdate> list = new ArrayList<PhysicsUpdate>();
     boolean DPressed, APressed, WPressed;
 
     @Override
