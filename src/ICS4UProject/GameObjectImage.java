@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 public class GameObjectImage extends GameObject {
 
     ImageView image;
+    private boolean updateX = true, updateY = true;
+    private double fixedX,fixedY;
 
     public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x,y);
@@ -29,13 +31,30 @@ public class GameObjectImage extends GameObject {
     @Override
     public void update(long elapsedTime) {
         super.update(elapsedTime);
-        image.setX(getRelativePosition().getX());
-        image.setY(getRelativePosition().getY());
-
+        if(updateX){
+            image.setX(getRelativePosition().getX());
+        }else{
+            image.setX(fixedX);
+        }
+        if (updateY) {
+            image.setY(getRelativePosition().getY());
+        }else {
+            image.setY(fixedY);
+        }
     }
 
     public ImageView getImage(){
         return image;
+    }
+
+    public void setUpdateX(boolean updateX, double x){
+        this.updateX = updateX;
+        this.fixedX  = x;
+    }
+
+    public void setUpdateY(boolean updateY,double y){
+        this.updateY = updateY;
+        this.fixedY = y;
     }
 
 }
