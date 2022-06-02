@@ -3,12 +3,13 @@ package ICS4UProject;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.effect.MotionBlur;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 
-public class GameObjectRec extends Rectangle implements PhysicsUpdate, Kinetic {
+public class GameObjectImage extends ImageView implements PhysicsUpdate, Kinetic {
 
     private MotionBlur motionBlur = new MotionBlur();
     private Vector position;
@@ -17,8 +18,12 @@ public class GameObjectRec extends Rectangle implements PhysicsUpdate, Kinetic {
     private ArrayList<Vector> forceList;
     private Vector appliedForce;
 
-    public GameObjectRec(double x, double y, double sizeX, double sizeY) {
-        super(x,y,sizeX,sizeY);
+    public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
+        setImage(image);
+        setX(x);
+        setY(y);
+        setFitWidth(sizeX);
+        setFitHeight(sizeY);
         position = new Vector(x,y);
         velocity = new Vector();
         acceleration = new Vector();
@@ -27,8 +32,8 @@ public class GameObjectRec extends Rectangle implements PhysicsUpdate, Kinetic {
         forceList.add(appliedForce);
     }
 
-    public GameObjectRec(Vector v, double sizeX, double sizeY){
-        this(v.getX(),v.getY(),sizeX,sizeY);
+    public GameObjectImage(Vector v, double sizeX, double sizeY, Image image){
+        this(v.getX(),v.getY(),sizeX,sizeY, image);
     }
 
     @Override

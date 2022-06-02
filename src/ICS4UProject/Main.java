@@ -4,10 +4,13 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -25,13 +28,15 @@ public class Main extends Application{
         Group root = new Group();
         Scene scene = new Scene(root);
 
-        GameObjectRec player = new GameObjectRec(new Vector(0,0), 50, 50);
+        File file = new File("image.jpg");
+        Image image = new Image(file.toURI().toURL().toString(),false);
+
+        GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
         GameObjectRec ground = new GameObjectRec(new Vector(0,400), 1000, 1000);
         GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,400-3), 1000, 1000);
         list.add(player);
         list.add(ground);
         list.add(frictionLayer);
-        player.setFill(Color.RED);
         ground.setFill(Color.BLUE);
         frictionLayer.setFill(Color.GREEN);
         Vector gravity = new Vector(0,2000);
@@ -42,6 +47,10 @@ public class Main extends Application{
         player.getForceList().add(normalForce);
         Vector friction = new Vector();
         player.getForceList().add(friction);
+
+
+
+
 
 
         root.getChildren().addAll(frictionLayer,player,ground);
@@ -68,7 +77,7 @@ public class Main extends Application{
                     }
                     if(player.isCollide(ground)){
                         player.setVelocity(new Vector(player.getVelocity().getX(),0));
-                        player.setPosition(new Vector(player.getPosition().getX(),ground.getPosition().getY()-player.getHeight()-2));
+                        player.setPosition(new Vector(player.getPosition().getX(),ground.getPosition().getY()-player.getFitHeight()-2));
                     }
                     if(player.isCollide(frictionLayer)){
                         normalForce.set(new Vector(0,-gravity.getY()));
