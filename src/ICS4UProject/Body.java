@@ -1,6 +1,6 @@
 package ICS4UProject;
 
-public interface Body {
+public interface Body extends Kinetic{
     public Vector getGravity();
     public Vector getDrag();
     public double getDragCoe();
