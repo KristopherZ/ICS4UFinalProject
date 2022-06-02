@@ -25,9 +25,9 @@ public class Main extends Application{
         Group root = new Group();
         Scene scene = new Scene(root);
 
-        GameObject player = new GameObject(new Vector(0,0), 50, 50);
-        GameObject ground = new GameObject(new Vector(0,400), 1000, 1000);
-        GameObject frictionLayer = new GameObject(new Vector(0,400-3), 1000, 1000);
+        GameObjectRec player = new GameObjectRec(new Vector(0,0), 50, 50);
+        GameObjectRec ground = new GameObjectRec(new Vector(0,400), 1000, 1000);
+        GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,400-3), 1000, 1000);
         list.add(player);
         list.add(ground);
         list.add(frictionLayer);

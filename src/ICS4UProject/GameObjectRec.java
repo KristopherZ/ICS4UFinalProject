@@ -6,14 +6,14 @@ import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 
-public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
+public class GameObjectRec extends Rectangle implements PhysicsUpdate, Kinetic {
     private Vector position;
     private Vector velocity;
     private Vector acceleration;
     private ArrayList<Vector> forceList;
     private Vector appliedForce;
 
-    public GameObject(double x, double y,double sizeX,double sizeY) {
+    public GameObjectRec(double x, double y, double sizeX, double sizeY) {
         super(x,y,sizeX,sizeY);
         position = new Vector(x,y);
         velocity = new Vector();
@@ -23,13 +23,13 @@ public class GameObject extends Rectangle implements PhysicsUpdate, Kinetic {
         forceList.add(appliedForce);
     }
 
-    public GameObject(Vector v,double sizeX,double sizeY){
+    public GameObjectRec(Vector v, double sizeX, double sizeY){
         this(v.getX(),v.getY(),sizeX,sizeY);
     }
 
     @Override
     public boolean isCollide(Object o){
-        return Shape.intersect(this,(GameObject)o).getBoundsInLocal().getWidth() != -1;
+        return Shape.intersect(this,(GameObjectRec)o).getBoundsInLocal().getWidth() != -1;
     }
 
     @Override
