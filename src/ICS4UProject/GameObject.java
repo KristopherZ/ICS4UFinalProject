@@ -4,7 +4,7 @@ import javafx.concurrent.Task;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-public class GameObject extends Rectangle implements Physics {
+public class GameObject extends Rectangle implements Physics, Kinetic {
     private Vector position;
     private Vector velocity;
     private Vector acceleration;
@@ -56,29 +56,49 @@ public class GameObject extends Rectangle implements Physics {
         DragCeo = coe;
     }
 
-
+    @Override
     public Vector getPosition() {
         return position;
     }
 
+    @Override
     public void setPosition(Vector v) {
         position = v;
     }
 
+    @Override
+    public void addDisplacement(Vector v){
+        position = position.add(v);
+    }
+
+    @Override
     public Vector getVelocity() {
         return velocity;
     }
 
+    @Override
     public void setVelocity(Vector v) {
         velocity = v;
     }
 
+    @Override
     public void addVelocity(Vector v) {
         acceleration = acceleration.add(v);
     }
 
+    @Override
     public Vector getAcceleration() {
         return acceleration;
+    }
+
+    @Override
+    public void setAcceleration(Vector v) {
+        setAppliedForce(v);
+    }
+
+    @Override
+    public void addAcceleration(Vector v) {
+        addAppliedForce(v);
     }
 
     public void setAppliedForce(Vector v) {
