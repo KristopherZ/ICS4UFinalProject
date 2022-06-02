@@ -31,11 +31,11 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic{
     @Override
     public void update(long elapsedTime) {
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
-        acceleration = new Vector();
+        Vector tempA = new Vector();
         for(int i=0;i<forceList.size();i++){
-            acceleration = acceleration.add(forceList.get(i).getCurrentValue());
-
+            tempA = tempA.add(forceList.get(i).getCurrentValue());
         }
+        acceleration = tempA;
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         position = position.add(velocity.multiply(elapsedSeconds));
     }

@@ -30,9 +30,9 @@ public class Main extends Application{
         File file = new File("image.jpg");
         Image image = new Image(file.toURI().toURL().toString(),false);
 
-        GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
-        GameObjectRec ground = new GameObjectRec(new Vector(0,400), 1000, 1000);
-        GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,400-3), 1000, 1000);
+        GameObjectImage player = new GameObjectImage(new Vector(100,0), 50, 100,image);
+        GameObjectRec ground = new GameObjectRec(new Vector(100,300), 1000, 1000);
+        GameObjectRec frictionLayer = new GameObjectRec(new Vector(100,300-3), 1000, 1000);
         list.add(player);
         list.add(ground);
         list.add(frictionLayer);
