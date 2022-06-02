@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -37,8 +36,8 @@ public class Main extends Application{
         list.add(player);
         list.add(ground);
         list.add(frictionLayer);
-        ground.setFill(Color.BLUE);
-        frictionLayer.setFill(Color.GREEN);
+        ground.getRectangle().setFill(Color.BLUE);
+        frictionLayer.getRectangle().setFill(Color.GREEN);
         Vector gravity = new Vector(0,2000);
         player.getForceList().add(gravity);
         Drag d = new Drag(player,0.001);
@@ -49,7 +48,7 @@ public class Main extends Application{
         player.getForceList().add(friction);
 
 
-        root.getChildren().addAll(frictionLayer,player,ground);
+        root.getChildren().addAll(frictionLayer.getRectangle(),player.getImage(),ground.getRectangle());
         primaryStage.setScene(scene);
         primaryStage.setWidth(500);
         primaryStage.setHeight(500);
@@ -71,11 +70,11 @@ public class Main extends Application{
                     else{
                         player.setAppliedForce(new Vector(0, player.getAppliedForce().getY()));
                     }
-                    if(player.isCollide(ground)){
+                    if(player.isCollide(ground.getRectangle())){
                         player.setVelocity(new Vector(player.getVelocity().getX(),0));
-                        player.setPosition(new Vector(player.getPosition().getX(),ground.getPosition().getY()-player.getFitHeight()-2));
+                        player.setPosition(new Vector(player.getPosition().getX(),ground.getPosition().getY()-player.getImage().getFitHeight()-2));
                     }
-                    if(player.isCollide(frictionLayer)){
+                    if(player.isCollide(frictionLayer.getRectangle())){
                         normalForce.set(new Vector(0,-gravity.getY()));
                         if(player.getVelocity().getX()>0.1){
                             friction.set(new Vector(-800,0));
@@ -102,7 +101,7 @@ public class Main extends Application{
             if(e.getCode().equals(KeyCode.A)){
                 APressed = true;
             }
-            if(e.getCode().equals(KeyCode.W)&&player.isCollide(frictionLayer)){
+            if(e.getCode().equals(KeyCode.W)&&player.isCollide(frictionLayer.getRectangle())){
                 player.addAppliedForce(new Vector(0,-7500),150);
                 normalForce.set(new Vector());
 

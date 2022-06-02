@@ -1,35 +1,22 @@
 package ICS4UProject;
 
-import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Shape;
 
-import java.util.ArrayList;
 
-public class GameObjectImage extends ImageView implements PhysicsUpdate, Kinetic {
+public class GameObjectImage extends GameObject {
 
     private MotionBlur motionBlur = new MotionBlur();
-    private Vector position;
-    private Vector velocity;
-    private Vector acceleration;
-    private ArrayList<Vector> forceList;
-    private Vector appliedForce;
+    ImageView image;
+
 
     public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
-        setImage(image);
-        setX(x);
-        setY(y);
-        setFitWidth(sizeX);
-        setFitHeight(sizeY);
-        position = new Vector(x,y);
-        velocity = new Vector();
-        acceleration = new Vector();
-        appliedForce = new Vector();
-        forceList = new ArrayList<>();
-        forceList.add(appliedForce);
+        super(x,y);
+        this.image = new ImageView(image);
+        this.image.setFitWidth(sizeX);
+        this.image.setFitHeight(sizeY);
     }
 
     public GameObjectImage(Vector v, double sizeX, double sizeY, Image image){
@@ -38,103 +25,21 @@ public class GameObjectImage extends ImageView implements PhysicsUpdate, Kinetic
 
     @Override
     public boolean isCollide(Object o){
-        return getBoundsInParent().intersects(((Node)o).getBoundsInParent());
+        return image.getBoundsInParent().intersects(((Node)o).getBoundsInParent());
     }
 
     @Override
     public void update(long elapsedTime) {
-        double elapsedSeconds = elapsedTime / 1_000_000_000.0;
-        acceleration = new Vector();
-        for(int i=0;i<forceList.size();i++){
-            acceleration = acceleration.add(forceList.get(i).getCurrentValue());
-
-        }
-        velocity = velocity.add(acceleration.multiply(elapsedSeconds));
-        position = position.add(velocity.multiply(elapsedSeconds));
-        motionBlur.setAngle(velocity.getAngle());
-        motionBlur.setRadius(velocity.length()*0.01);
-        setEffect(motionBlur);
-        setX(position.getX());
-        setY(position.getY());
+        super.update(elapsedTime);
+        motionBlur.setAngle(getVelocity().getAngle());
+        motionBlur.setRadius(getVelocity().length()*0.01);
+        image.setEffect(motionBlur);
+        image.setX(getPosition().getX());
+        image.setY(getPosition().getY());
     }
 
-    @Override
-    public Vector getPosition() {
-        return position;
+    public ImageView getImage(){
+        return image;
     }
 
-    @Override
-    public void setPosition(Vector v) {
-        position = v;
-    }
-
-    @Override
-    public void addDisplacement(Vector v){
-        position = position.add(v);
-    }
-
-    @Override
-    public Vector getVelocity() {
-        return velocity;
-    }
-
-    @Override
-    public void setVelocity(Vector v) {
-        velocity = v;
-    }
-
-    @Override
-    public void addVelocity(Vector v) {
-        acceleration = acceleration.add(v);
-    }
-
-    @Override
-    public Vector getAcceleration() {
-        return acceleration;
-    }
-
-    @Override
-    public void setAcceleration(Vector v) {
-        setAppliedForce(v);
-    }
-
-    @Override
-    public void addAcceleration(Vector v) {
-        addAppliedForce(v);
-    }
-
-    public void setAppliedForce(Vector v) {
-        appliedForce.set(v);
-    }
-
-    public void addAppliedForce(Vector v){
-        appliedForce.set(appliedForce.add(v));
-    }
-
-    public void addAppliedForce(Vector v,int duration){
-        appliedForce.set(appliedForce.add(v));
-        Thread t = new Thread(new Task() {
-            @Override
-            protected Object call() throws Exception {
-                {
-                    try {
-                        Thread.sleep(duration);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    appliedForce.set(appliedForce.add(v.multiply(-1)));
-                }
-                return null;
-            }
-        } );
-        t.start();
-    }
-
-    public Vector getAppliedForce() {
-        return appliedForce;
-    }
-
-    public ArrayList<Vector> getForceList() {
-        return forceList;
-    }
 }
