@@ -104,7 +104,6 @@ public class Main extends Application{
             if(e.getCode().equals(KeyCode.W)&&player.isCollide(frictionLayer.getRectangle())){
                 player.addAppliedForce(new Vector(0,-7500),150);
                 normalForce.set(new Vector());
-
             }
         });
         scene.setOnKeyReleased(e ->{
