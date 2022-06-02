@@ -4,20 +4,24 @@ import javafx.concurrent.Task;
 
 import java.util.ArrayList;
 
-public abstract class GameObject implements PhysicsUpdate, Kinetic{
+public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
+    private Vector ObjectPosition;
+    private Vector CameraPosition;
     private Vector position;
     private Vector velocity;
     private Vector acceleration;
     private ArrayList<Vector> forceList;
     private Vector appliedForce;
     public GameObject(double x, double y){
-        position = new Vector(x,y);
+
+        ObjectPosition = new Vector(x,y);
         velocity = new Vector();
         acceleration = new Vector();
         appliedForce = new Vector();
         forceList = new ArrayList<>();
         forceList.add(appliedForce);
+        CameraPosition = new Vector();
     }
 
     public GameObject(){
@@ -32,28 +36,34 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic{
     public void update(long elapsedTime) {
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
         Vector tempA = new Vector();
-        for(int i=0;i<forceList.size();i++){
-            tempA = tempA.add(forceList.get(i).getCurrentValue());
+        for(Vector v:forceList){
+            tempA = tempA.add(v.getCurrentValue());
         }
         acceleration = tempA;
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
-        position = position.add(velocity.multiply(elapsedSeconds));
+        ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
+        position = ObjectPosition.add(CameraPosition.multiply(-1));
+
     }
 
 
     @Override
     public Vector getPosition() {
+        return ObjectPosition;
+    }
+
+    public Vector getRelativePosition(){
         return position;
     }
 
     @Override
     public void setPosition(Vector v) {
-        position = v;
+        ObjectPosition = v;
     }
 
     @Override
     public void addDisplacement(Vector v){
-        position = position.add(v);
+        ObjectPosition = ObjectPosition.add(v);
     }
 
     @Override
@@ -121,4 +131,17 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic{
         return forceList;
     }
 
+
+    @Override
+    public void setCameraPosition(Vector v){
+        CameraPosition.set(v);
+    }
+    @Override
+    public void addCameraPosition(Vector v){
+        CameraPosition.set(CameraPosition.add(v));
+    }
+    @Override
+    public Vector getCameraPosition(){
+        return CameraPosition;
+    }
 }

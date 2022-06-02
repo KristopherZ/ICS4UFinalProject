@@ -6,7 +6,6 @@ import javafx.scene.shape.Rectangle;
 
 public class GameObjectRec extends GameObject {
 
-    private MotionBlur motionBlur = new MotionBlur();
     private Rectangle rec;
 
     public GameObjectRec(double x, double y, double sizeX, double sizeY) {
@@ -26,11 +25,8 @@ public class GameObjectRec extends GameObject {
     @Override
     public void update(long elapsedTime) {
         super.update(elapsedTime);
-        motionBlur.setAngle(getVelocity().getAngle());
-        motionBlur.setRadius(getVelocity().length()*0.01);
-        rec.setEffect(motionBlur);
-        rec.setX(getPosition().getX());
-        rec.setY(getPosition().getY());
+        rec.setX(getRelativePosition().getX());
+        rec.setY(getRelativePosition().getY());
     }
 
     public Rectangle getRectangle(){
