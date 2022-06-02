@@ -132,6 +132,14 @@ public class GameObject extends Rectangle implements Physics {
         return appliedForce;
     }
 
+    public double getDragCeo() {
+        return DragCeo;
+    }
+
+    public Vector getAirDrag() {
+        return airDrag;
+    }
+
     //    public CollisionPosition getCollisionPosition(GameObject o){
 //        if()
 //    }
