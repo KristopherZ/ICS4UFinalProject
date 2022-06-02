@@ -1,4 +1,4 @@
-package sample;
+package ICS4UProject;
 
 import javafx.concurrent.Task;
 import javafx.scene.shape.Rectangle;

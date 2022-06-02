@@ -1,4 +1,4 @@
-package sample;
+package ICS4UProject;
 
 public class Controller {
 

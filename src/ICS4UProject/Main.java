@@ -1,4 +1,4 @@
-package sample;
+package ICS4UProject;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
