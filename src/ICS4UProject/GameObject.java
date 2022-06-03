@@ -1,7 +1,5 @@
 package ICS4UProject;
 
-import javafx.concurrent.Task;
-
 import java.util.ArrayList;
 
 public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
@@ -32,8 +30,8 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         this(v.getX(),v.getY());
     }
 
-    @Override
-    public void update(long elapsedTime) {
+
+    public void updatePosition(long elapsedTime){
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
         Vector tempA = new Vector();
         for(Vector v:forceList){
@@ -42,8 +40,16 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         acceleration = tempA;
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
-        position = ObjectPosition.add(CameraPosition.multiply(-1));
+    }
 
+    public void updateRelativePosition(){
+        position = ObjectPosition.add(CameraPosition.multiply(-1));
+    }
+
+    @Override
+    public void update(long elapsedTime) {
+        updateRelativePosition();
+        updatePosition(elapsedTime);
     }
 
 
@@ -106,20 +112,14 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
     public void addAppliedForce(Vector v,int duration){
         appliedForce.set(appliedForce.add(v));
-        Thread t = new Thread(new Task() {
-            @Override
-            protected Object call() throws Exception {
-                {
+        Thread t = new Thread(() ->{
                     try {
                         Thread.sleep(duration);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     appliedForce.set(appliedForce.add(v.multiply(-1)));
-                }
-                return null;
-            }
-        } );
+                });
         t.start();
     }
 

@@ -1,12 +1,12 @@
 package ICS4UProject;
 
 import javafx.scene.Node;
-import javafx.scene.effect.MotionBlur;
 import javafx.scene.shape.Rectangle;
 
 public class GameObjectRec extends GameObject {
 
     private Rectangle rec;
+
 
     public GameObjectRec(double x, double y, double sizeX, double sizeY) {
         super(x,y);
@@ -24,13 +24,16 @@ public class GameObjectRec extends GameObject {
 
     @Override
     public void update(long elapsedTime) {
-        super.update(elapsedTime);
+        updateRelativePosition();
         rec.setX(getRelativePosition().getX());
         rec.setY(getRelativePosition().getY());
+        updatePosition(elapsedTime);
+
     }
 
     public Rectangle getRectangle(){
         return rec;
     }
+
 
 }

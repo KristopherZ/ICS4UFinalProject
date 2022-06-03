@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -17,6 +18,7 @@ public class Main extends Application{
 
     ArrayList<GameObject> list = new ArrayList<GameObject>();
     boolean DPressed, APressed, WPressed;
+    Camera camera;
 
 
     @Override
@@ -31,45 +33,48 @@ public class Main extends Application{
         File file = new File("image.jpg");
         Image image = new Image(file.toURI().toURL().toString(),false);
 
-        GameObjectImage player = new GameObjectImage(new Vector(100,0), 50, 100,image);
-        GameObjectRec ground = new GameObjectRec(new Vector(100,300), 1000, 1000);
-        BodyRec rec = new BodyRec(200,0,30,30);
-        GameObjectRec frictionLayer = new GameObjectRec(new Vector(100,300-3), 1000, 1000);
+        GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
+        GameObjectRec ground = new GameObjectRec(new Vector(0,350), 1000, 1000);
+        BodyRec rec = new BodyRec(70,0,30,30);
+        GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,350-3), 1000, 1000);
         list.add(player);
         list.add(ground);
         list.add(frictionLayer);
         list.add(rec);
+        camera = new Camera(list);
         ground.getRectangle().setFill(Color.BLUE);
         rec.getRectangle().setFill(Color.RED);
         frictionLayer.getRectangle().setFill(Color.GREEN);
         Vector gravity = new Vector(0,2000);
         player.getForceList().add(gravity);
-        Drag d = new Drag(player,0.001);
+        Drag d = new Drag(player,0.003);
         player.getForceList().add(d);
         Vector normalForce = new Vector();
         player.getForceList().add(normalForce);
         Vector friction = new Vector();
         player.getForceList().add(friction);
 
-        rec.setGravity(new Vector(0,2000));
-        rec.setDragCoe(0.001);
+        (new Thread(()->{
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            rec.setGravity(new Vector(0,2000));
+        })).start();
 
-
-        root.getChildren().addAll(player.getImage(),ground.getRectangle(),rec.getRectangle());
+        root.getChildren().addAll(frictionLayer.getRectangle(),player.getImage(),ground.getRectangle(),rec.getRectangle());
         primaryStage.setScene(scene);
-        primaryStage.setWidth(500);
+        primaryStage.setWidth(1000);
         primaryStage.setHeight(500);
 
         final long[] lastUpdatedTime = {0};
 
         AnimationTimer t = new AnimationTimer() {
             @Override
-            public void handle(long timestam) {
+            public void handle(long timestamp) {
                 if(lastUpdatedTime[0]>0){
-                    long elapsedTime = timestam - lastUpdatedTime[0];
-                    for(GameObject i:list){
-                        i.update(elapsedTime);
-                    }
+                    long elapsedTime = timestamp - lastUpdatedTime[0];
                     if(DPressed)
                         if(player.isCollide(frictionLayer.getRectangle())){
                             player.setAppliedForce(new Vector(4000,player.getAppliedForce().getY()));
@@ -95,12 +100,10 @@ public class Main extends Application{
                     }
                     if(player.isCollide(frictionLayer.getRectangle())){
                         normalForce.set(new Vector(0,-gravity.getY()));
-                        if(player.getVelocity().getX()>0.1){
-                            friction.set(new Vector(-2000,0));
-                        }else if(player.getVelocity().getX()<-0.1){
-                            friction.set(new Vector(2000,0));
-                        }else {
-                            friction.set(new Vector(0,0));
+                        if(Math.abs(player.getVelocity().getX())<100){
+                            friction.set(new Vector(-player.getVelocity().getX()*20,0));
+                        }else{
+                            friction.set(new Vector(-player.getVelocity().getX()*2000/player.getVelocity().length(),0));
                         }
                     }else{
                         normalForce.set(new Vector());
@@ -108,18 +111,26 @@ public class Main extends Application{
                     }
                     if(rec.isCollide(frictionLayer.getRectangle())){
                         rec.setNormalForce(new Vector(0,-gravity.getY()));
-                        if(rec.getVelocity().getX()>0.1){
-                            rec.setFriction(new Vector(-2000,0));
-                        }else if(rec.getVelocity().getX()<-0.1){
-                            rec.setFriction(new Vector(2000,0));
-                        }else {
-                            rec.setFriction(new Vector(0,0));
-                        }
+                        rec.setFriction(new Vector(-rec.getVelocity().getX()*20,0));
+
                     }else{
                         rec.setNormalForce(new Vector());
+                        rec.setFriction(new Vector());
+                    }
+                    if(player.isCollide(rec.getRectangle())){
+                        rec.setAppliedForce(new Vector(Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3.7),0));
+                    }else{
+                        rec.setAppliedForce(new Vector());
+                    }
+                    camera.setCameraPosition(new Vector(player.getPosition().getX()-100,0));
+                    for(GameObject i:list){
+                        i.update(elapsedTime);
                     }
                 }
-                lastUpdatedTime[0] = timestam;
+//
+
+
+                lastUpdatedTime[0] = timestamp;
             }
         };
 
@@ -133,19 +144,21 @@ public class Main extends Application{
                 APressed = true;
             }
             if(e.getCode().equals(KeyCode.W)&&player.isCollide(frictionLayer.getRectangle())){
-                player.addAppliedForce(new Vector(0,-5000),160);
+
+                player.addAppliedForce(new Vector(0,-7000),160);
                 normalForce.set(new Vector());
+
             }
-            if (e.getCode().equals(KeyCode.L)){
-                for(GameObject i:list){
-                    i.addCameraPosition(new Vector(10,0));
-                }
-            }
-            if (e.getCode().equals(KeyCode.K)){
-                for(GameObject i:list){
-                    i.addCameraPosition(new Vector(-10,0));
-                }
-            }
+//            if (e.getCode().equals(KeyCode.L)){
+//                for(GameObject i:list){
+//                    i.addCameraPosition(new Vector(10,0));
+//                }
+//            }
+//            if (e.getCode().equals(KeyCode.K)){
+//                for(GameObject i:list){
+//                    i.addCameraPosition(new Vector(-10,0));
+//                }
+//            }
         });
         scene.setOnKeyReleased(e ->{
             if(e.getCode().equals(KeyCode.D)){

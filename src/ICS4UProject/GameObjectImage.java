@@ -1,7 +1,6 @@
 package ICS4UProject;
 
 import javafx.scene.Node;
-import javafx.scene.effect.MotionBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -9,6 +8,7 @@ import javafx.scene.image.ImageView;
 public class GameObjectImage extends GameObject {
 
     ImageView image;
+
 
     public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x,y);
@@ -28,14 +28,15 @@ public class GameObjectImage extends GameObject {
 
     @Override
     public void update(long elapsedTime) {
-        super.update(elapsedTime);
+        updateRelativePosition();
         image.setX(getRelativePosition().getX());
         image.setY(getRelativePosition().getY());
-
+        updatePosition(elapsedTime);
     }
 
     public ImageView getImage(){
         return image;
     }
+
 
 }
