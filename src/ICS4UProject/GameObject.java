@@ -30,8 +30,8 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         this(v.getX(),v.getY());
     }
 
-    @Override
-    public void update(long elapsedTime) {
+
+    public void updatePosition(long elapsedTime){
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
         Vector tempA = new Vector();
         for(Vector v:forceList){
@@ -40,7 +40,16 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         acceleration = tempA;
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
+    }
+
+    public void updateRelativePosition(){
         position = ObjectPosition.add(CameraPosition.multiply(-1));
+    }
+
+    @Override
+    public void update(long elapsedTime) {
+        updateRelativePosition();
+        updatePosition(elapsedTime);
     }
 
 

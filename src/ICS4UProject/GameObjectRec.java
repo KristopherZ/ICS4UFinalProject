@@ -6,8 +6,7 @@ import javafx.scene.shape.Rectangle;
 public class GameObjectRec extends GameObject {
 
     private Rectangle rec;
-    private boolean updateX = true, updateY = true;
-    private double fixedX,fixedY;
+
 
     public GameObjectRec(double x, double y, double sizeX, double sizeY) {
         super(x,y);
@@ -25,31 +24,16 @@ public class GameObjectRec extends GameObject {
 
     @Override
     public void update(long elapsedTime) {
-        super.update(elapsedTime);
-        if (updateX) {
-            rec.setX(getRelativePosition().getX());
-        }else{
-            rec.setX(fixedX);
-        }
-        if (updateY) {
-            rec.setY(getRelativePosition().getY());
-        }else {
-            rec.setY(fixedY);
-        }
+        updateRelativePosition();
+        rec.setX(getRelativePosition().getX());
+        rec.setY(getRelativePosition().getY());
+        updatePosition(elapsedTime);
+
     }
 
     public Rectangle getRectangle(){
         return rec;
     }
 
-    public void setUpdateX(boolean updateX, double x){
-        this.updateX = updateX;
-        this.fixedX  = x;
-    }
-
-    public void setUpdateY(boolean updateY,double y){
-        this.updateY = updateY;
-        this.fixedY = y;
-    }
 
 }

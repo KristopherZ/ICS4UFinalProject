@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -32,11 +33,10 @@ public class Main extends Application{
         File file = new File("image.jpg");
         Image image = new Image(file.toURI().toURL().toString(),false);
 
-        GameObjectImage player = new GameObjectImage(new Vector(200,0), 50, 100,image);
-        player.setUpdateX(false,100);
-        GameObjectRec ground = new GameObjectRec(new Vector(100,350), 1000, 1000);
-        BodyRec rec = new BodyRec(300,0,30,30);
-        GameObjectRec frictionLayer = new GameObjectRec(new Vector(100,350-3), 1000, 1000);
+        GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
+        GameObjectRec ground = new GameObjectRec(new Vector(0,350), 1000, 1000);
+        BodyRec rec = new BodyRec(70,0,30,30);
+        GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,350-3), 1000, 1000);
         list.add(player);
         list.add(ground);
         list.add(frictionLayer);
@@ -63,22 +63,18 @@ public class Main extends Application{
             rec.setGravity(new Vector(0,2000));
         })).start();
 
-
         root.getChildren().addAll(frictionLayer.getRectangle(),player.getImage(),ground.getRectangle(),rec.getRectangle());
         primaryStage.setScene(scene);
-        primaryStage.setWidth(500);
+        primaryStage.setWidth(1000);
         primaryStage.setHeight(500);
 
         final long[] lastUpdatedTime = {0};
 
         AnimationTimer t = new AnimationTimer() {
             @Override
-            public void handle(long timestam) {
+            public void handle(long timestamp) {
                 if(lastUpdatedTime[0]>0){
-                    long elapsedTime = timestam - lastUpdatedTime[0];
-                    for(GameObject i:list){
-                        i.update(elapsedTime);
-                    }
+                    long elapsedTime = timestamp - lastUpdatedTime[0];
                     if(DPressed)
                         if(player.isCollide(frictionLayer.getRectangle())){
                             player.setAppliedForce(new Vector(4000,player.getAppliedForce().getY()));
@@ -115,13 +111,26 @@ public class Main extends Application{
                     }
                     if(rec.isCollide(frictionLayer.getRectangle())){
                         rec.setNormalForce(new Vector(0,-gravity.getY()));
+                        rec.setFriction(new Vector(-rec.getVelocity().getX()*20,0));
+
                     }else{
                         rec.setNormalForce(new Vector());
+                        rec.setFriction(new Vector());
+                    }
+                    if(player.isCollide(rec.getRectangle())){
+                        rec.setAppliedForce(new Vector(Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3.7),0));
+                    }else{
+                        rec.setAppliedForce(new Vector());
+                    }
+                    camera.setCameraPosition(new Vector(player.getPosition().getX()-100,0));
+                    for(GameObject i:list){
+                        i.update(elapsedTime);
                     }
                 }
-                camera.setCameraPosition(new Vector(player.getPosition().getX()-100,0));
+//
 
-                lastUpdatedTime[0] = timestam;
+
+                lastUpdatedTime[0] = timestamp;
             }
         };
 
