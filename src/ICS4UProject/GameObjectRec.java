@@ -1,7 +1,6 @@
 package ICS4UProject;
 
 import javafx.scene.Node;
-import javafx.scene.effect.MotionBlur;
 import javafx.scene.shape.Rectangle;
 
 public class GameObjectRec extends GameObject {

@@ -17,6 +17,7 @@ public class Main extends Application{
 
     ArrayList<GameObject> list = new ArrayList<GameObject>();
     boolean DPressed, APressed, WPressed;
+    Camera camera;
 
 
     @Override
@@ -33,20 +34,20 @@ public class Main extends Application{
 
         GameObjectImage player = new GameObjectImage(new Vector(200,0), 50, 100,image);
         player.setUpdateX(false,100);
-        player.setUpdateY(false,200);
-        GameObjectRec ground = new GameObjectRec(new Vector(100,300), 1000, 1000);
+        GameObjectRec ground = new GameObjectRec(new Vector(100,350), 1000, 1000);
         BodyRec rec = new BodyRec(300,0,30,30);
-        GameObjectRec frictionLayer = new GameObjectRec(new Vector(100,300-3), 1000, 1000);
+        GameObjectRec frictionLayer = new GameObjectRec(new Vector(100,350-3), 1000, 1000);
         list.add(player);
         list.add(ground);
         list.add(frictionLayer);
         list.add(rec);
+        camera = new Camera(list);
         ground.getRectangle().setFill(Color.BLUE);
         rec.getRectangle().setFill(Color.RED);
         frictionLayer.getRectangle().setFill(Color.GREEN);
         Vector gravity = new Vector(0,2000);
         player.getForceList().add(gravity);
-        Drag d = new Drag(player,0.004);
+        Drag d = new Drag(player,0.003);
         player.getForceList().add(d);
         Vector normalForce = new Vector();
         player.getForceList().add(normalForce);
@@ -118,9 +119,8 @@ public class Main extends Application{
                         rec.setNormalForce(new Vector());
                     }
                 }
-                for(GameObject i:list){
-                    i.setCameraPosition(player.getPosition().add(new Vector(-100,-200)));
-                }
+                camera.setCameraPosition(new Vector(player.getPosition().getX()-100,0));
+
                 lastUpdatedTime[0] = timestam;
             }
         };
@@ -135,8 +135,10 @@ public class Main extends Application{
                 APressed = true;
             }
             if(e.getCode().equals(KeyCode.W)&&player.isCollide(frictionLayer.getRectangle())){
-                player.addAppliedForce(new Vector(0,-5000),160);
+
+                player.addAppliedForce(new Vector(0,-7000),160);
                 normalForce.set(new Vector());
+
             }
 //            if (e.getCode().equals(KeyCode.L)){
 //                for(GameObject i:list){

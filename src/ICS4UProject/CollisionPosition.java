@@ -1,9 +1,5 @@
 package ICS4UProject;
 
 public enum CollisionPosition {
-    TOP, BOTTOM, LEFT, RIGHT,
-    TOP_RIGHT, TOP_LEFT, BOTTOM_RIGHT, BOTTOM_LEFT,
-    UPPER_HALF, LOWER_HALF, RIGHT_HALF, LEFT_HALF,
-    INSIDE, OUTSIDE,
-    NULL;
+    TOP, BOTTOM, LEFT, RIGHT,NULL;
 }

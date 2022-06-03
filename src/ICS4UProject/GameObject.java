@@ -1,7 +1,5 @@
 package ICS4UProject;
 
-import javafx.concurrent.Task;
-
 import java.util.ArrayList;
 
 public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
@@ -43,7 +41,6 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
         position = ObjectPosition.add(CameraPosition.multiply(-1));
-
     }
 
 
@@ -106,20 +103,14 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
     public void addAppliedForce(Vector v,int duration){
         appliedForce.set(appliedForce.add(v));
-        Thread t = new Thread(new Task() {
-            @Override
-            protected Object call() throws Exception {
-                {
+        Thread t = new Thread(() ->{
                     try {
                         Thread.sleep(duration);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     appliedForce.set(appliedForce.add(v.multiply(-1)));
-                }
-                return null;
-            }
-        } );
+                });
         t.start();
     }
 
