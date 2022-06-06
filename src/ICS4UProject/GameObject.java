@@ -34,11 +34,11 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
     public void updatePosition(long elapsedTime){
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
-        Vector tempF = new Vector();
+        Vector netF = new Vector();
         for(Vector v:forceList){
-            tempF = tempF.add(v.getCurrentValue());
+            netF = netF.add(v.getCurrentValue());
         }
-        acceleration = tempF.multiply(1/mass);
+        acceleration = netF.multiply(1/mass);
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
     }
