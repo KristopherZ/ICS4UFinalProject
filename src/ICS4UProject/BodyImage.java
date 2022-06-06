@@ -54,7 +54,7 @@ public class BodyImage extends GameObjectImage implements Body{
 
     @Override
     public void setGravity(Vector v) {
-        gravity.set(v.multiply(getMass()));
+        gravity.set(v);
     }
 
     @Override

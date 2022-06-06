@@ -35,7 +35,7 @@ public class Main extends Application{
         GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
         GameObjectRec ground = new GameObjectRec(new Vector(0,350), 1000, 1000);
         BodyRec rec = new BodyRec(70,0,30,30);
-        rec.setMass(10);
+        rec.setMass(0.1);
         GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,350-3), 1000, 1000);
         list.add(player);
         list.add(ground);
@@ -118,7 +118,8 @@ public class Main extends Application{
                         rec.setFriction(new Vector());
                     }
                     if(player.isCollide(rec.getRectangle())){
-                        rec.setAppliedForce(new Vector(Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3.7),0));
+                        rec.setAppliedForce(new Vector(1/(10-Math.abs(rec.getPosition().getX()-50-player.getPosition().getX())),0));
+                        System.out.println(100000/(10-Math.abs(rec.getPosition().getX()-50-player.getPosition().getX())));
                     }else{
                         rec.setAppliedForce(new Vector());
                     }
