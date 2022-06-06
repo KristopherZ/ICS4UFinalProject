@@ -5,16 +5,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-public class GameObjectImage extends GameObject {
+public class GameObjectImage extends GameObject implements KineticsWithSize{
 
-    ImageView image;
-
+    private ImageView image;
+    private double sizeX, sizeY;
 
     public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x,y);
         this.image = new ImageView(image);
         this.image.setFitWidth(sizeX);
         this.image.setFitHeight(sizeY);
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
     }
 
     public GameObjectImage(Vector v, double sizeX, double sizeY, Image image){
@@ -39,4 +41,23 @@ public class GameObjectImage extends GameObject {
     }
 
 
+    @Override
+    public double getSizeX() {
+        return sizeX;
+    }
+
+    @Override
+    public double getSizeY() {
+        return sizeX;
+    }
+
+    @Override
+    public void setSizeX(double x) {
+        sizeX = x;
+    }
+
+    @Override
+    public void setSizeY(double y) {
+        sizeY = y;
+    }
 }
