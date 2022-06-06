@@ -95,7 +95,7 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
     @Override
     public void setAcceleration(Vector v) {
-        setAppliedForce(v);
+        acceleration.set(v);
     }
 
     @Override
