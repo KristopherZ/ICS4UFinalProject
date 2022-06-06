@@ -114,7 +114,7 @@ public class Main extends Application{
                     }
                     if(rec.isCollide(frictionLayer.getRectangle())){
                         rec.setNormalForce(new Vector(0,-rec.getGravity().getY()));
-                        rec.setFriction(new Vector(-rec.getVelocity().getX()*20,0));
+                        rec.setFriction(new Vector(-rec.getVelocity().getX()*1,0));
 
                     }else{
                         rec.setNormalForce(new Vector());
