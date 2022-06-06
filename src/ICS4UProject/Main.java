@@ -31,11 +31,13 @@ public class Main extends Application{
 
         File file = new File("image.jpg");
         Image image = new Image(file.toURI().toURL().toString(),false);
+        Vector AppliedForce2 = new Vector();
 
         GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
         GameObjectRec ground = new GameObjectRec(new Vector(0,350), 1000, 1000);
         BodyRec rec = new BodyRec(70,0,30,30);
-        rec.setMass(100);
+        rec.setMass(0.2);
+        player.setMass(1);
         GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,350-3), 1000, 1000);
         list.add(player);
         list.add(ground);
@@ -47,6 +49,7 @@ public class Main extends Application{
         frictionLayer.getRectangle().setFill(Color.GREEN);
         Vector gravity = new Vector(0,2000);
         player.getForceList().add(gravity);
+        player.getForceList().add(AppliedForce2);
         Drag d = new Drag(player,0.003);
         player.getForceList().add(d);
         Vector normalForce = new Vector();
@@ -118,11 +121,11 @@ public class Main extends Application{
                         rec.setFriction(new Vector());
                     }
                     if(player.isCollide(rec.getRectangle())){
-                        rec.setAppliedForce(new Vector(Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3.7),0));
-                        player.setAppliedForce(new Vector(-Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3.7),0));
+                        rec.setAppliedForce(new Vector(Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3),0));
+                        AppliedForce2.set(new Vector(-Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3),0));
                     }else{
                         rec.setAppliedForce(new Vector());
-                        player.setAppliedForce(new Vector());
+                        AppliedForce2.set(new Vector());
                     }
                     camera.setCameraPosition(new Vector(player.getPosition().getX()-100,0));
                     for(GameObject i:list){
