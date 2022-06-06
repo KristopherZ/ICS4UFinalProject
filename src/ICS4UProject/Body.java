@@ -1,5 +1,7 @@
 package ICS4UProject;
 
+import java.util.ArrayList;
+
 public interface Body extends Kinetic{
     public Vector getGravity();
     public Vector getDrag();
@@ -10,4 +12,5 @@ public interface Body extends Kinetic{
     public void setDragCoe(double dragCoe);
     public void setNormalForce(Vector v);
     public void setFriction(Vector v);
+    public ArrayList<Vector> getForceList();
 }

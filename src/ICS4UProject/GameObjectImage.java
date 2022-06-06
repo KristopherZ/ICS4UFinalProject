@@ -4,7 +4,6 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 public class GameObjectImage extends GameObject implements KineticsWithSize{
 
     private ImageView image;

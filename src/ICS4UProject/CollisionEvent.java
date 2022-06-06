@@ -2,13 +2,13 @@ package ICS4UProject;
 
 public class CollisionEvent {
     private boolean[] collisionPosition;
-    private boolean[] depth;
+    private double[] depth;
 
     public void setCollisionPosition(boolean[] collisionPosition) {
         this.collisionPosition = collisionPosition;
     }
 
-    public void setDepth(boolean[] depth) {
+    public void setDepth(double[] depth) {
         this.depth = depth;
     }
 
@@ -16,7 +16,7 @@ public class CollisionEvent {
         return collisionPosition;
     }
 
-    public boolean[] getDepth() {
+    public double[] getDepth() {
         return depth;
     }
 }
