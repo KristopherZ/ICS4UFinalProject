@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  *
  */
-public interface Body extends Kinetic{
+public interface Body extends KineticsWithSize{
     public Vector getGravity();
     public Vector getDrag();
     public double getDragCoe();
