@@ -11,6 +11,7 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     private Vector acceleration;
     private ArrayList<Vector> forceList;
     private Vector appliedForce;
+    private double mass = 1;
     public GameObject(double x, double y){
 
         ObjectPosition = new Vector(x,y);
@@ -33,11 +34,11 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
     public void updatePosition(long elapsedTime){
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
-        Vector tempA = new Vector();
+        Vector tempF = new Vector();
         for(Vector v:forceList){
-            tempA = tempA.add(v.getCurrentValue());
+            tempF = tempF.add(v.getCurrentValue());
         }
-        acceleration = tempA;
+        acceleration = tempF.multiply(1/mass);
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
         ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
     }
@@ -144,4 +145,13 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     public Vector getCameraPosition(){
         return CameraPosition;
     }
+    @Override
+    public void setMass(double m){
+        mass = m;
+    }
+    @Override
+    public double getMass(){
+        return mass;
+    }
+
 }
