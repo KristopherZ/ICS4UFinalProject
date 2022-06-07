@@ -31,10 +31,13 @@ public class Main extends Application{
 
         File file = new File("image.jpg");
         Image image = new Image(file.toURI().toURL().toString(),false);
+        Vector AppliedForce2 = new Vector();
 
         GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
         GameObjectRec ground = new GameObjectRec(new Vector(0,350), 1000, 1000);
         BodyRec rec = new BodyRec(70,0,30,30);
+        rec.setMass(0.2);
+        player.setMass(1);
         GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,350-3), 1000, 1000);
         list.add(player);
         list.add(ground);
@@ -46,6 +49,7 @@ public class Main extends Application{
         frictionLayer.getRectangle().setFill(Color.GREEN);
         Vector gravity = new Vector(0,2000);
         player.getForceList().add(gravity);
+        player.getForceList().add(AppliedForce2);
         Drag d = new Drag(player,0.003);
         player.getForceList().add(d);
         Vector normalForce = new Vector();
@@ -59,7 +63,7 @@ public class Main extends Application{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            rec.setGravity(new Vector(0,2000));
+            rec.setGravity(new Vector(0,2000*rec.getMass()));
         })).start();
 
         root.getChildren().addAll(frictionLayer.getRectangle(),player.getImage(),ground.getRectangle(),rec.getRectangle());
@@ -109,17 +113,19 @@ public class Main extends Application{
                         friction.set(new Vector());
                     }
                     if(rec.isCollide(frictionLayer.getRectangle())){
-                        rec.setNormalForce(new Vector(0,-gravity.getY()));
-                        rec.setFriction(new Vector(-rec.getVelocity().getX()*20,0));
+                        rec.setNormalForce(new Vector(0,-rec.getGravity().getY()));
+                        rec.setFriction(new Vector(-rec.getVelocity().getX()*1,0));
 
                     }else{
                         rec.setNormalForce(new Vector());
                         rec.setFriction(new Vector());
                     }
                     if(player.isCollide(rec.getRectangle())){
-                        rec.setAppliedForce(new Vector(Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3.7),0));
+                        rec.setAppliedForce(new Vector(Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3),0));
+                        AppliedForce2.set(new Vector(-Math.pow(Math.abs(rec.getPosition().getX()-50-player.getPosition().getX()),3),0));
                     }else{
                         rec.setAppliedForce(new Vector());
+                        AppliedForce2.set(new Vector());
                     }
                     camera.setCameraPosition(new Vector(player.getPosition().getX()-100,0));
                     for(GameObject i:list){

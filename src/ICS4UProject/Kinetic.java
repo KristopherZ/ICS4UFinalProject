@@ -11,4 +11,6 @@ public interface Kinetic {
     public void setAcceleration(Vector v);
     public void addAcceleration(Vector v);
     public boolean isCollide(Object o);
+    public void setMass(double m);
+    public double getMass();
 }
