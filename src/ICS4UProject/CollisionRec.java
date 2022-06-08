@@ -26,10 +26,10 @@ public class CollisionRec extends GameObjectRec {
                 o.isCollide(colliders[2]),
                 o.isCollide(colliders[3])});
         e.setDepth(new double[]{
-                (o.getPosition().getY()+o.getSizeY()) - (getPosition().getY()-COLLIDER_WIDTH),
-                getPosition().getY() + this.getSizeY() + COLLIDER_WIDTH - o.getPosition().getY(),
-                o.getPosition().getX()+o.getSizeX() - (getPosition().getX()-COLLIDER_WIDTH),
-                getPosition().getX() + getSizeX() + COLLIDER_WIDTH - o.getPosition().getX()});
+                o.isCollide(colliders[0]) ? ((o.getPosition().getY()+o.getSizeY()) - (getPosition().getY()-COLLIDER_WIDTH)):-1,
+                o.isCollide(colliders[1]) ? (getPosition().getY() + this.getSizeY() + COLLIDER_WIDTH - o.getPosition().getY()):-1,
+                o.isCollide(colliders[2]) ? (o.getPosition().getX()+o.getSizeX() - (getPosition().getX()-COLLIDER_WIDTH)):-1,
+                o.isCollide(colliders[3]) ? (getPosition().getX() + getSizeX() + COLLIDER_WIDTH - o.getPosition().getX()):-1});
         return e;
     }
 
