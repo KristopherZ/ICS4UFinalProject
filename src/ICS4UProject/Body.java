@@ -16,5 +16,4 @@ public interface Body extends KineticsWithSize{
     public void setDragCoe(double dragCoe);
     public void setNormalForce(Vector v);
     public void setFriction(Vector v);
-    public ArrayList<Vector> getForceList();
 }

@@ -1,5 +1,7 @@
 package ICS4UProject;
 
+import java.util.ArrayList;
+
 public interface Kinetic {
     public Vector getPosition();
     public void setPosition(Vector v);
@@ -11,6 +13,7 @@ public interface Kinetic {
     public void setAcceleration(Vector v);
     public void addAcceleration(Vector v);
     public boolean isCollide(Object o);
+    public ArrayList<Vector> getForceList();
     public void setMass(double m);
     public double getMass();
 }

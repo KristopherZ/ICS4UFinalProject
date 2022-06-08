@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Main extends Application{
@@ -34,7 +35,7 @@ public class Main extends Application{
         Vector AppliedForce2 = new Vector();
 
         GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
-        GameObjectRec ground = new GameObjectRec(new Vector(0,350), 1000, 1000);
+        CollisionRec ground = new CollisionRec(0,350, 1000, 1000);
         BodyRec rec = new BodyRec(70,0,30,30);
         rec.setMass(0.2);
         player.setMass(1);
@@ -131,6 +132,8 @@ public class Main extends Application{
                     for(GameObject i:list){
                         i.update(elapsedTime);
                     }
+//                    System.out.println(ground.collideWith(player).getCollisionPosition()[2]);
+                    System.out.println(Arrays.toString(ground.collideWith(player).getDepth()));
                 }
 //
 

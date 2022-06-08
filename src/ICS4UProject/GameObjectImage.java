@@ -47,7 +47,7 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
 
     @Override
     public double getSizeY() {
-        return sizeX;
+        return sizeY;
     }
 
     @Override
