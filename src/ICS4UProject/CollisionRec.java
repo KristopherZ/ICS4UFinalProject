@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 
 public class CollisionRec extends GameObjectRec {
-    private final double COLLIDER_WIDTH = 30;
+    private final double COLLIDER_WIDTH = 4;
 
     private final Rectangle[] colliders = new Rectangle[4];
 
