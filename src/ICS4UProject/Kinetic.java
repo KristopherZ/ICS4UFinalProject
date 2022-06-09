@@ -2,13 +2,13 @@ package ICS4UProject;
 
 import java.util.ArrayList;
 
-/*
+/**
  * Kinetic interface
  * Implemented in various other classes in order to add kinetic properties to objects
  */
 
 public interface Kinetic {
-    /*
+    /**
      * Getter and setter methods for position, displacement, velocity, acceleration and mass
      */
     public Vector getPosition();

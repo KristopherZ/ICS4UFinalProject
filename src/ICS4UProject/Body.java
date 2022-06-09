@@ -2,10 +2,10 @@ package ICS4UProject;
 
 import java.util.ArrayList;
 
-
 /**
  *
  */
+
 public interface Body extends KineticsWithSize{
     public Vector getGravity();
     public Vector getDrag();

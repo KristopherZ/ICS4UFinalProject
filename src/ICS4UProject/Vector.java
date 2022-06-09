@@ -1,6 +1,6 @@
 package ICS4UProject;
 
-/*
+/**
  * Vector class
  * Allows for force representation along the x-axis and y-axis
  */
@@ -58,7 +58,7 @@ public class Vector {
         return "<"+x+","+y+">";
     }
 
-    /*
+    /**
      * Adds the respective x and y forces of two vectors
      * Returns a new vector with the sum of the two vectors
      */
@@ -76,7 +76,7 @@ public class Vector {
         return Math.sqrt(x*x+y*y);
     }
 
-    /*
+    /**
      * Multiplies the respective x and y forces of two vectors
      * Returns a new vector with the product of the two vectors
      */
