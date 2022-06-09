@@ -2,7 +2,15 @@ package ICS4UProject;
 
 import java.util.ArrayList;
 
+/*
+ * Kinetic interface
+ * Implemented in various other classes in order to add kinetic properties to objects
+ */
+
 public interface Kinetic {
+    /*
+     * Getter and setter methods for position, displacement, velocity, acceleration and mass
+     */
     public Vector getPosition();
     public void setPosition(Vector v);
     public void addDisplacement(Vector v);
@@ -12,8 +20,12 @@ public interface Kinetic {
     public Vector getAcceleration();
     public void setAcceleration(Vector v);
     public void addAcceleration(Vector v);
-    public boolean isCollide(Object o);
-    public ArrayList<Vector> getForceList();
     public void setMass(double m);
     public double getMass();
+
+    // Checks for collision between two objects
+    public boolean isCollide(Object o);
+
+    // List of applied forces to an object
+    public ArrayList<Vector> getForceList();
 }
