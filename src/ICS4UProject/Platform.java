@@ -12,15 +12,12 @@ public class Platform extends CollisionRec {
         super(x, y, sizeX, sizeY);
     }
 
-
-
     public void addKinetic(KineticsWithSize k) {
         kineticList.add(k);
         Vector normalForce = new Vector();
         normalForceList.add(normalForce);
         k.getForceList().add(normalForce);
     }
-
 
     public void collide(){
 
@@ -57,7 +54,6 @@ public class Platform extends CollisionRec {
                 break;
             }
         }
-
     }
 
     @Override

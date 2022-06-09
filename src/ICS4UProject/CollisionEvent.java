@@ -1,7 +1,7 @@
 package ICS4UProject;
 
 public class CollisionEvent {
-    private boolean[] collisionPosition;
+    private boolean[] collisionPosition; // Boolean array that detects
     private double[] depth;
 
     public void setCollisionPosition(boolean[] collisionPosition) {
