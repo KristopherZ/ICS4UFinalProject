@@ -23,15 +23,25 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         CameraPosition = new Vector();
     }
 
+    /**
+     * Default constructor
+     */
     public GameObject(){
         this(0,0);
     }
 
+    /**
+     * Constructor with vector parameter
+     * @param v Vector
+     */
     public GameObject(Vector v){
         this(v.getX(),v.getY());
     }
 
-
+    /**
+     * updates the object's position
+     * @param elapsedTime
+     */
     public void updatePosition(long elapsedTime){
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
         Vector netF = new Vector();
@@ -43,6 +53,9 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
     }
 
+    /**
+     * Updates the objectcom's position relative to the camera position
+     */
     public void updateRelativePosition(){
         position = ObjectPosition.add(CameraPosition.multiply(-1));
     }
