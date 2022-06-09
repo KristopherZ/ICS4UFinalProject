@@ -34,13 +34,15 @@ public class Main extends Application{
         Image image = new Image(file.toURI().toURL().toString(),false);
         Vector AppliedForce2 = new Vector();
 
-        GameObjectImage player = new GameObjectImage(new Vector(0,0), 50, 100,image);
+        BodyImage player = new BodyImage(new Vector(0,0), 50, 100,image);
         Platform ground = new Platform(0,350, 1000, 1000);
         ground.addKinetic(player);
         BodyRec rec = new BodyRec(70,0,30,30);
         ground.addKinetic(rec);
-        rec.setMass(0.2);
+        rec.setMass(1);
         player.setMass(1);
+        Vector appliedForce2 = new Vector();
+        player.getForceList().add(appliedForce2);
 //        GameObjectRec frictionLayer = new GameObjectRec(new Vector(0,350-3), 1000, 1000);
         list.add(player);
         list.add(ground);
@@ -50,15 +52,8 @@ public class Main extends Application{
         ground.getRectangle().setFill(Color.BLUE);
         rec.getRectangle().setFill(Color.RED);
 //        frictionLayer.getRectangle().setFill(Color.GREEN);
-        Vector gravity = new Vector(0,2000);
-        player.getForceList().add(gravity);
-        player.getForceList().add(AppliedForce2);
-        Drag d = new Drag(player,0.003);
-        player.getForceList().add(d);
-        Vector normalForce = new Vector();
-        player.getForceList().add(normalForce);
-        Vector friction = new Vector();
-        player.getForceList().add(friction);
+        player.setDragCoe(0.01);
+        player.setGravity(new Vector(0,2000));
 
         (new Thread(()->{
             try {
@@ -68,19 +63,30 @@ public class Main extends Application{
             }
             rec.setGravity(new Vector(0,2000*rec.getMass()));
         })).start();
-
-        root.getChildren().addAll(player.getImage(),ground.getRectangle(),rec.getRectangle());
+        ground.getColliders()[0].setFill(Color.RED);
+        ground.getColliders()[2].setFill(Color.RED);
+        ground.getColliders()[3].setFill(Color.RED);
+        root.getChildren().addAll(player.getImage(),ground.getRectangle(),rec.getRectangle(),ground.getColliders()[0],ground.getColliders()[2],ground.getColliders()[3]);
         primaryStage.setScene(scene);
         primaryStage.setWidth(1000);
         primaryStage.setHeight(500);
-
+        ground.setFrictionCoe(5);
         final long[] lastUpdatedTime = {0};
 
         AnimationTimer t = new AnimationTimer() {
             @Override
             public void handle(long timestamp) {
-                if(lastUpdatedTime[0]>0){
+                if(lastUpdatedTime[0]>0) {
                     long elapsedTime = timestamp - lastUpdatedTime[0];
+                    if (DPressed) {
+                        appliedForce2.set(new Vector(1000, 0));
+                    } else if (APressed) {
+                        appliedForce2.set(new Vector(-1000, 0));
+                    }else if(WPressed){
+                        appliedForce2.set(new Vector(0, -3000));
+                    }else{
+                        appliedForce2.set(new Vector());
+                    }
 //                    if(DPressed) {
 //                        if(player.isCollide(frictionLayer.getRectangle())){
 //                            player.setAppliedForce(new Vector(4000,player.getAppliedForce().getY()));
@@ -137,6 +143,7 @@ public class Main extends Application{
                     for(GameObject i:list){
                         i.update(elapsedTime);
                     }
+                    System.out.println(player.getPosition());
 //                    ground.collide();
 //                    System.out.println(ground.collideWith(player).getCollisionPosition()[2]);
 //                    System.out.println(Arrays.toString(ground.collideWith(player).getDepth()));
@@ -156,6 +163,9 @@ public class Main extends Application{
             }
             if(e.getCode().equals(KeyCode.A)){
                 APressed = true;
+            }
+            if(e.getCode().equals(KeyCode.W)&&ground.isCollide(player.getImage())){
+                player.addAppliedForce(new Vector(0,-7000),200);
             }
 //            if(e.getCode().equals(KeyCode.W)&&player.isCollide(frictionLayer.getRectangle())){
 //
@@ -181,6 +191,9 @@ public class Main extends Application{
             if(e.getCode().equals(KeyCode.A)){
                 APressed = false;
             }
+//            if(e.getCode().equals(KeyCode.W)){
+//                WPressed = false;
+//            }
 
         });
 
