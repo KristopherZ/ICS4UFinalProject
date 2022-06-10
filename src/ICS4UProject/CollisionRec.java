@@ -6,7 +6,8 @@ import javafx.scene.shape.Rectangle;
 
 
 public class CollisionRec extends GameObjectRec {
-    private final double COLLIDER_WIDTH = 4;
+    private final double COLLIDER_WIDTH = 3;
+    private final double WALL_MARGIN = 3;
 
     private final Rectangle[] colliders = new Rectangle[4];
 
@@ -15,8 +16,8 @@ public class CollisionRec extends GameObjectRec {
         super(x, y,sizeX,sizeY);
         colliders[0] = new Rectangle(x, y-COLLIDER_WIDTH, sizeX, COLLIDER_WIDTH);
         colliders[1] = new Rectangle(x, y+sizeY, sizeX, COLLIDER_WIDTH);
-        colliders[2] = new Rectangle(x-COLLIDER_WIDTH, y, COLLIDER_WIDTH, sizeY);
-        colliders[3] = new Rectangle(x+sizeX, y, COLLIDER_WIDTH, sizeY);
+        colliders[2] = new Rectangle(x-COLLIDER_WIDTH, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
+        colliders[3] = new Rectangle(x+sizeX, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
     }
 
     public CollisionEvent collideWith(KineticsWithSize o) {
@@ -39,11 +40,11 @@ public class CollisionRec extends GameObjectRec {
         colliders[0].setX(getPosition().getX()-getCameraPosition().getX());
         colliders[0].setY((getPosition().getY()-COLLIDER_WIDTH)-getCameraPosition().getY());
         colliders[1].setX(getPosition().getX()-getCameraPosition().getX());
-        colliders[1].setY((getPosition().getY()+COLLIDER_WIDTH)-getCameraPosition().getY());
-        colliders[2].setX((getPosition().getX()-COLLIDER_WIDTH)-getCameraPosition().getX());
-        colliders[2].setY(getPosition().getY()-getCameraPosition().getY());
-        colliders[3].setX((getPosition().getX()+COLLIDER_WIDTH)-getCameraPosition().getX());
-        colliders[3].setY(getPosition().getY()-getCameraPosition().getY());
+        colliders[1].setY((getPosition().getY()+getSizeY())-getCameraPosition().getY());
+        colliders[2].setX(getPosition().getX()-COLLIDER_WIDTH-getCameraPosition().getX());
+        colliders[2].setY(getPosition().getY()+WALL_MARGIN-getCameraPosition().getY());
+        colliders[3].setX(getPosition().getX()+getSizeX()-getCameraPosition().getX());
+        colliders[3].setY(getPosition().getY()+WALL_MARGIN-getCameraPosition().getY());
         getRectangle().setX(getRelativePosition().getX());
         getRectangle().setY(getRelativePosition().getY());
         updatePosition(elapsedTime);

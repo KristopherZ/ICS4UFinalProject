@@ -36,25 +36,26 @@ public class Platform extends CollisionRec {
             System.out.println(minIndex);
             switch (minIndex){
                 case 0: normalForceList.get(i).set(
-                        new Vector(-frictionCoe*kineticList.get(i).getVelocity().getX(),
+                        new Vector((Math.abs(kineticList.get(i).getVelocity().getX())<10 ? -frictionCoe*kineticList.get(i).getVelocity().getX()*10:
+                                (kineticList.get(i).getVelocity().getX()>0 ? -1:1)*frictionCoe*kineticList.get(i).getGravity().length()),
                                 (-Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
-                                        -kineticList.get(i).getVelocity().getY()*coefficientOfFirstTerm)));
+                                        -kineticList.get(i).getVelocity().getY()*coefficientOfFirstTerm)*kineticList.get(i).getMass()));
                     System.out.println((-Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
                             -kineticList.get(i).getVelocity().getY()*coefficientOfFirstTerm));
                 break;
                 case 1: normalForceList.get(i).set(
-                        new Vector(-frictionCoe*kineticList.get(i).getVelocity().getX(),
+                        new Vector(0,
                                 (Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
-                                        -kineticList.get(i).getVelocity().getY()*coefficientOfFirstTerm)));
+                                        -kineticList.get(i).getVelocity().getY()*coefficientOfFirstTerm)*kineticList.get(i).getMass()));
                 break;
                 case 2: normalForceList.get(i).set(
                         new Vector((-Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
-                                -kineticList.get(i).getVelocity().getX()*coefficientOfFirstTerm),
-                                -frictionCoe*kineticList.get(i).getVelocity().getY()));
+                                -kineticList.get(i).getVelocity().getX()*coefficientOfFirstTerm)*kineticList.get(i).getMass(),
+                                0));
                 break;
                 case 3: normalForceList.get(i).set(
                         new Vector((Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
-                                -kineticList.get(i).getVelocity().getX()*coefficientOfFirstTerm),
+                                -kineticList.get(i).getVelocity().getX()*coefficientOfFirstTerm)*kineticList.get(i).getMass(),
                                 0));
                 break;
                 default:

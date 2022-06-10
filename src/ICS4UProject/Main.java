@@ -35,11 +35,11 @@ public class Main extends Application{
         Vector AppliedForce2 = new Vector();
 
         BodyImage player = new BodyImage(new Vector(0,0), 50, 100,image);
-        Platform ground = new Platform(0,350, 1000, 1000);
+        Platform ground = new Platform(0,350, 1000, 100);
         ground.addKinetic(player);
         BodyRec rec = new BodyRec(70,0,30,30);
         ground.addKinetic(rec);
-        rec.setMass(1);
+        rec.setMass(.2);
         player.setMass(1);
         Vector appliedForce2 = new Vector();
         player.getForceList().add(appliedForce2);
@@ -52,7 +52,7 @@ public class Main extends Application{
         ground.getRectangle().setFill(Color.BLUE);
         rec.getRectangle().setFill(Color.RED);
 //        frictionLayer.getRectangle().setFill(Color.GREEN);
-        player.setDragCoe(0.01);
+        player.setDragCoe(0.001);
         player.setGravity(new Vector(0,2000));
 
         (new Thread(()->{
@@ -64,13 +64,14 @@ public class Main extends Application{
             rec.setGravity(new Vector(0,2000*rec.getMass()));
         })).start();
         ground.getColliders()[0].setFill(Color.RED);
+        ground.getColliders()[1].setFill(Color.RED);
         ground.getColliders()[2].setFill(Color.RED);
         ground.getColliders()[3].setFill(Color.RED);
-        root.getChildren().addAll(player.getImage(),ground.getRectangle(),rec.getRectangle(),ground.getColliders()[0],ground.getColliders()[2],ground.getColliders()[3]);
+        root.getChildren().addAll(player.getImage(),ground.getRectangle(),rec.getRectangle(),ground.getColliders()[0],ground.getColliders()[1], ground.getColliders()[2],ground.getColliders()[3]);
         primaryStage.setScene(scene);
         primaryStage.setWidth(1000);
         primaryStage.setHeight(500);
-        ground.setFrictionCoe(5);
+        ground.setFrictionCoe(0.2);
         final long[] lastUpdatedTime = {0};
 
         AnimationTimer t = new AnimationTimer() {
