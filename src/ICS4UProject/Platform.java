@@ -24,7 +24,6 @@ public class Platform extends CollisionRec {
     public void collide(){
         for(int i=0;i<kineticList.size();i++){
             CollisionEvent e = collideWith(kineticList.get(i));
-
         }
     }
 }
