@@ -38,14 +38,14 @@ public class Main extends Application{
 //        enemy.getPlatformList().add(pt3);
 //        enemy.getPlatformList().add(pt4);
         enemy.setElasticity(new double[]{1,.2,.1,.1});
-        enemy.setFrictionCoe(0.01);
+        enemy.setFrictionCoe(0.1);
         pt1.setFrictionCoe(0.1);
         pt2.setFrictionCoe(0.1);
         pt3.setFrictionCoe(0.1);
         pt4.setFrictionCoe(0.1);
         enemy.setGravity(new Vector(0,2000));
-        enemy.setVelocity(new Vector(500,0));
-        Group root = new Group(pt1.getRectangle(),pt2.getRectangle(),pt3.getRectangle(),pt4.getRectangle(),enemy.getRectangle());
+        enemy.setVelocity(new Vector(400,0));
+        Group root = new Group(enemy.getRectangle(),pt1.getRectangle(),pt2.getRectangle(),pt3.getRectangle(),pt4.getRectangle());
         primaryStage.setWidth(1000);
         primaryStage.setHeight(500);
         Scene scene = new Scene(root);

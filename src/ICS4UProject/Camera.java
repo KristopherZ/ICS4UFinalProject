@@ -53,5 +53,4 @@ public class Camera implements CameraView{
             return arr.get(0).getCameraPosition();
         }
     }
-
 }
