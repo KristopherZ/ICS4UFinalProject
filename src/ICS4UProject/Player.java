@@ -2,13 +2,17 @@ package ICS4UProject;
 
 import javafx.scene.image.Image;
 
-public class Player extends CollisionBodyImage{
+public class Player extends BodyImage{
 
     private Image[] playerStates = new Image[5];
 
 
     public Player(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
+    }
+
+    public Player(Vector v, double sizeX, double sizeY, Image image) {
+        super(v, sizeX, sizeY, image);
     }
 
     public void setPlayerStates(Image[] arr) {

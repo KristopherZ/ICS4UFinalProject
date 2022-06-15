@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
-    private double[] elasticity ={0,0,0,0};
-    private double frictionCoe;
+
+    private boolean isUpdate = true;
     private Vector ObjectPosition;
     private Vector CameraPosition;
     private Vector position;
@@ -25,25 +25,15 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         CameraPosition = new Vector();
     }
 
-    /**
-     * Default constructor
-     */
     public GameObject(){
         this(0,0);
     }
 
-    /**
-     * Constructor with vector parameter
-     * @param v Vector
-     */
     public GameObject(Vector v){
         this(v.getX(),v.getY());
     }
 
-    /**
-     * updates the object's position
-     * @param elapsedTime
-     */
+
     public void updatePosition(long elapsedTime){
         double elapsedSeconds = elapsedTime / 1_000_000_000.0;
         Vector netF = new Vector();
@@ -55,17 +45,16 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
     }
 
-    /**
-     * Updates the objectcom's position relative to the camera position
-     */
     public void updateRelativePosition(){
         position = ObjectPosition.add(CameraPosition.multiply(-1));
     }
 
     @Override
     public void update(long elapsedTime) {
-        updateRelativePosition();
-        updatePosition(elapsedTime);
+        if(isUpdate){
+            updateRelativePosition();
+            updatePosition(elapsedTime);
+        }
     }
 
 
@@ -147,7 +136,6 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         return forceList;
     }
 
-
     @Override
     public void setCameraPosition(Vector v){
         CameraPosition.set(v);
@@ -169,21 +157,11 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         return mass;
     }
 
-    @Override
-    public double getFrictionCoe() {
-        return frictionCoe;
+    public void close() {
+        forceList = null;
+        velocity = new Vector();
+        position = new Vector();
+        isUpdate =false;
     }
 
-    @Override
-    public void setFrictionCoe(double frictionCoe) {
-        this.frictionCoe = frictionCoe;
-    }
-
-    public double[] getElasticity() {
-        return elasticity;
-    }
-
-    public void setElasticity(double[] elasticity) {
-        this.elasticity = elasticity;
-    }
 }

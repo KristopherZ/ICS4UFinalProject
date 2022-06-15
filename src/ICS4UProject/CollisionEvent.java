@@ -1,7 +1,7 @@
 package ICS4UProject;
 
 public class CollisionEvent {
-    private boolean[] collisionPosition; // Boolean array that detects
+    private boolean[] collisionPosition; // Boolean array that detects which direction the collision in coming from
     private double[] depth;
 
     public void setCollisionPosition(boolean[] collisionPosition) {

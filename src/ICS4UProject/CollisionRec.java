@@ -49,8 +49,4 @@ public class CollisionRec extends GameObjectRec {
         getRectangle().setY(getRelativePosition().getY());
         updatePosition(elapsedTime);
     }
-
-    public Rectangle[] getColliders() {
-        return colliders;
-    }
 }
