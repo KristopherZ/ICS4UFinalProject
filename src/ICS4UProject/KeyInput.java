@@ -53,4 +53,18 @@ public class KeyInput {
         return wPressed;
     }
 
+    public boolean isaPressed(){
+        return aPressed;
+    }
+    public boolean issPressed(){
+        return sPressed;
+    }
+
+    public boolean isdPressed() {
+        return dPressed;
+    }
+
+    public boolean isSpaceBarPressed() {
+        return spaceBarPressed;
+    }
 }

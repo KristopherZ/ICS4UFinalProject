@@ -41,14 +41,17 @@ public class Main extends Application{
         pt4.addKinetic(rec2);
         rec1.addKinetic(rec2);
         rec2.addKinetic(rec1);
+
 //        enemy.getPlatformList().add(pt1);
 //        enemy.getPlatformList().add(pt2);
 //        enemy.getPlatformList().add(pt3);
 //        enemy.getPlatformList().add(pt4);
-        rec1.setElasticity(new double[]{.2,.2,.2,.2});
-        rec2.setElasticity(new double[]{.2,.2,.2,.2});
-        rec1.setFrictionCoe(0.1);
-        rec2.setFrictionCoe(0.1);
+        rec1.setElasticity(new double[]{.3,.3,.3,.3});
+        rec2.setElasticity(new double[]{.3,.3,.3,.3});
+        pt1.setElasticity(new double[]{.5,.5,.5,.5});
+        pt2.setElasticity(new double[]{.5,.5,.5,.5});
+        pt3.setElasticity(new double[]{.5,.5,.5,.5});
+        pt4.setElasticity(new double[]{.5,.5,.5,.5});
         pt1.setFrictionCoe(0.1);
         pt2.setFrictionCoe(0.1);
         pt3.setFrictionCoe(0.1);
@@ -57,6 +60,8 @@ public class Main extends Application{
         rec2.setGravity(new Vector(0,2000));
         rec1.setVelocity(new Vector(400,0));
         rec2.setVelocity(new Vector(-400,0));
+        rec1.setDragCoe(0.001);
+        rec2.setDragCoe(0.001);
         Group root = new Group(rec1.getRectangle(),rec2.getRectangle(),pt1.getRectangle(),pt2.getRectangle(),pt3.getRectangle(),pt4.getRectangle());
         primaryStage.setWidth(1000);
         primaryStage.setHeight(500);
@@ -67,6 +72,15 @@ public class Main extends Application{
             @Override
             public void handle(long timestamp) {
                 if(lastUpdatedTime > 0){
+                    if(k.iswPressed()){
+                        rec1.setAppliedForce(new Vector(0,-3000));
+                    }else if(k.isdPressed()){
+                        rec1.setAppliedForce(new Vector(3000,0));
+                    }else if(k.isaPressed()){
+                        rec1.setAppliedForce(new Vector(-3000,0));
+                    }else{
+                        rec1.setAppliedForce(new Vector(0,0));
+                    }
                     long elapsedTime = timestamp - lastUpdatedTime;
                     rec1.update(elapsedTime);
                     rec2.update(elapsedTime);
