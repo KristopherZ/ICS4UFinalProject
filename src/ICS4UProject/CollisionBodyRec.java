@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
-public class CollisionRec extends GameObjectRec {
+public class CollisionBodyRec extends BodyRec {
     private final double COLLIDER_WIDTH = 3;
     private final double WALL_MARGIN = 3;
     private boolean isUpdate = true;
@@ -13,7 +13,7 @@ public class CollisionRec extends GameObjectRec {
     private Rectangle[] colliders = new Rectangle[4];
 
 
-    public CollisionRec(double x, double y, double sizeX, double sizeY) {
+    public CollisionBodyRec(double x, double y, double sizeX, double sizeY) {
         super(x, y,sizeX,sizeY);
         colliders[0] = new Rectangle(x, y-COLLIDER_WIDTH, sizeX, COLLIDER_WIDTH);
         colliders[1] = new Rectangle(x, y+sizeY, sizeX, COLLIDER_WIDTH);

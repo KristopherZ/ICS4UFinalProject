@@ -5,14 +5,13 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PlatformImage extends CollisionImage{
+public class InteractiveObjectImage extends CollisionBodyImage{
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private ArrayList<Body> kineticList = new ArrayList<>();
     private ArrayList<Vector> normalForceList = new ArrayList<>();
 
-    public PlatformImage(double x, double y, double sizeX, double sizeY, Image image) {
+    public InteractiveObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
-        setElasticity(new double[]{1,1,1,1});
     }
 
     public void addKinetic(Body k) {
@@ -38,24 +37,23 @@ public class PlatformImage extends CollisionImage{
             System.out.println(minIndex);
             switch (minIndex){
                 case 0: normalForceList.get(i).set(
-                        new Vector((Math.abs(kineticList.get(i).getVelocity().getX())<10 ? -getFrictionCoe()*kineticList.get(i).getVelocity().getX()*10:
-                                (kineticList.get(i).getVelocity().getX()>0 ? -1:1)*getFrictionCoe()*kineticList.get(i).getGravity().length())*kineticList.get(i).getFrictionCoe(),
+                        new Vector(0,
                                 (-Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
-                                        -getElasticity()[0]*kineticList.get(i).getElasticity()[1]*kineticList.get(i).getVelocity().getY()*coefficientOfFirstTerm)*kineticList.get(i).getMass()));
+                                        -getElasticity()[0]*kineticList.get(i).getElasticity()[1]*(kineticList.get(i).getVelocity().getY()-getVelocity().getY())*coefficientOfFirstTerm)*kineticList.get(i).getMass()));
                     break;
                 case 1: normalForceList.get(i).set(
                         new Vector(0,
                                 (Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
-                                        -getElasticity()[1]*kineticList.get(i).getElasticity()[0]*kineticList.get(i).getVelocity().getY()*coefficientOfFirstTerm)*kineticList.get(i).getMass()));
+                                        -getElasticity()[1]*kineticList.get(i).getElasticity()[0]*(kineticList.get(i).getVelocity().getY()-getVelocity().getY())*coefficientOfFirstTerm)*kineticList.get(i).getMass()));
                     break;
                 case 2: normalForceList.get(i).set(
                         new Vector((-Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
-                                -getElasticity()[2]*kineticList.get(i).getElasticity()[3]*kineticList.get(i).getVelocity().getX()*coefficientOfFirstTerm)*kineticList.get(i).getMass(),
+                                -getElasticity()[2]*kineticList.get(i).getElasticity()[3]*(kineticList.get(i).getVelocity().getX()-getVelocity().getX())*coefficientOfFirstTerm)*kineticList.get(i).getMass(),
                                 0));
                     break;
                 case 3: normalForceList.get(i).set(
                         new Vector((Math.pow(e.getDepth()[minIndex],exponent)*coefficientOfZerothTerm
-                                -getElasticity()[3]*kineticList.get(i).getElasticity()[2]*kineticList.get(i).getVelocity().getX()*coefficientOfFirstTerm)*kineticList.get(i).getMass(),
+                                -getElasticity()[3]*kineticList.get(i).getElasticity()[2]*(kineticList.get(i).getVelocity().getX()-getVelocity().getX())*coefficientOfFirstTerm)*kineticList.get(i).getMass(),
                                 0));
                     break;
                 default:
