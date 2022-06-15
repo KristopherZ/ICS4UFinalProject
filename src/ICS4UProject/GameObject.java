@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
 
-    private boolean isUpdate = true;
+    private double[] elasticity ={0,0,0,0};
+    private double frictionCoe;
     private Vector ObjectPosition;
     private Vector CameraPosition;
     private Vector position;
@@ -14,6 +15,7 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     private ArrayList<Vector> forceList;
     private Vector appliedForce;
     private double mass = 1;
+    private boolean isUpdate = true;
     public GameObject(double x, double y){
 
         ObjectPosition = new Vector(x,y);
@@ -162,6 +164,24 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         velocity = new Vector();
         position = new Vector();
         isUpdate =false;
+    }
+
+    @Override
+    public double getFrictionCoe() {
+        return frictionCoe;
+    }
+
+    @Override
+    public void setFrictionCoe(double frictionCoe) {
+        this.frictionCoe = frictionCoe;
+    }
+
+    public double[] getElasticity() {
+        return elasticity;
+    }
+
+    public void setElasticity(double[] elasticity) {
+        this.elasticity = elasticity;
     }
 
 }

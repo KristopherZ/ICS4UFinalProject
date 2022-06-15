@@ -1,15 +1,17 @@
 package ICS4UProject;
 
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Platform extends CollisionRec {
+public class PlatformImage extends CollisionImage{
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private ArrayList<Body> kineticList = new ArrayList<>();
     private ArrayList<Vector> normalForceList = new ArrayList<>();
 
-    public Platform(double x, double y, double sizeX, double sizeY) {
-        super(x, y, sizeX, sizeY);
+    public PlatformImage(double x, double y, double sizeX, double sizeY, Image image) {
+        super(x, y, sizeX, sizeY, image);
     }
 
     public void addKinetic(Body k) {
