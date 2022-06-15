@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
+
+    private boolean isUpdate = true;
     private Vector ObjectPosition;
     private Vector CameraPosition;
     private Vector position;
@@ -49,8 +51,10 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
     @Override
     public void update(long elapsedTime) {
-        updateRelativePosition();
-        updatePosition(elapsedTime);
+        if(isUpdate){
+            updateRelativePosition();
+            updatePosition(elapsedTime);
+        }
     }
 
 
@@ -132,7 +136,6 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         return forceList;
     }
 
-
     @Override
     public void setCameraPosition(Vector v){
         CameraPosition.set(v);
@@ -152,6 +155,13 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     @Override
     public double getMass(){
         return mass;
+    }
+
+    public void close() {
+        forceList = null;
+        velocity = new Vector();
+        position = new Vector();
+        isUpdate =false;
     }
 
 }

@@ -8,6 +8,7 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
 
     private ImageView image;
     private double sizeX, sizeY;
+    private boolean isUpdate = true;
 
     public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x,y);
@@ -29,10 +30,12 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
 
     @Override
     public void update(long elapsedTime) {
-        updateRelativePosition();
-        image.setX(getRelativePosition().getX());
-        image.setY(getRelativePosition().getY());
-        updatePosition(elapsedTime);
+        if(isUpdate) {
+            updateRelativePosition();
+            image.setX(getRelativePosition().getX());
+            image.setY(getRelativePosition().getY());
+            updatePosition(elapsedTime);
+        }
     }
 
     public ImageView getImage(){
@@ -58,5 +61,12 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
     @Override
     public void setSizeY(double y) {
         sizeY = y;
+    }
+
+    @Override
+    public void close(){
+        super.close();
+        image.setImage(null);
+        isUpdate = false;
     }
 }

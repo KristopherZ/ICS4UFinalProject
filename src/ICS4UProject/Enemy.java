@@ -21,13 +21,13 @@ public class Enemy extends CollisionBodyImage {
     @Override
     public void update(long elapsedTime) {
         super.update(elapsedTime);
-        for(Platform i : platformList) {
-            if(i.collideWith(this).getCollisionPosition()[2]){
-                setVelocity(new Vector(-500,0));
-            }else if(i.collideWith(this).getCollisionPosition()[3]){
-                setVelocity(new Vector(500,0));
-            }
-        }
+//        for(Platform i : platformList) {
+//            if(i.collideWith(this).getCollisionPosition()[2]){
+//                setVelocity(new Vector(-500,0));
+//            }else if(i.collideWith(this).getCollisionPosition()[3]){
+//                setVelocity(new Vector(500,0));
+//            }
+//        }
     }
 
 }
