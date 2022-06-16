@@ -9,6 +9,7 @@ public class InteractiveObjectImage extends CollisionBodyImage{
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private ArrayList<Body> kineticList = new ArrayList<>();
     private ArrayList<Vector> normalForceList = new ArrayList<>();
+    private boolean isUpdate = true;
 
     public InteractiveObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
@@ -64,9 +65,17 @@ public class InteractiveObjectImage extends CollisionBodyImage{
     }
 
     @Override
-    public void update(long elapsedTime){
-        super.update(elapsedTime);
-        collide();
+    public void update(long elapsedTime) {
+        if(isUpdate){
+            super.update(elapsedTime);
+            collide();
+        }
+    }
+
+    @Override
+    public void close() {
+        super.close();
+        isUpdate = false;
     }
 
 }

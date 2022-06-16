@@ -7,6 +7,7 @@ public class Platform extends CollisionBodyRec {
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private ArrayList<Body> kineticList = new ArrayList<>();
     private ArrayList<Vector> normalForceList = new ArrayList<>();
+    private boolean isUpdate = true;
 
     public Platform(double x, double y, double sizeX, double sizeY) {
         super(x, y, sizeX, sizeY);
@@ -62,9 +63,17 @@ public class Platform extends CollisionBodyRec {
     }
 
     @Override
-    public void update(long elapsedTime){
-        super.update(elapsedTime);
-        collide();
+    public void update(long elapsedTime) {
+        if(isUpdate){
+            super.update(elapsedTime);
+            collide();
+        }
+    }
+
+    @Override
+    public void close() {
+        super.close();
+        isUpdate = false;
     }
 
 }
