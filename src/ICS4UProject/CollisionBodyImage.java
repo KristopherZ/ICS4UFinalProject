@@ -11,8 +11,8 @@ public class CollisionBodyImage extends BodyImage{
     private Rectangle[] colliders = new Rectangle[4];
     public CollisionBodyImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
-        colliders[0] = new Rectangle(x, y-COLLIDER_WIDTH, sizeX, COLLIDER_WIDTH);
-        colliders[1] = new Rectangle(x, y+sizeY, sizeX, COLLIDER_WIDTH);
+        colliders[0] = new Rectangle(x+WALL_MARGIN, y-COLLIDER_WIDTH, sizeX-WALL_MARGIN*2, COLLIDER_WIDTH);
+        colliders[1] = new Rectangle(x+WALL_MARGIN, y+sizeY, sizeX-WALL_MARGIN*2, COLLIDER_WIDTH);
         colliders[2] = new Rectangle(x-COLLIDER_WIDTH, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
         colliders[3] = new Rectangle(x+sizeX, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
     }
@@ -37,9 +37,9 @@ public class CollisionBodyImage extends BodyImage{
     public void update(long elapsedTime){
         if(isUpdate) {
             updateRelativePosition();
-            colliders[0].setX(getPosition().getX()-getCameraPosition().getX());
+            colliders[0].setX(getPosition().getX()+WALL_MARGIN-getCameraPosition().getX());
             colliders[0].setY((getPosition().getY()-COLLIDER_WIDTH)-getCameraPosition().getY());
-            colliders[1].setX(getPosition().getX()-getCameraPosition().getX());
+            colliders[1].setX(getPosition().getX()+WALL_MARGIN-getCameraPosition().getX());
             colliders[1].setY((getPosition().getY()+getSizeY())-getCameraPosition().getY());
             colliders[2].setX(getPosition().getX()-COLLIDER_WIDTH-getCameraPosition().getX());
             colliders[2].setY(getPosition().getY()+WALL_MARGIN-getCameraPosition().getY());

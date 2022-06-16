@@ -46,22 +46,20 @@ public class Main extends Application{
 //        enemy.getPlatformList().add(pt2);
 //        enemy.getPlatformList().add(pt3);
 //        enemy.getPlatformList().add(pt4);
-        rec1.setElasticity(new double[]{.3,.3,.3,.3});
-        rec2.setElasticity(new double[]{.3,.3,.3,.3});
-        pt1.setElasticity(new double[]{.5,.5,.5,.5});
-        pt2.setElasticity(new double[]{.5,.5,.5,.5});
-        pt3.setElasticity(new double[]{.5,.5,.5,.5});
-        pt4.setElasticity(new double[]{.5,.5,.5,.5});
-        pt1.setFrictionCoe(0.1);
-        pt2.setFrictionCoe(0.1);
-        pt3.setFrictionCoe(0.1);
-        pt4.setFrictionCoe(0.1);
+        rec1.setElasticity(new double[]{1,1,1,1});
+        rec2.setElasticity(new double[]{1,1,1,1});
+        pt1.setFrictionCoe(2);
+        pt2.setFrictionCoe(2);
+        pt3.setFrictionCoe(2);
+        pt4.setFrictionCoe(2);
         rec1.setGravity(new Vector(0,2000));
         rec2.setGravity(new Vector(0,2000));
         rec1.setVelocity(new Vector(400,0));
         rec2.setVelocity(new Vector(-400,0));
         rec1.setDragCoe(0.001);
         rec2.setDragCoe(0.001);
+        rec1.setFrictionCoe(0.3);
+        rec2.setFrictionCoe(0.3);
         Group root = new Group(rec1.getRectangle(),rec2.getRectangle(),pt1.getRectangle(),pt2.getRectangle(),pt3.getRectangle(),pt4.getRectangle());
         primaryStage.setWidth(1000);
         primaryStage.setHeight(500);
@@ -88,8 +86,8 @@ public class Main extends Application{
                     pt2.update(elapsedTime);
                     pt3.update(elapsedTime);
                     pt4.update(elapsedTime);
-                    System.out.println(k.iswPressed());
                 }
+                System.out.println(Arrays.toString(rec1.collideWith(rec2).getDepth()));
                 lastUpdatedTime = timestamp;
             }
         };

@@ -26,7 +26,6 @@ public class PlatformImage extends CollisionImage{
 
         for(int i=0;i<kineticList.size();i++){
             CollisionEvent e = collideWith(kineticList.get(i));
-            System.out.println(Arrays.toString(e.getDepth()));
             double min = Double.POSITIVE_INFINITY;
             int minIndex = -1;
             for(int j=0;j<4;j++) {
@@ -35,7 +34,6 @@ public class PlatformImage extends CollisionImage{
                     minIndex=j;
                 }
             }
-            System.out.println(minIndex);
             switch (minIndex){
                 case 0: normalForceList.get(i).set(
                         new Vector((Math.abs(kineticList.get(i).getVelocity().getX())<10 ? -getFrictionCoe()*kineticList.get(i).getVelocity().getX()*10:
