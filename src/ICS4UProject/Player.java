@@ -1,18 +1,18 @@
+//Player
+
 package ICS4UProject;
 
 import javafx.scene.image.Image;
 
-public class Player extends BodyImage{
+public class Player extends CollisionBodyImage{
 
     private Image[] playerStates = new Image[5];
 
 
     public Player(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
-    }
-
-    public Player(Vector v, double sizeX, double sizeY, Image image) {
-        super(v, sizeX, sizeY, image);
+        setElasticity(new double[]{1,1,1,1});
+        playerStates = new Image[]{image,image,image,image,image};
     }
 
     public void setPlayerStates(Image[] arr) {
