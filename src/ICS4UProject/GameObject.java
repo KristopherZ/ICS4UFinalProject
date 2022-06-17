@@ -2,8 +2,17 @@ package ICS4UProject;
 
 import java.util.ArrayList;
 
+
+/**
+ * This class represent all the game object in the game
+ * It has all the data, including the position, velocity, acceleration and all forces applied on the object
+ * Each time the update method is call, it will calculate the relative position to the screen
+ */
 public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
+
+    private double[] elasticity ={0,0,0,0};
+    private double frictionCoe;
     private Vector ObjectPosition;
     private Vector CameraPosition;
     private Vector position;
@@ -12,6 +21,13 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     private ArrayList<Vector> forceList;
     private Vector appliedForce;
     private double mass = 1;
+    private boolean isUpdate = true;
+
+    /**
+     * To construct a game object
+     * @param x the x coordinate of the object
+     * @param y the y coordinate of the object
+     */
     public GameObject(double x, double y){
 
         ObjectPosition = new Vector(x,y);
@@ -23,10 +39,18 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         CameraPosition = new Vector();
     }
 
+    /**
+     * It initializes the object at (0,0)
+     */
+
     public GameObject(){
         this(0,0);
     }
 
+    /**
+     * It construct an object at position v
+     * @param v initial position
+     */
     public GameObject(Vector v){
         this(v.getX(),v.getY());
     }
@@ -49,8 +73,10 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
     @Override
     public void update(long elapsedTime) {
-        updateRelativePosition();
-        updatePosition(elapsedTime);
+        if(isUpdate){
+            updateRelativePosition();
+            updatePosition(elapsedTime);
+        }
     }
 
 
@@ -132,7 +158,6 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         return forceList;
     }
 
-
     @Override
     public void setCameraPosition(Vector v){
         CameraPosition.set(v);
@@ -152,6 +177,31 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     @Override
     public double getMass(){
         return mass;
+    }
+
+    public void close() {
+        forceList = null;
+        velocity = new Vector();
+        position = new Vector();
+        isUpdate =false;
+    }
+
+    @Override
+    public double getFrictionCoe() {
+        return frictionCoe;
+    }
+
+    @Override
+    public void setFrictionCoe(double frictionCoe) {
+        this.frictionCoe = frictionCoe;
+    }
+
+    public double[] getElasticity() {
+        return elasticity;
+    }
+
+    public void setElasticity(double[] elasticity) {
+        this.elasticity = elasticity;
     }
 
 }

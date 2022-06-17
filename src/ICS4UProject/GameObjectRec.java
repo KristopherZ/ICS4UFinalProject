@@ -7,6 +7,7 @@ public class GameObjectRec extends GameObject implements KineticsWithSize{
 
     private Rectangle rec;
     private double sizeX, sizeY;
+    private boolean isUpdate = true;
 
     public GameObjectRec(double x, double y, double sizeX, double sizeY) {
         super(x,y);
@@ -26,11 +27,12 @@ public class GameObjectRec extends GameObject implements KineticsWithSize{
 
     @Override
     public void update(long elapsedTime) {
-        updateRelativePosition();
-        rec.setX(getRelativePosition().getX());
-        rec.setY(getRelativePosition().getY());
-        updatePosition(elapsedTime);
-
+        if(isUpdate) {
+            updateRelativePosition();
+            rec.setX(getRelativePosition().getX());
+            rec.setY(getRelativePosition().getY());
+            updatePosition(elapsedTime);
+        }
     }
 
     public Rectangle getRectangle(){
@@ -54,4 +56,12 @@ public class GameObjectRec extends GameObject implements KineticsWithSize{
         rec.setHeight(y);
         sizeY = y;
     }
+
+    @Override
+    public void close(){
+        super.close();
+        rec = null;
+        isUpdate=false;
+    }
+
 }
