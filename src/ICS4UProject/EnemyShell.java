@@ -11,21 +11,16 @@ public class EnemyShell extends Enemy {
     public boolean hit = false;
     private boolean isUpdate = true;
 
-    private ArrayList<Platform> platformList = new ArrayList<>();
 
     public EnemyShell(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
-    }
-
-    public ArrayList<Platform> getPlatformList() {
-        return platformList;
     }
 
     @Override
     public void update(long elapsedTime) {
         if(isUpdate) {
             super.update(elapsedTime);
-            for(Platform i : platformList) {
+            for(Platform i : getPlatformList()) {
                 if( (i.collideWith(this).getCollisionPosition()[2]) && !pickUp){
                     setVelocity(new Vector(-500,0));
                     hit = true;

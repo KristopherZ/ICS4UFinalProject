@@ -56,6 +56,7 @@ public class KeyInput {
     public boolean isaPressed(){
         return aPressed;
     }
+
     public boolean issPressed(){
         return sPressed;
     }

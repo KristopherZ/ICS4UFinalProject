@@ -2,6 +2,12 @@ package ICS4UProject;
 
 import java.util.ArrayList;
 
+
+/**
+ * This class represent all the game object in the game
+ * It has all the data, including the position, velocity, acceleration and all forces applied on the object
+ * Each time the update method is call, it will calculate the relative position to the screen
+ */
 public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
 
 
@@ -16,6 +22,12 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     private Vector appliedForce;
     private double mass = 1;
     private boolean isUpdate = true;
+
+    /**
+     * To construct a game object
+     * @param x the x coordinate of the object
+     * @param y the y coordinate of the object
+     */
     public GameObject(double x, double y){
 
         ObjectPosition = new Vector(x,y);
@@ -27,10 +39,18 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         CameraPosition = new Vector();
     }
 
+    /**
+     * It initializes the object at (0,0)
+     */
+
     public GameObject(){
         this(0,0);
     }
 
+    /**
+     * It construct an object at position v
+     * @param v initial position
+     */
     public GameObject(Vector v){
         this(v.getX(),v.getY());
     }

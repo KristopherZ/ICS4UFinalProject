@@ -7,6 +7,10 @@ public class Camera implements CameraView{
 
     private ArrayList<CameraView> arr;
 
+    /**
+     * create a camera so that all objects can move along the camera
+     */
+
     public Camera(){
         arr = new ArrayList<>();
     }
@@ -19,10 +23,28 @@ public class Camera implements CameraView{
         this.arr = (ArrayList<CameraView>) Arrays.asList(arr);
     }
 
+    /**
+     * add CameraView object to the Camera so that it will move these object as the camera position is changed
+     * @param i the index of the object in the list which you want to add
+     * @param e a CameraView object
+     */
+
     public  void add(int i,CameraView e){
         arr.add(i,e);
     }
 
+    /**
+     * add CameraView object to the Camera so that it will move these object as the camera position is changed
+     * @param e a CameraView object
+     */
+    public  void add(CameraView e){
+        arr.add(e);
+    }
+
+    /**
+     * Get the Camera
+     * @param i
+     */
     public void get(int i){
         arr.get(i);
     }
