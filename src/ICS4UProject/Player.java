@@ -16,6 +16,7 @@ public class Player extends CollisionBodyImage {
     private final int[] elasticity = {1,1,1,1};
     private ArrayList<Body> kineticList = new ArrayList<>();
     private ArrayList<Vector> normalForceList = new ArrayList<>();
+    private Vector horizontalForce = new Vector();
     private ArrayList<Platform> platformList = new ArrayList<>();
     private ArrayList<Platform> getPlatformList() {
         return platformList;
@@ -25,6 +26,7 @@ public class Player extends CollisionBodyImage {
 
     public Player(double x, double y, double sizeX, double sizeY, Image image, KeyInput k) {
         super(x, y, sizeX, sizeY, image);
+        getForceList().add(horizontalForce);
         setElasticity(new double[]{1,1,1,1});
         this.k = k;
     }
@@ -36,14 +38,15 @@ public class Player extends CollisionBodyImage {
 
 
     private void keyMovement() {
-        if(k.iswPressed()){
-            this.setAppliedForce(new Vector(0,-3000));
+        if(k.isaPressed()&&k.isdPressed()){
+            horizontalForce.set(new Vector());
+        }else if(k.isaPressed()) {
+            horizontalForce.set(new Vector(-3000, 0));
         }else if(k.isdPressed()){
-            this.setAppliedForce(new Vector(3000,0));
-        }else if(k.isaPressed()){
-            this.setAppliedForce(new Vector(-3000,0));
-        }else{
-            this.setAppliedForce(new Vector(0,0));
+            horizontalForce.set(new Vector(3000,0));
+        }
+        if(k.iswPressed()){
+            this.addAppliedForce(new Vector(0,-3000),200);
         }
     }
 

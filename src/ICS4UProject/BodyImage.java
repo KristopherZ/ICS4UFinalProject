@@ -31,7 +31,7 @@ public class BodyImage extends GameObjectImage implements Body{
 
     /**
      *
-     * @param v the position of the oject
+     * @param v the position of the object
      * @param sizeX the width of the object
      * @param sizeY the height of the object
      * @param image the image of the object
@@ -63,7 +63,7 @@ public class BodyImage extends GameObjectImage implements Body{
     }
 
     /**
-     *
+     * get the drag coefficient
      * @return the drag coefficient of air drag
      */
     @Override
@@ -72,7 +72,7 @@ public class BodyImage extends GameObjectImage implements Body{
     }
 
     /**
-     *
+     * get the default normal force of the object
      * @return the default normal force of the object
      */
     @Override
@@ -81,8 +81,8 @@ public class BodyImage extends GameObjectImage implements Body{
     }
 
     /**
-     *
-     * @return the default friction
+     * get the default friction force
+     * @return the default friction force
      */
     @Override
     public Vector getFriction() {
@@ -90,7 +90,7 @@ public class BodyImage extends GameObjectImage implements Body{
     }
 
     /**
-     * To est the gravity
+     * To set the gravity
      * @param v the gravitational force
      */
     @Override
@@ -99,7 +99,7 @@ public class BodyImage extends GameObjectImage implements Body{
     }
 
     /**
-     * to set the drag coefficient
+     * To set the drag coefficient
      * @param dragCoe
      */
     @Override
@@ -108,7 +108,7 @@ public class BodyImage extends GameObjectImage implements Body{
     }
 
     /**
-     * to set the normal force
+     * To set the normal force
      * @param v the normal force
      */
     @Override
@@ -117,7 +117,7 @@ public class BodyImage extends GameObjectImage implements Body{
     }
 
     /**
-     * to set the friction
+     * To set the friction
      * @param v the friction force
      */
     @Override
