@@ -16,7 +16,7 @@ public class KeyInput {
 
     /**
      * Sets boolean fields to true when their respective buttons are pressed
-     * @param scene
+     * @param scene the scene in which the key listener is attached to
      */
     public KeyInput(Scene scene) {
         scene.setOnKeyPressed(e ->{
