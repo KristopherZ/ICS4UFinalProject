@@ -2,6 +2,9 @@ package ICS4UProject;
 
 import java.util.ArrayList;
 
+/**
+ * This represents a platform in the game
+ */
 public class Platform extends CollisionBodyRec {
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private ArrayList<Body> bodyArrayList = new ArrayList<>();

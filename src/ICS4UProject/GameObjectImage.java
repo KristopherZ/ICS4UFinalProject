@@ -3,7 +3,9 @@ package ICS4UProject;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/**
+ * This class represent s game object in the game with image added
+ */
 public class GameObjectImage extends GameObject implements KineticsWithSize{
 
     private ImageView image;
@@ -54,7 +56,7 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
     }
 
     /**
-     *
+     * get the image view object
      * @return the image view object
      */
 

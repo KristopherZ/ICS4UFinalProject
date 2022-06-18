@@ -4,6 +4,10 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
+/**
+ * This represents a platform with image in the game
+ */
+
 public class PlatformImage extends CollisionImage{
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private ArrayList<Body> bodyArrayList = new ArrayList<>();

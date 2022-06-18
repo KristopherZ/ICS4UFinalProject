@@ -5,31 +5,31 @@ package ICS4UProject;
  */
 public interface Body extends KineticsWithSize{
     /**
-     *
-     * @return get the gravity of the object
+     * get the gravity of the object
+     * @return the gravity of the object
      */
     public Vector getGravity();
 
     /**
-     *
-     * @return get the drag coefficient of the drag
+     * get the drag of the object
+     * @return the drag
      */
     public Vector getDrag();
 
     /**
-     *
+     * get the drag coefficient of the drag
      * @return the drag coefficient of the object
      */
     public double getDragCoe();
 
     /**
-     *
+     * get the default normal force of the object
      * @return the default normal force of the object
      */
     public Vector getNormalForce();
 
     /**
-     *
+     * get the default friction of the object
      * @return the default friction of the object
      */
     public Vector getFriction();

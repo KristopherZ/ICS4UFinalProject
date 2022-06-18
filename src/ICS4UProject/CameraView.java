@@ -1,7 +1,7 @@
 package ICS4UProject;
 
 /**
- * This interface enable object to be moved by the camera
+ * This interface enables object to be moved by the camera
  */
 
 public interface CameraView {
@@ -17,7 +17,7 @@ public interface CameraView {
     public void addCameraPosition(Vector v);
 
     /**
-     *
+     * get the position of the camera
      * @return the position of the camera
      */
     public Vector getCameraPosition();

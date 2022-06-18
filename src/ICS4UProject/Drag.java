@@ -10,7 +10,7 @@ public class Drag extends Vector{
     private Kinetic obj;
 
     /**
-     *
+     * create a new drag that represents and drag force
      * @param obj the object you want to contain a  air drag
      * @param dragCoe the drag coefficient
      */
@@ -20,8 +20,8 @@ public class Drag extends Vector{
     }
 
     /**
-     *
-     * @return return the current drag
+     * get the current drag
+     * @return the current drag
      */
 
     @Override
@@ -32,8 +32,8 @@ public class Drag extends Vector{
     }
 
     /**
-     *
-     * @return the frag coefficient
+     * get the drag coefficient
+     * @return the drag coefficient
      */
 
     public double getDragCoe() {
@@ -41,8 +41,8 @@ public class Drag extends Vector{
     }
 
     /**
-     *
-     * @param dragCoe set the drag coefficient
+     * set the drag coefficient
+     * @param dragCoe the drag coefficient
      */
     public void setDragCoe(double dragCoe) {
         this.dragCoe = dragCoe;

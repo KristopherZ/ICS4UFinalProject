@@ -3,6 +3,9 @@ package ICS4UProject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * This class represents a camera so that the relative position of objects attached to this class can be moved
+ */
 public class Camera implements CameraView{
 
     private ArrayList<CameraView> arr;
@@ -15,10 +18,19 @@ public class Camera implements CameraView{
         arr = new ArrayList<>();
     }
 
+    /**
+     * create a camera so that all objects can move along the camera
+     * @param arr add all array list into the camera
+     */
     public Camera(ArrayList<? extends CameraView> arr){
         this.arr = (ArrayList<CameraView>) arr;
     }
 
+    /**
+     * create a camera so that all objects can move along the camera
+     * @param arr add all array list into the camera
+     * @param <E> A CameraView object
+     */
     public <E extends CameraView> Camera(E ... arr){
         this.arr = (ArrayList<CameraView>) Arrays.asList(arr);
     }
@@ -50,9 +62,9 @@ public class Camera implements CameraView{
     }
 
     /**
-     * set the KineticObject to
-     * @param i
-     * @param e
+     * set the KineticObject at index i to e
+     * @param i index
+     * @param e CameraView object
      */
     public  void set(int i,CameraView e){
         arr.set(i,e);

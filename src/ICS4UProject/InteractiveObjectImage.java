@@ -5,6 +5,10 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * This represent a interactive object with image so that objects can collide with each other
+ */
+
 public class InteractiveObjectImage extends CollisionBodyImage{
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private ArrayList<Body> kineticList = new ArrayList<>();

@@ -3,6 +3,10 @@ package ICS4UProject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * This represent a rectangular interactive object with javafx rectangular so that objects can collide with each other
+ */
+
 public class InteractiveObjectRec extends CollisionBodyRec {
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent = 1.7;
     private ArrayList<Body> kineticList = new ArrayList<>();

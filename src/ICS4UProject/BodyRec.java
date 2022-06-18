@@ -1,5 +1,7 @@
 package ICS4UProject;
-
+/**
+ * This is a class represent rectangular a body with javafx rectangle added
+ */
 public class BodyRec extends GameObjectRec implements Body{
 
     private Vector gravity = new Vector();
