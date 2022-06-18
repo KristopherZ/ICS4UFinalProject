@@ -10,7 +10,7 @@ public class BodyRec extends GameObjectRec implements Body{
     private Vector normalForce = new Vector();
 
     /**
-     * initialize the body
+     * Initialize the body
      * @param x the x coordinate of the object
      * @param y the y coordinate of the object
      * @param sizeX the width of the object
@@ -25,14 +25,15 @@ public class BodyRec extends GameObjectRec implements Body{
     }
 
     /**
-     *
-     * @param v the position of the oject
+     * Initialize the body
+     * @param v the position of the object
      * @param sizeX the width of the object
      * @param sizeY the height of the object
      */
     public BodyRec(Vector v, double sizeX, double sizeY) {
         this(v.getX(),v.getY(),sizeX,sizeY);
     }
+
     /**
      * To get the gravity of the object
      * @return the gravity of the object
@@ -52,7 +53,7 @@ public class BodyRec extends GameObjectRec implements Body{
     }
 
     /**
-     *
+     * get the drag coefficient
      * @return the drag coefficient of air drag
      */
     @Override
@@ -61,7 +62,7 @@ public class BodyRec extends GameObjectRec implements Body{
     }
 
     /**
-     *
+     * get the default normal force of the object
      * @return the default normal force of the object
      */
     @Override
@@ -70,8 +71,8 @@ public class BodyRec extends GameObjectRec implements Body{
     }
 
     /**
-     *
-     * @return the default friction
+     * get the default friction force
+     * @return the default friction force
      */
     @Override
     public Vector getFriction() {
@@ -79,7 +80,7 @@ public class BodyRec extends GameObjectRec implements Body{
     }
 
     /**
-     * To est the gravity
+     * To set the gravity
      * @param v the gravitational force
      */
     @Override
@@ -88,7 +89,7 @@ public class BodyRec extends GameObjectRec implements Body{
     }
 
     /**
-     * to set the drag coefficient
+     * To set the drag coefficient
      * @param dragCoe
      */
     @Override
@@ -97,7 +98,7 @@ public class BodyRec extends GameObjectRec implements Body{
     }
 
     /**
-     * to set the normal force
+     * To set the normal force
      * @param v the normal force
      */
     @Override
@@ -106,7 +107,7 @@ public class BodyRec extends GameObjectRec implements Body{
     }
 
     /**
-     * to set the friction
+     * To set the friction
      * @param v the friction force
      */
     @Override
