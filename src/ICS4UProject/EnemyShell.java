@@ -11,7 +11,6 @@ public class EnemyShell extends Enemy {
     public boolean hit = false;
     private boolean isUpdate = true;
 
-
     public EnemyShell(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
     }
