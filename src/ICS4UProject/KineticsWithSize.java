@@ -1,7 +1,7 @@
 package ICS4UProject;
 
 /**
- * these inferface represent a rectangular object
+ * this interface represents a rectangular object
  */
 public interface KineticsWithSize extends Kinetic{
     /**
