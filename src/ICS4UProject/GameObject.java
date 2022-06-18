@@ -56,21 +56,34 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     }
 
 
+    /**
+     * update the ABSOLUTE position of the object
+     * @param elapsedTime the time between two update is called
+     */
     public void updatePosition(long elapsedTime){
-        double elapsedSeconds = elapsedTime / 1_000_000_000.0;
-        Vector netF = new Vector();
+        double elapsedSeconds = elapsedTime / 1_000_000_000.0; //calculate time in second
+        Vector netF = new Vector(); //calculate the net force by adding all force in the list together
         for(Vector v:forceList){
             netF = netF.add(v.getCurrentValue());
         }
+        //using newton's second law:F=ma
         acceleration = netF.multiply(1/mass);
+        //velocity change = acceleration * time
         velocity = velocity.add(acceleration.multiply(elapsedSeconds));
+        //displacement = velocity * time
         ObjectPosition = ObjectPosition.add(velocity.multiply(elapsedSeconds));
     }
-
+    /**
+     * update the RELATIVE position of the object
+     */
     public void updateRelativePosition(){
         position = ObjectPosition.add(CameraPosition.multiply(-1));
     }
 
+    /**
+     * update the data of object
+     * @param elapsedTime the time between two update is called
+     */
     @Override
     public void update(long elapsedTime) {
         if(isUpdate){
@@ -179,6 +192,9 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         return mass;
     }
 
+    /**
+     * destroy the game object
+     */
     public void close() {
         forceList = null;
         velocity = new Vector();

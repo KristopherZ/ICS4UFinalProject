@@ -10,6 +10,14 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
     private double sizeX, sizeY;
     private boolean isUpdate = true;
 
+    /**
+     * To construct a game object
+     * @param x the x coordinate of the object
+     * @param y the y coordinate of the object
+     * @param sizeX the width
+     * @param sizeY the height
+     * @param image the image of the object
+     */
     public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x,y);
         this.image = new ImageView(image);
@@ -19,6 +27,13 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
         this.sizeY = sizeY;
     }
 
+    /**
+     * To construct a game object
+     * @param v the position vector
+     * @param sizeX the width
+     * @param sizeY the height
+     * @param image the image of the object
+     */
     public GameObjectImage(Vector v, double sizeX, double sizeY, Image image){
         this(v.getX(),v.getY(),sizeX,sizeY, image);
     }
@@ -37,6 +52,11 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
             updatePosition(elapsedTime);
         }
     }
+
+    /**
+     *
+     * @return the image view object
+     */
 
     public ImageView getImage(){
         return image;

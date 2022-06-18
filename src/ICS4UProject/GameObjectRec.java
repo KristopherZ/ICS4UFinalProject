@@ -9,6 +9,13 @@ public class GameObjectRec extends GameObject implements KineticsWithSize{
     private double sizeX, sizeY;
     private boolean isUpdate = true;
 
+    /**
+     * To construct a game object
+     * @param x the x coordinate of the object
+     * @param y the y coordinate of the object
+     * @param sizeX the width
+     * @param sizeY the height
+     */
     public GameObjectRec(double x, double y, double sizeX, double sizeY) {
         super(x,y);
         rec = new Rectangle(x,y,sizeX,sizeY);
@@ -16,6 +23,12 @@ public class GameObjectRec extends GameObject implements KineticsWithSize{
         this.sizeY = sizeY;
     }
 
+    /**
+     * To construct a game object
+     * @param v the position vector
+     * @param sizeX the width
+     * @param sizeY the height
+     */
     public GameObjectRec(Vector v, double sizeX, double sizeY){
         this(v.getX(),v.getY(),sizeX,sizeY);
     }
@@ -35,6 +48,10 @@ public class GameObjectRec extends GameObject implements KineticsWithSize{
         }
     }
 
+    /**
+     *
+     * @return Javafx rectangle
+     */
     public Rectangle getRectangle(){
         return rec;
     }

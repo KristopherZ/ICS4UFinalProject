@@ -42,13 +42,18 @@ public class Camera implements CameraView{
     }
 
     /**
-     * Get the Camera
-     * @param i
+     * Get the CameraView at index i
+     * @param i index of the object
      */
     public void get(int i){
         arr.get(i);
     }
 
+    /**
+     * set the KineticObject to
+     * @param i
+     * @param e
+     */
     public  void set(int i,CameraView e){
         arr.set(i,e);
     }
