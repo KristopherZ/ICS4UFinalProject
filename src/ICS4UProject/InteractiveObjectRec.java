@@ -9,9 +9,21 @@ public class InteractiveObjectRec extends CollisionBodyRec {
     private ArrayList<Vector> normalForceList = new ArrayList<>();
     private boolean isUpdate = true;
 
+    /**
+     * To construct an object
+     * @param x the x coordinate of the object
+     * @param y the y coordinate of the object
+     * @param sizeX the width
+     * @param sizeY the height
+     */
     public InteractiveObjectRec(double x, double y, double sizeX, double sizeY) {
         super(x, y, sizeX, sizeY);
     }
+
+    /**
+     * add other objects to the object so that this object can exert forces on them
+     * @param k the body objects
+     */
 
     public void addKinetic(Body k) {
         kineticList.add(k);
@@ -20,11 +32,15 @@ public class InteractiveObjectRec extends CollisionBodyRec {
         k.getForceList().add(normalForce);
     }
 
+    /**
+     * exert forces on each body object
+     */
     public void collide() {
-
+        //traverse the body list
         for (int i = 0; i < kineticList.size(); i++) {
+            //get the information of collision
             CollisionEvent e = collideWith(kineticList.get(i));
-//            System.out.println(Arrays.toString(e.getDepth()));
+            //find the side of collision with lowest overlapping distance
             double min = Double.POSITIVE_INFINITY;
             int minIndex = -1;
             for (int j = 0; j < 4; j++) {
@@ -33,7 +49,9 @@ public class InteractiveObjectRec extends CollisionBodyRec {
                     minIndex = j;
                 }
             }
-            System.out.println(minIndex);
+            //exert normal force and friction on that side
+            //both force are using the zeroth order term (overlapping distance) and second order term(the relative velocity) so that the system will reach a equilibrium
+            //https://math.libretexts.org/Bookshelves/Calculus/Book%3A_Calculus_(OpenStax)/17%3A_Second-Order_Differential_Equations/17.3%3A_Applications_of_Second-Order_Differential_Equations
             switch (minIndex) {
                 case 0:
                     normalForceList.get(i).set(

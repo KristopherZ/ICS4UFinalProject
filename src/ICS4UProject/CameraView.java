@@ -5,7 +5,20 @@ package ICS4UProject;
  */
 
 public interface CameraView {
+    /**
+     * set the camera to the given position
+     * @param v the vector represent the position of the camera
+     */
     public void setCameraPosition(Vector v);
+    /**
+     * add the camera to the given position
+     * @param v the vector represent the change of position of the camera
+     */
     public void addCameraPosition(Vector v);
+
+    /**
+     *
+     * @return the position of the camera
+     */
     public Vector getCameraPosition();
 }
