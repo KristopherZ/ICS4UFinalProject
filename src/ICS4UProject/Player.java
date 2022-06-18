@@ -44,6 +44,8 @@ public class Player extends CollisionBodyImage {
             horizontalForce.set(new Vector(-3000, 0));
         }else if(k.isdPressed()){
             horizontalForce.set(new Vector(3000,0));
+        }else{
+            horizontalForce.set(new Vector());
         }
         if(k.iswPressed()){
             this.addAppliedForce(new Vector(0,-3000),200);
