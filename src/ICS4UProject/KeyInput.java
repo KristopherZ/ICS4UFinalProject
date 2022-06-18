@@ -4,10 +4,20 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
+
+/**
+ * This class is used to deal with key input
+ *
+ */
 public class KeyInput {
 
+    // Boolean values indicating whether a button is pressed or not
     private boolean wPressed, aPressed, sPressed, dPressed, spaceBarPressed;
 
+    /**
+     * Sets boolean fields to true when their respective buttons are pressed
+     * @param scene
+     */
     public KeyInput(Scene scene) {
         scene.setOnKeyPressed(e ->{
             if(e.getCode().equals(KeyCode.W)) {
@@ -49,22 +59,37 @@ public class KeyInput {
 
     }
 
+    /**
+     * @return wPressed
+     */
     public boolean iswPressed() {
         return wPressed;
     }
 
+    /**
+     * @return aPressed
+     */
     public boolean isaPressed(){
         return aPressed;
     }
 
+    /**
+     * @return sPressed
+     */
     public boolean issPressed(){
         return sPressed;
     }
 
+    /**
+     * @return dPressed
+     */
     public boolean isdPressed() {
         return dPressed;
     }
 
+    /**
+     * @return spaceBarPressed
+     */
     public boolean isSpaceBarPressed() {
         return spaceBarPressed;
     }

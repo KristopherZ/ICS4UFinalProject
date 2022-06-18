@@ -25,6 +25,7 @@ public class Player extends CollisionBodyImage {
 
     public Player(double x, double y, double sizeX, double sizeY, Image image, KeyInput k) {
         super(x, y, sizeX, sizeY, image);
+        setElasticity(new double[]{1,1,1,1});
         this.k = k;
     }
 

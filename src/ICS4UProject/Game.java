@@ -27,7 +27,7 @@ public class Game extends AnimationTimer {
     private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
     private final ArrayList<Platform> platformList = new ArrayList<>();
 
-    public Game(String address, Group root) throws FileNotFoundException, MalformedURLException {
+    public Game(String address, Group root, KeyInput k) throws FileNotFoundException, MalformedURLException {
 
         File textFile = new File(address);
         Scanner input = new Scanner(textFile);
@@ -38,7 +38,7 @@ public class Game extends AnimationTimer {
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
                 Player p = new Player(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image,k);
                 p.setGravity(new Vector(0, gravityCoefficient));
 //                p.setElasticity(new double[]{0, 0, 0, 0});
                 playerList.add(p);
@@ -85,6 +85,9 @@ public class Game extends AnimationTimer {
             camera.add(player);
         }
 
+        for (Platform platform : platformList) {
+            camera.add(platform);
+        }
         for (Platform platform : platformList) {
             for (Enemy enemy : enemyList) {
                 enemy.getPlatformList().add(platform);

@@ -23,9 +23,11 @@ public class Main extends Application{
         stage.setWidth(500);
         stage.setHeight(500);
         Group group = new Group();
+        Scene scene = new Scene(group);
+        KeyInput k = new KeyInput(scene);
+        stage.setScene(scene);
+        Game game = new Game("initializer.txt",group,k);
 
-        Game game = new Game("initializer.txt",group);
-        stage.setScene(new Scene(group));
         stage.show();
         game.start();
     }
