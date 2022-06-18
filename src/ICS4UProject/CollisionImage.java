@@ -3,15 +3,26 @@ package ICS4UProject;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * represents a rectangular object that can return collision data with other objects
+ */
 public class CollisionImage extends GameObjectImage{
 
     private final double COLLIDER_WIDTH = 3;
+    // The amount subtracted from the edges of the colliders
     private final double WALL_MARGIN = 3;
     private boolean isUpdate = true;
-
+    //Array containing the 4 colliders around a platform(0 is top, 1 is bottom, 2 is left, 3 is right)
     private Rectangle[] colliders = new Rectangle[4];
 
-
+    /**
+     * Constructs a CollisionImage object
+     * @param x
+     * @param y
+     * @param sizeX
+     * @param sizeY
+     * @param image
+     */
     public CollisionImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
         colliders[0] = new Rectangle(x, y-COLLIDER_WIDTH, sizeX, COLLIDER_WIDTH);
@@ -20,6 +31,13 @@ public class CollisionImage extends GameObjectImage{
         colliders[3] = new Rectangle(x+sizeX, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
     }
 
+    /**
+     * Creates a collision event, checks which collider a "KineticWithSize" object collides with,
+     * sets that in a boolean[] array, checks how deep the object is in the collider(s) , and sets that
+     * in the double[] array
+     * @param o
+     * @return CollisionEvent object
+     */
     public CollisionEvent collideWith(KineticsWithSize o) {
         CollisionEvent e = new CollisionEvent();
         if(isUpdate) {
@@ -36,6 +54,10 @@ public class CollisionImage extends GameObjectImage{
         return e;
     }
 
+    /**
+     * Updates the collider positions
+     * @param elapsedTime
+     */
     @Override
     public void update(long elapsedTime){
         if(isUpdate){
@@ -58,6 +80,9 @@ public class CollisionImage extends GameObjectImage{
         return colliders;
     }
 
+    /**
+     * Closes the CollisionImage object by setting all of its colliders to null and stopping it from updating
+     */
     @Override
     public void close() {
         super.close();
