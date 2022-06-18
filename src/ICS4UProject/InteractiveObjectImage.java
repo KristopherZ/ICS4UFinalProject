@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
+ * This represent a interactive object with image so that objects can collide with each other
  */
 
 public class InteractiveObjectImage extends CollisionBodyImage{

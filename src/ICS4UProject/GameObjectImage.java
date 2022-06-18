@@ -56,7 +56,7 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
     }
 
     /**
-     *
+     * get the image view object
      * @return the image view object
      */
 

@@ -98,6 +98,10 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         return ObjectPosition;
     }
 
+    /**
+     * get relative position of the object (the position on the screen)
+     * @return relative position of the object (the position on the screen)
+     */
     public Vector getRelativePosition(){
         return position;
     }
@@ -142,14 +146,27 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         addAppliedForce(v);
     }
 
+    /**
+     * set the applied force
+     * @param v the applied force
+     */
     public void setAppliedForce(Vector v) {
         appliedForce.set(v);
     }
 
+    /**
+     * add a applied force v to the object
+     * @param v the force
+     */
     public void addAppliedForce(Vector v){
         appliedForce.set(appliedForce.add(v));
     }
 
+    /**
+     * add a applied force v to the object over duration time
+     * @param v the force
+     * @param duration the length of time you want the force be applied
+     */
     public void addAppliedForce(Vector v,int duration){
         appliedForce.set(appliedForce.add(v));
         Thread t = new Thread(() ->{
@@ -163,10 +180,15 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         t.start();
     }
 
+    /**
+     * get the applied force
+     * @return the applied force
+     */
     public Vector getAppliedForce() {
         return appliedForce;
     }
 
+    @Override
     public ArrayList<Vector> getForceList() {
         return forceList;
     }

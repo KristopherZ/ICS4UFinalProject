@@ -51,7 +51,7 @@ public class GameObjectRec extends GameObject implements KineticsWithSize{
     }
 
     /**
-     *
+     * get the Javafx rectangle object
      * @return Javafx rectangle
      */
     public Rectangle getRectangle(){
