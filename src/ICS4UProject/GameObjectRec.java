@@ -2,7 +2,9 @@ package ICS4UProject;
 
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * This class represent s game object in the game with javafx rectangle added
+ */
 public class GameObjectRec extends GameObject implements KineticsWithSize{
 
     private Rectangle rec;

@@ -20,8 +20,8 @@ public class Drag extends Vector{
     }
 
     /**
-     *
-     * @return return the current drag
+     * get the current drag
+     * @return the current drag
      */
 
     @Override

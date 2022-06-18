@@ -3,6 +3,9 @@ package ICS4UProject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * This class represents a camera so that the relative position of objects attached to this class can be moved
+ */
 public class Camera implements CameraView{
 
     private ArrayList<CameraView> arr;
