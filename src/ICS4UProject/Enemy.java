@@ -8,14 +8,14 @@ public class Enemy extends CollisionBodyImage {
 
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
 
-    private ArrayList<Platform> platformList = new ArrayList<>();
+    private ArrayList<PlatformImage> platformImageList = new ArrayList<>();
 
     public Enemy(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
     }
 
-    public ArrayList<Platform> getPlatformList() {
-        return platformList;
+    public ArrayList<PlatformImage> getPlatformImageList() {
+        return platformImageList;
     }
 
     @Override

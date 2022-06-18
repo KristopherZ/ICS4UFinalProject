@@ -4,15 +4,24 @@ package ICS4UProject;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
+/**
+ * represents a rectangular body that can return collision data with other objects
+ */
 public class CollisionBodyRec extends BodyRec {
     private final double COLLIDER_WIDTH = 3;
+    // The amount subtracted from the edges of the colliders
     private final double WALL_MARGIN = 3;
     private boolean isUpdate = true;
-
+    //Array containing the 4 colliders around a platform(0 is top, 1 is bottom, 2 is left, 3 is right)
     private Rectangle[] colliders = new Rectangle[4];
 
-
+    /**
+     * Constructs a CollisionBodyRec
+     * @param x position in x-axis
+     * @param y position in y-axis
+     * @param sizeX the width of the object
+     * @param sizeY the height of the object
+     */
     public CollisionBodyRec(double x, double y, double sizeX, double sizeY) {
         super(x, y,sizeX,sizeY);
         colliders[0] = new Rectangle(x+WALL_MARGIN, y-COLLIDER_WIDTH, sizeX-WALL_MARGIN*2, COLLIDER_WIDTH);
@@ -21,6 +30,13 @@ public class CollisionBodyRec extends BodyRec {
         colliders[3] = new Rectangle(x+sizeX, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
     }
 
+    /**
+     * Creates a collision event, checks which collider a "KineticWithSize" object collides with,
+     * sets that in a boolean[] array, checks how deep the object is in the collider(s) , and sets that
+     * in the double[] array
+     * @param o an game object to collide with
+     * @return CollisionEvent object
+     */
     public CollisionEvent collideWith(KineticsWithSize o) {
         CollisionEvent e = new CollisionEvent();
         if(isUpdate) {
@@ -37,6 +53,10 @@ public class CollisionBodyRec extends BodyRec {
         return e;
     }
 
+    /**
+     * Updates the collider positions
+     * @param elapsedTime the time between two update is called
+     */
     @Override
     public void update(long elapsedTime){
         if(isUpdate){
@@ -55,6 +75,9 @@ public class CollisionBodyRec extends BodyRec {
         }
     }
 
+    /**
+     * Closes the CollisionBodyRec object by setting all of its colliders to null and stopping it from updating
+     */
     @Override
     public void close() {
         super.close();

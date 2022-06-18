@@ -14,10 +14,13 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * This class can initialize the game
+ */
 public class Game extends AnimationTimer {
 
     private long lastUpdatedTime = 0;
-
+    // coefficient that determines the amount of force from gravity
     private final double gravityCoefficient = 2000;
     private static final double cameraOffset = 100;
     private final Camera camera = new Camera();
@@ -25,12 +28,22 @@ public class Game extends AnimationTimer {
     private final ArrayList<Player> playerList = new ArrayList<>();
     private final ArrayList<Enemy> enemyList = new ArrayList<>();
     private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
-    private final ArrayList<Platform> platformList = new ArrayList<>();
+    private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
 
-    public Game(String address, Group root) throws FileNotFoundException, MalformedURLException {
-
+    /**
+     * Scans the "Initializer.txt" file contained within the project folder
+     * Inside the file is a list of all the objects that will be in the scene, with their parameter values
+     * This simplifies the process of creating Kinetic objects and PlatformImage objects
+     *
+     * @param address The address of the "Initializer.txt" file inside the project folder
+     * @param root A group - should be empty when passed into parameter
+     * @throws FileNotFoundException
+     * @throws MalformedURLException
+     */
+    public Game(String address, Group root, KeyInput k) throws FileNotFoundException, MalformedURLException {
         File textFile = new File(address);
         Scanner input = new Scanner(textFile);
+
         while (input.hasNextLine()) {
             String line = input.nextLine();
             if (line.startsWith("1")) {
@@ -38,7 +51,7 @@ public class Game extends AnimationTimer {
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
                 Player p = new Player(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image,k);
                 p.setGravity(new Vector(0, gravityCoefficient));
 //                p.setElasticity(new double[]{0, 0, 0, 0});
                 playerList.add(p);
@@ -47,8 +60,10 @@ public class Game extends AnimationTimer {
                 Image image;
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
-                enemyList.add(new Enemy(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image));
+                Enemy e = new Enemy(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                e.setGravity(new Vector(0, gravityCoefficient));
+                enemyList.add(e);
             } else if (line.startsWith("3")) {
                 Image image;
                 String[] values = line.split(" ");
@@ -56,14 +71,16 @@ public class Game extends AnimationTimer {
                 enemyShellList.add(new EnemyShell(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image));
             } else {
+                Image image;
                 String[] values = line.split(" ");
-                Platform platform = new Platform(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]));
-                platformList.add(platform);
+                image = new Image(new File(values[5]).toURI().toURL().toString(), false);
+                PlatformImage platform = new PlatformImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                platformImageList.add(platform);
             }
         }
 
-        for (Platform platform : platformList) {
+        for (PlatformImage platform : platformImageList) {
             for (Enemy enemy : enemyList) {
                 platform.addKinetic(enemy);
             }
@@ -84,16 +101,19 @@ public class Game extends AnimationTimer {
         for (Player player : playerList) {
             camera.add(player);
         }
+        for (PlatformImage platform : platformImageList) {
+            camera.add(platform);
+        }
 
-        for (Platform platform : platformList) {
+        for (PlatformImage platform : platformImageList) {
             for (Enemy enemy : enemyList) {
-                enemy.getPlatformList().add(platform);
+                enemy.getPlatformImageList().add(platform);
             }
         }
 
-        for (Platform platform : platformList) {
+        for (PlatformImage platform : platformImageList) {
             for (EnemyShell enemy : enemyShellList) {
-                enemy.getPlatformList().add(platform);
+                enemy.getPlatformImageList().add(platform);
             }
         }
 
@@ -107,13 +127,17 @@ public class Game extends AnimationTimer {
             root.getChildren().add(player.getImage());
         }
 
-        for (Platform platform : platformList) {
-            root.getChildren().add(platform.getRectangle());
+        for (PlatformImage platform : platformImageList) {
+            root.getChildren().add(platform.getImage());
         }
 
 
     }
 
+    /**
+     * Updates all objects inside the scene
+     * @param timestamp the timestamp when the method is called
+     */
     @Override
     public void handle(long timestamp) {
 
@@ -129,7 +153,7 @@ public class Game extends AnimationTimer {
             for (Player player : playerList) {
                 player.update(elapsedTime);
             }
-            for (Platform platform : platformList) {
+            for (PlatformImage platform : platformImageList) {
                 platform.update(elapsedTime);
             }
         }

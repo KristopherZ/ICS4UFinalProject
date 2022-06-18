@@ -234,10 +234,12 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         this.frictionCoe = frictionCoe;
     }
 
+    @Override
     public double[] getElasticity() {
         return elasticity;
     }
 
+    @Override
     public void setElasticity(double[] elasticity) {
         this.elasticity = elasticity;
     }

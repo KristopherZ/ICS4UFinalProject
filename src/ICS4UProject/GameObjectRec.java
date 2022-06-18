@@ -58,10 +58,12 @@ public class GameObjectRec extends GameObject implements KineticsWithSize{
         return rec;
     }
 
+    @Override
     public double getSizeX() {
         return sizeX;
     }
 
+    @Override
     public double getSizeY(){
         return sizeY;
     }

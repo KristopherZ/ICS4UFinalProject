@@ -29,7 +29,7 @@ public class Camera implements CameraView{
     /**
      * create a camera so that all objects can move along the camera
      * @param arr add all array list into the camera
-     * @param <E> A CameraView object
+     * @param <E> a CameraView object
      */
     public <E extends CameraView> Camera(E ... arr){
         this.arr = (ArrayList<CameraView>) Arrays.asList(arr);
