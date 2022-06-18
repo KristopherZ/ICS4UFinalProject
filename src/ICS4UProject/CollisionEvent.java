@@ -9,7 +9,7 @@ public class CollisionEvent {
 
     /**
      * Sets the values of the collision position boolean array
-     * @param collisionPosition
+     * @param collisionPosition the collision boolean array as [top, bottom,left,right]
      */
     public void setCollisionPosition(boolean[] collisionPosition) {
         this.collisionPosition = collisionPosition;
@@ -17,7 +17,7 @@ public class CollisionEvent {
 
     /**
      * Sets the values of the depth double array
-     * @param depth
+     * @param depth the collision depth array as [top, bottom,left,right]
      */
     public void setDepth(double[] depth) {
         this.depth = depth;

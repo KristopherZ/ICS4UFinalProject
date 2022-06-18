@@ -17,10 +17,10 @@ public class CollisionBodyRec extends BodyRec {
 
     /**
      * Constructs a CollisionBodyRec
-     * @param x
-     * @param y
-     * @param sizeX
-     * @param sizeY
+     * @param x position in x-axis
+     * @param y position in y-axis
+     * @param sizeX the width of the object
+     * @param sizeY the height of the object
      */
     public CollisionBodyRec(double x, double y, double sizeX, double sizeY) {
         super(x, y,sizeX,sizeY);
@@ -34,7 +34,7 @@ public class CollisionBodyRec extends BodyRec {
      * Creates a collision event, checks which collider a "KineticWithSize" object collides with,
      * sets that in a boolean[] array, checks how deep the object is in the collider(s) , and sets that
      * in the double[] array
-     * @param o
+     * @param o an game object to collide with
      * @return CollisionEvent object
      */
     public CollisionEvent collideWith(KineticsWithSize o) {
