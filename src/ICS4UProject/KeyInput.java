@@ -60,6 +60,7 @@ public class KeyInput {
     }
 
     /**
+     * check if W key is pressed
      * @return wPressed
      */
     public boolean iswPressed() {
@@ -67,6 +68,7 @@ public class KeyInput {
     }
 
     /**
+     * check if A key is pressed
      * @return aPressed
      */
     public boolean isaPressed(){
@@ -74,6 +76,7 @@ public class KeyInput {
     }
 
     /**
+     * check if S key is pressed
      * @return sPressed
      */
     public boolean issPressed(){
@@ -81,6 +84,7 @@ public class KeyInput {
     }
 
     /**
+     * check if D key is pressed
      * @return dPressed
      */
     public boolean isdPressed() {
@@ -88,6 +92,7 @@ public class KeyInput {
     }
 
     /**
+     * check if space bar is pressed
      * @return spaceBarPressed
      */
     public boolean isSpaceBarPressed() {

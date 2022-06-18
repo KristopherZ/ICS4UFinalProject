@@ -16,12 +16,12 @@ public class CollisionImage extends GameObjectImage{
     private Rectangle[] colliders = new Rectangle[4];
 
     /**
-     * Constructs a CollisionImage object
-     * @param x
-     * @param y
-     * @param sizeX
-     * @param sizeY
-     * @param image
+     * Constructs a CollisionBodyImage object
+     * @param x position in x-axis
+     * @param y position in y-axis
+     * @param sizeX the width of the object
+     * @param sizeY the height of the object
+     * @param image the image of the object
      */
     public CollisionImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
@@ -35,7 +35,7 @@ public class CollisionImage extends GameObjectImage{
      * Creates a collision event, checks which collider a "KineticWithSize" object collides with,
      * sets that in a boolean[] array, checks how deep the object is in the collider(s) , and sets that
      * in the double[] array
-     * @param o
+     * @param o an game object to collide with
      * @return CollisionEvent object
      */
     public CollisionEvent collideWith(KineticsWithSize o) {
@@ -56,7 +56,7 @@ public class CollisionImage extends GameObjectImage{
 
     /**
      * Updates the collider positions
-     * @param elapsedTime
+     * @param elapsedTime the time between two update is called
      */
     @Override
     public void update(long elapsedTime){

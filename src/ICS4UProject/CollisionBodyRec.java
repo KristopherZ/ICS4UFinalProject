@@ -53,6 +53,10 @@ public class CollisionBodyRec extends BodyRec {
         return e;
     }
 
+    /**
+     * Updates the collider positions
+     * @param elapsedTime the time between two update is called
+     */
     @Override
     public void update(long elapsedTime){
         if(isUpdate){

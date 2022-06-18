@@ -31,6 +31,9 @@ public class Game extends AnimationTimer {
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
 
     /**
+     * Scans the "Initializer.txt" file contained within the project folder
+     * Inside the file is a list of all the objects that will be in the scene, with their parameter values
+     * This simplifies the process of creating Kinetic objects and PlatformImage objects
      *
      * @param address The address of the "Initializer.txt" file inside the project folder
      * @param root A group - should be empty when passed into parameter
@@ -40,11 +43,7 @@ public class Game extends AnimationTimer {
     public Game(String address, Group root, KeyInput k) throws FileNotFoundException, MalformedURLException {
         File textFile = new File(address);
         Scanner input = new Scanner(textFile);
-        /**
-         * Scans the "Initializer.txt" file contained within the project folder
-         * Inside the file is a list of all the objects that will be in the scene, with their parameter values
-         * This simplifies the process of creating Kinetic objects and PlatformImage objects
-         */
+
         while (input.hasNextLine()) {
             String line = input.nextLine();
             if (line.startsWith("1")) {
@@ -137,7 +136,7 @@ public class Game extends AnimationTimer {
 
     /**
      * Updates all objects inside the scene
-     * @param timestamp
+     * @param timestamp the timestamp when the method is called
      */
     @Override
     public void handle(long timestamp) {
