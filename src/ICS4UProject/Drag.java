@@ -10,7 +10,7 @@ public class Drag extends Vector{
     private Kinetic obj;
 
     /**
-     * create a new drag that represents and drag force
+     * create the air drag that proportional to v^2
      * @param obj the object you want to contain a  air drag
      * @param dragCoe the drag coefficient
      */
