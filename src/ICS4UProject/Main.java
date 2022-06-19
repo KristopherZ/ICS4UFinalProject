@@ -2,7 +2,7 @@
 
 package ICS4UProject;
 
-import javafx.animation.AnimationTimer;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,19 +11,14 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 
 public class Main extends Application{
@@ -40,8 +35,8 @@ public class Main extends Application{
         b.setOnAction(e->{
             initLevel(stage,"initializer.txt");
         });
-        HBox hb = new HBox(b);
-        Scene start = new Scene(hb);
+        VBox vb = new VBox(b);
+        Scene start = new Scene(vb);
         stage.setScene(start);
         stage.show();
 
@@ -58,7 +53,6 @@ public class Main extends Application{
         mb.prefWidthProperty().bind(stage.widthProperty());
         Group root = new Group();
         Group group = new Group();
-
         Scale scale = new Scale();
         scale.setPivotX(0);
         scale.setPivotY(0);
@@ -70,6 +64,7 @@ public class Main extends Application{
             scale.setX(scaleFactor);
             scale.setY(scaleFactor);
         });
+
         group.getTransforms().add(scale);
         root.getChildren().add(group);
         root.getChildren().add(mb);
@@ -86,6 +81,8 @@ public class Main extends Application{
             e.printStackTrace();
         }
     }
+
+
     public static void main(String[] args) {
         launch(args);
     }
