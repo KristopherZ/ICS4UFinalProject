@@ -80,6 +80,10 @@ public class Player extends CollisionBodyImage {
         isUpdate = false;
     }
 
+    /**
+     * This is used to set the display image for different states of the player
+     * @param playerStates a 5-element Image Array
+     */
     public void setPlayerStates(Image[] playerStates) {
         this.playerStates = playerStates;
     }
