@@ -75,8 +75,10 @@ public class Game extends AnimationTimer {
                 Image image;
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
-                enemyShellList.add(new EnemyShell(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image));
+                EnemyShell e =new EnemyShell(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                e.setGravity(new Vector(0, gravityCoefficient));
+                enemyShellList.add(e);
             } else {
                 Image image;
                 String[] values = line.split(" ");
