@@ -30,6 +30,7 @@ public class Game extends AnimationTimer {
     private final ArrayList<Enemy> enemyList = new ArrayList<>();
     private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
+    private ArrayList<Player> addPlayer = new ArrayList<>();
 
     /**
      * Scans the "Initializer.txt" file contained within the project folder
@@ -67,6 +68,9 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 e.setGravity(new Vector(0, gravityCoefficient));
                 enemyList.add(e);
+                for(Player i : playerList) {
+                    e.addPlayer(i);
+                }
             } else if (line.startsWith("3")) {
                 Image image;
                 String[] values = line.split(" ");
@@ -93,6 +97,7 @@ public class Game extends AnimationTimer {
             }
             for (Player player : playerList) {
                 platform.addKinetic(player);
+
             }
         }
 

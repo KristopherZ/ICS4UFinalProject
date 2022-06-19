@@ -39,7 +39,6 @@ public class PlatformImage extends CollisionImage{
         k.getForceList().add(normalForce);
     }
 
-
     /**
      * exert forces on each body object
      */

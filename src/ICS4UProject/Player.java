@@ -1,19 +1,25 @@
 package ICS4UProject;
 
-import javafx.scene.image.Image;
+import java.awt.*;
 
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import java.security.Key;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Player extends CollisionBodyImage {
 
     private boolean isUpdate = true;
-
+    private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent = 1.7;
+    private final int[] elasticity = {1,1,1,1};
+    private ArrayList<Body> kineticList = new ArrayList<>();
+    private ArrayList<Vector> normalForceList = new ArrayList<>();
     private Vector horizontalForce = new Vector();
-
-    private ArrayList<PlatformImage> PlatformImageList = new ArrayList<>();
-
-    public ArrayList<PlatformImage> getPlatformImageList() {
-        return PlatformImageList;
+    private ArrayList<Platform> platformList = new ArrayList<>();
+    private ArrayList<Platform> getPlatformList() {
+        return platformList;
     }
     private Image[] playerStates = new Image[5];
 
@@ -27,13 +33,9 @@ public class Player extends CollisionBodyImage {
         this.k = k;
     }
 
-    private boolean touchingGround() {
-        for(PlatformImage i : PlatformImageList) {
-            if(i.collideWith(this).getCollisionPosition()[0]) {
-                return true;
-            }
-        }
-        return false;
+    public void setPhysics() {
+        this.setGravity(new Vector(0,1000));
+        this.setVelocity(new Vector(0,0));
     }
 
 
@@ -41,20 +43,14 @@ public class Player extends CollisionBodyImage {
         if(k.isaPressed()&&k.isdPressed()){
             horizontalForce.set(new Vector());
         }else if(k.isaPressed()) {
-            if(touchingGround())
-                horizontalForce.set(new Vector(-4000, 0));
-            else
-                horizontalForce.set(new Vector(-600, 0));
+            horizontalForce.set(new Vector(-3000, 0));
         }else if(k.isdPressed()){
-            if(touchingGround())
-                horizontalForce.set(new Vector(4000, 0));
-            else
-                horizontalForce.set(new Vector(600, 0));
+            horizontalForce.set(new Vector(3000,0));
         }else{
             horizontalForce.set(new Vector());
         }
-        if(k.iswPressed() && touchingGround()){
-            this.setAppliedForce(new Vector(0,-11000),150);
+        if(k.iswPressed()){
+            this.addAppliedForce(new Vector(0,-3000),200);
         }
     }
 
@@ -80,11 +76,4 @@ public class Player extends CollisionBodyImage {
         isUpdate = false;
     }
 
-    /**
-     * This is used to set the display image for different states of the player
-     * @param playerStates a 5-element Image Array
-     */
-    public void setPlayerStates(Image[] playerStates) {
-        this.playerStates = playerStates;
-    }
 }
