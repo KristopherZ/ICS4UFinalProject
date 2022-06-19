@@ -1,12 +1,13 @@
 package ICS4UProject;
 
-import javafx.scene.image.Image;
+
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
- * represents a body with image that can return collision data with other objects
+ * represents a rectangular object that can return collision data with other objects
  */
-public class CollisionBodyImage extends BodyImage{
+public class CollisionRec extends GameObjectRec {
     private final double COLLIDER_WIDTH = 3;
     // The amount subtracted from the edges of the colliders
     private final double WALL_MARGIN = 3;
@@ -15,15 +16,14 @@ public class CollisionBodyImage extends BodyImage{
     private Rectangle[] colliders = new Rectangle[4];
 
     /**
-     * Constructs a CollisionBodyImage object
+     * Constructs a CollisionRec
      * @param x position in x-axis
      * @param y position in y-axis
      * @param sizeX the width of the object
      * @param sizeY the height of the object
-     * @param image the image of the object
      */
-    public CollisionBodyImage(double x, double y, double sizeX, double sizeY, Image image) {
-        super(x, y, sizeX, sizeY, image);
+    public CollisionRec(double x, double y, double sizeX, double sizeY) {
+        super(x, y,sizeX,sizeY);
         colliders[0] = new Rectangle(x+WALL_MARGIN, y-COLLIDER_WIDTH, sizeX-WALL_MARGIN*2, COLLIDER_WIDTH);
         colliders[1] = new Rectangle(x+WALL_MARGIN, y+sizeY, sizeX-WALL_MARGIN*2, COLLIDER_WIDTH);
         colliders[2] = new Rectangle(x-COLLIDER_WIDTH, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
@@ -39,7 +39,7 @@ public class CollisionBodyImage extends BodyImage{
      */
     public CollisionEvent collideWith(KineticsWithSize o) {
         CollisionEvent e = new CollisionEvent();
-        if(isUpdate){
+        if(isUpdate) {
             e.setCollisionPosition(new boolean[]{o.isCollide(colliders[0]),
                     o.isCollide(colliders[1]),
                     o.isCollide(colliders[2]),
@@ -59,7 +59,7 @@ public class CollisionBodyImage extends BodyImage{
      */
     @Override
     public void update(long elapsedTime){
-        if(isUpdate) {
+        if(isUpdate){
             updateRelativePosition();
             colliders[0].setX(getPosition().getX()+WALL_MARGIN-getCameraPosition().getX());
             colliders[0].setY((getPosition().getY()-COLLIDER_WIDTH)-getCameraPosition().getY());
@@ -69,14 +69,14 @@ public class CollisionBodyImage extends BodyImage{
             colliders[2].setY(getPosition().getY()+WALL_MARGIN-getCameraPosition().getY());
             colliders[3].setX(getPosition().getX()+getSizeX()-getCameraPosition().getX());
             colliders[3].setY(getPosition().getY()+WALL_MARGIN-getCameraPosition().getY());
-            getImage().setX(getRelativePosition().getX());
-            getImage().setY(getRelativePosition().getY());
+            getRectangle().setX(getRelativePosition().getX());
+            getRectangle().setY(getRelativePosition().getY());
             updatePosition(elapsedTime);
         }
     }
 
     /**
-     * Closes the CollisionBodyImage object by setting all of its colliders to null and stopping it from updating
+     * Closes the CollisionRec object by setting all of its colliders to null and stopping it from updating
      */
     @Override
     public void close() {

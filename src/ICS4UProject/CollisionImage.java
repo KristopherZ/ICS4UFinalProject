@@ -25,8 +25,8 @@ public class CollisionImage extends GameObjectImage{
      */
     public CollisionImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
-        colliders[0] = new Rectangle(x, y-COLLIDER_WIDTH, sizeX, COLLIDER_WIDTH);
-        colliders[1] = new Rectangle(x, y+sizeY, sizeX, COLLIDER_WIDTH);
+        colliders[0] = new Rectangle(x+WALL_MARGIN, y-COLLIDER_WIDTH, sizeX-WALL_MARGIN*2, COLLIDER_WIDTH);
+        colliders[1] = new Rectangle(x+WALL_MARGIN, y+sizeY, sizeX-WALL_MARGIN*2, COLLIDER_WIDTH);
         colliders[2] = new Rectangle(x-COLLIDER_WIDTH, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
         colliders[3] = new Rectangle(x+sizeX, y+WALL_MARGIN, COLLIDER_WIDTH, sizeY-WALL_MARGIN*2);
     }
@@ -45,6 +45,7 @@ public class CollisionImage extends GameObjectImage{
                     o.isCollide(colliders[1]),
                     o.isCollide(colliders[2]),
                     o.isCollide(colliders[3])});
+
             e.setDepth(new double[]{
                     o.isCollide(colliders[0]) ? ((o.getPosition().getY() + o.getSizeY()) - (getPosition().getY() - COLLIDER_WIDTH)) : 0,
                     o.isCollide(colliders[1]) ? (getPosition().getY() + this.getSizeY() + COLLIDER_WIDTH - o.getPosition().getY()) : 0,
@@ -62,9 +63,9 @@ public class CollisionImage extends GameObjectImage{
     public void update(long elapsedTime){
         if(isUpdate){
             updateRelativePosition();
-            colliders[0].setX(getPosition().getX()-getCameraPosition().getX());
+            colliders[0].setX(getPosition().getX()-getCameraPosition().getX()+WALL_MARGIN);
             colliders[0].setY((getPosition().getY()-COLLIDER_WIDTH)-getCameraPosition().getY());
-            colliders[1].setX(getPosition().getX()-getCameraPosition().getX());
+            colliders[1].setX(getPosition().getX()-getCameraPosition().getX()+WALL_MARGIN);
             colliders[1].setY((getPosition().getY()+getSizeY())-getCameraPosition().getY());
             colliders[2].setX(getPosition().getX()-COLLIDER_WIDTH-getCameraPosition().getX());
             colliders[2].setY(getPosition().getY()+WALL_MARGIN-getCameraPosition().getY());
@@ -76,9 +77,6 @@ public class CollisionImage extends GameObjectImage{
         }
     }
 
-    public Rectangle[] getColliders() {
-        return colliders;
-    }
 
     /**
      * Closes the CollisionImage object by setting all of its colliders to null and stopping it from updating

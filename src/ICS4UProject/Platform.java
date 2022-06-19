@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * This represents a platform in the game
  */
-public class Platform extends CollisionBodyRec {
+public class Platform extends CollisionRec {
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private ArrayList<Body> bodyArrayList = new ArrayList<>();
     private ArrayList<Vector> normalForceList = new ArrayList<>();
