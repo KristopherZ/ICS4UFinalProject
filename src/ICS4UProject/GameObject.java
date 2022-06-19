@@ -23,6 +23,7 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     private double mass = 1;
     private boolean isUpdate = true;
 
+
     /**
      * To construct a game object
      * @param x the x coordinate of the object
@@ -163,19 +164,19 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     }
 
     /**
-     * add a applied force v to the object over duration time
+     * set a applied force v to the object over duration time
      * @param v the force
      * @param duration the length of time you want the force be applied
      */
-    public void addAppliedForce(Vector v,int duration){
-        appliedForce.set(appliedForce.add(v));
+    public void setAppliedForce(Vector v, int duration){
+        appliedForce.set(v);
         Thread t = new Thread(() ->{
                     try {
                         Thread.sleep(duration);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    appliedForce.set(appliedForce.add(v.multiply(-1)));
+                    appliedForce.set(new Vector());
                 });
         t.start();
     }
