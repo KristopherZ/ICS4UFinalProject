@@ -14,6 +14,7 @@ public class Enemy extends CollisionBodyImage {
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private final ArrayList<Player> players = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
+    private boolean isClose = false;
 
     /**
      * To construct a player
@@ -58,16 +59,16 @@ public class Enemy extends CollisionBodyImage {
                 setVelocity(new Vector(100,0));
             }
             for(Player j : players) {
-                if(j.runIntoEnemy(this) && !j.isPowerUp()) {
+                if(j.jumpOnEnemy(this)) {
+                    this.close();
+                }else if(j.runIntoEnemy(this) && !j.isPowerUp()) {
                     System.out.println("game over");
                 }
                 else if(j.runIntoEnemy(this)) {
                     j.setPowerUp(false);
                     System.out.println("set sprite to small mario");
                 }
-                if(j.jumpOnEnemy(this)) {
-                    this.close();
-                }
+
             }
 
         }
@@ -79,11 +80,18 @@ public class Enemy extends CollisionBodyImage {
      */
     @Override
     public void update(long elapsedTime) {
-        super.update(elapsedTime);
-        for(Player i : players) {
-            this.collideWith(i);
+        if(!isClose){
+            super.update(elapsedTime);
+            for(Player i : players) {
+                this.collideWith(i);
+            }
+            collide();
         }
-        collide();
     }
 
+    @Override
+    public void close() {
+        isClose = true;
+        super.close();
+    }
 }
