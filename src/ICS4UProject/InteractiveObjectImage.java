@@ -21,6 +21,7 @@ public class InteractiveObjectImage extends CollisionBodyImage{
      * @param y the y coordinate of the object
      * @param sizeX the width
      * @param sizeY the height
+     * @param image the image
      */
     public InteractiveObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);

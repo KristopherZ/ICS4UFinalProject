@@ -3,6 +3,7 @@
 package ICS4UProject;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -33,7 +34,12 @@ public class Main extends Application{
 
         Button b = new Button("start");
         b.setOnAction(e->{
-            initLevel(stage,"initializer.txt");
+            try {
+                test(stage);
+            } catch (MalformedURLException malformedURLException) {
+                malformedURLException.printStackTrace();
+            }
+//            initLevel(stage,"initializer.txt");
         });
         VBox vb = new VBox(b);
         Scene start = new Scene(vb);
@@ -80,6 +86,48 @@ public class Main extends Application{
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private long lastUpdatedTime = 0;
+    public void test(Stage stage) throws MalformedURLException {
+        Group group = new Group();
+        Scene scene = new Scene(group);
+        KeyInput k = new KeyInput(scene);
+        Image image = new Image((new File("image.jpg")).toURI().toURL().toString(), false);
+        Player p = new Player(0,0,50,100,image,k);
+        p.setGravity(new Vector(0,2000));
+        PlatformImage pt = new PlatformImage(20,400,500,100,image);
+        pt.addKinetic(p);
+        p.getPlatformImageList().add(pt);
+
+        PlatformImage trigger = new PlatformImage(200,100,50,50,image);
+        Mushroom mushroom =new Mushroom(trigger,50,50,image);
+        mushroom.addPlayer(p);
+        mushroom.setGravity(new Vector(0,2000));
+        mushroom.setMovingVelocity(new Vector(300,0));
+        trigger.addKinetic(p);
+        trigger.addKinetic(mushroom);
+        pt.addKinetic(mushroom);
+        p.getPlatformImageList().add(trigger);
+
+
+        group.getChildren().addAll(p.getImage(),pt.getImage(), trigger.getImage(), mushroom.getImage());
+        AnimationTimer t =new AnimationTimer() {
+            @Override
+            public void handle(long timestamp) {
+                if (lastUpdatedTime > 0) {
+                    long elapsedTime = timestamp - lastUpdatedTime;
+                    pt.update(elapsedTime);
+                    p.update(elapsedTime);
+                    trigger.update(elapsedTime);
+                    mushroom.update(elapsedTime);
+                }
+                lastUpdatedTime = timestamp;
+            }
+        };
+        t.start();
+        stage.setScene(scene);
     }
 
 

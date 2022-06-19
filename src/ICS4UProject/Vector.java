@@ -9,7 +9,7 @@ public class Vector {
     private double y;
 
     /**
-     *
+     * Construct a vector
      * @param x x component
      * @param y y component
      */
@@ -46,7 +46,7 @@ public class Vector {
     }
 
     /**
-     *
+     * x component of vector
      * @return x component of vector
      */
     public double getX() {
@@ -54,7 +54,7 @@ public class Vector {
     }
 
     /**
-     *
+     * y component of vector
      * @return y component of vector
      */
     public double getY() {
@@ -105,8 +105,8 @@ public class Vector {
     }
 
     /**
-     *
-     * @return Distance from the x-coordinate to the y-coordinate
+     * Return the distance of the vector
+     * @return Distance of the vector
      */
     public double length(){
         return Math.sqrt(x*x+y*y);

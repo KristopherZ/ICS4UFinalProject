@@ -23,6 +23,8 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
     public GameObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x,y);
         this.image = new ImageView(image);
+        this.image.setX(x);
+        this.image.setY(y);
         this.image.setFitWidth(sizeX);
         this.image.setFitHeight(sizeY);
         this.sizeX = sizeX;

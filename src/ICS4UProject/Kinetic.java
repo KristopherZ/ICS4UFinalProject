@@ -77,7 +77,7 @@ public interface Kinetic {
     public double getMass();
 
     /**
-     *
+     * get the friction coefficient
      * @return the friction coefficient
      */
     public double getFrictionCoe();
@@ -96,8 +96,8 @@ public interface Kinetic {
     public boolean isCollide(Object o);
 
     /**
-     * List of applied forces to an object
-     * @return
+     * get the ist of applied forces
+     * @return List of applied forces of the object
      */
     public ArrayList<Vector> getForceList();
 

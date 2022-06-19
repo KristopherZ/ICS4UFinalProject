@@ -32,6 +32,7 @@ public class Game extends AnimationTimer {
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private ArrayList<Player> addPlayer = new ArrayList<>();
 
+
     /**
      * Scans the "Initializer.txt" file contained within the project folder
      * Inside the file is a list of all the objects that will be in the scene, with their parameter values
@@ -53,7 +54,7 @@ public class Game extends AnimationTimer {
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
                 Player p = new Player(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image,k);
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image, k);
                 p.setGravity(new Vector(0, gravityCoefficient));
                 p.setFrictionCoe(1);
                 p.setDragCoe(0.001);
@@ -67,7 +68,7 @@ public class Game extends AnimationTimer {
                 Enemy e = new Enemy(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 e.setGravity(new Vector(0, gravityCoefficient));
-                for(Player i : playerList) {
+                for (Player i : playerList) {
                     e.addPlayer(i);
                 }
                 enemyList.add(e);
@@ -75,11 +76,11 @@ public class Game extends AnimationTimer {
                 Image image;
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
-                EnemyShell e =new EnemyShell(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                EnemyShell e = new EnemyShell(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 e.setGravity(new Vector(0, gravityCoefficient));
                 enemyShellList.add(e);
-            } else {
+            }else {
                 Image image;
                 String[] values = line.split(" ");
                 image = new Image(new File(values[5]).toURI().toURL().toString(), false);
