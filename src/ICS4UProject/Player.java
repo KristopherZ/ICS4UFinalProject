@@ -17,8 +17,8 @@ public class Player extends CollisionBodyImage {
     private ArrayList<Body> kineticList = new ArrayList<>();
     private ArrayList<Vector> normalForceList = new ArrayList<>();
     private Vector horizontalForce = new Vector();
-    private ArrayList<Platform> platformList = new ArrayList<>();
-    private ArrayList<Platform> getPlatformList() {
+    private ArrayList<PlatformImage> platformList = new ArrayList<>();
+    private ArrayList<PlatformImage> getPlatformList() {
         return platformList;
     }
     private Image[] playerStates = new Image[5];
@@ -38,6 +38,15 @@ public class Player extends CollisionBodyImage {
         this.setVelocity(new Vector(0,0));
     }
 
+    private boolean touchingGround() {
+        for(PlatformImage i : platformList) {
+            if(i.collideWith(this).getCollisionPosition()[0]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private void keyMovement() {
         if(k.isaPressed()&&k.isdPressed()){
@@ -49,7 +58,7 @@ public class Player extends CollisionBodyImage {
         }else{
             horizontalForce.set(new Vector());
         }
-        if(k.iswPressed()){
+        if(k.iswPressed() && touchingGround()){
             this.addAppliedForce(new Vector(0,-3000),200);
         }
     }
