@@ -22,6 +22,7 @@ public class Game extends AnimationTimer {
 
     private long lastUpdatedTime = 0;
     // coefficient that determines the amount of force from gravity
+    private boolean isUpdate = true;
     private final double gravityCoefficient = 2000;
     private static final double cameraOffset = 100;
     private final Camera camera = new Camera();
@@ -93,6 +94,7 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), pImage);
                 Mushroom mushroom = new Mushroom(trigger, Double.parseDouble(values[6]),
                         Double.parseDouble(values[7]), mImage);
+                trigger.setFrictionCoe(1);
                 mushroom.setGravity(new Vector(0,2000));
                 mushroom.setMovingVelocity(new Vector(300,0));
                 trigger.setFrictionCoe(1);
@@ -151,6 +153,12 @@ public class Game extends AnimationTimer {
             }
         }
 
+        for (PlatformImage platform: platformImageList) {
+            for (Mushroom mushroom: mushroomList) {
+                mushroom.getPlatformImageList().add(platform);
+            }
+        }
+
         for (Enemy enemy : enemyList) {
             root.getChildren().add(enemy.getImage());
         }
@@ -193,6 +201,7 @@ public class Game extends AnimationTimer {
 
         if (lastUpdatedTime > 0) {
             long elapsedTime = timestamp - lastUpdatedTime;
+
             camera.setCameraPosition(new Vector(playerList.get(0).getPosition().getX()-cameraOffset, 0));
             for (Enemy enemy : enemyList) {
                 enemy.update(elapsedTime);
@@ -211,6 +220,24 @@ public class Game extends AnimationTimer {
             }
         }
         lastUpdatedTime = timestamp;
+    }
+
+    public void endGame() {
+        for (Enemy enemy : enemyList) {
+            enemy.close();
+        }
+        for (EnemyShell enemyShell : enemyShellList) {
+            enemyShell.close();
+        }
+        for (Player player : playerList) {
+            player.close();
+        }
+        for (PlatformImage platform : platformImageList) {
+            platform.close();
+        }
+        for (Mushroom mushroom: mushroomList) {
+            mushroom.close();
+        }
     }
 
 }
