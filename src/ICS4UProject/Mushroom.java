@@ -64,7 +64,7 @@ public class Mushroom extends CollisionBodyImage{
 
     /**
      * set the moving velocity of the mushroom
-     * @param v
+     * @param v the moving velocity of the mushroom
      */
 
     public void setMovingVelocity(Vector v){
