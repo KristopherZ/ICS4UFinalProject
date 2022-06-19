@@ -34,12 +34,12 @@ public class Main extends Application{
 
         Button b = new Button("start");
         b.setOnAction(e->{
-            try {
-                test(stage);
-            } catch (MalformedURLException malformedURLException) {
-                malformedURLException.printStackTrace();
-            }
-//            initLevel(stage,"initializer.txt");
+//            try {
+//                test(stage);
+//            } catch (MalformedURLException malformedURLException) {
+//                malformedURLException.printStackTrace();
+//            }
+            initLevel(stage,"initializer.txt");
         });
 
         VBox vb = new VBox(b);
