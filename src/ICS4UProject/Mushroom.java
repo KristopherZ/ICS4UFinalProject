@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents a mushroom so that the player can be powered up
+ */
 public class Mushroom extends CollisionBodyImage{
 
     private PlatformImage trigger;
@@ -27,10 +30,19 @@ public class Mushroom extends CollisionBodyImage{
         setElasticity(new double[]{1,1,1,1});
     }
 
+    /**
+     * Add players to the mushroom class so that it can be triggered
+     * @param p the player
+     */
+
     public void addPlayer(Player p){
         playerArrayList.add(p);
     }
 
+    /**
+     * Helper method to check if the trigger is activate
+     * @return the whether the trigger is activate
+     */
     private boolean checkTrigger(){
 //        System.out.println(isTriggered);
         if(!isTriggered){
@@ -43,10 +55,16 @@ public class Mushroom extends CollisionBodyImage{
         return false;
     }
 
+
     @Override
     public void setGravity(Vector v) {
         TempGravity = v;
     }
+
+    /**
+     * set the moving velocity of the mushroom
+     * @param v
+     */
 
     public void setMovingVelocity(Vector v){
         movingVelocity = v;
@@ -66,7 +84,7 @@ public class Mushroom extends CollisionBodyImage{
             if(isCollide(p.getImage())&&!isEaten){
                 this.close();
                 isEaten = true;
-                System.out.println("m");
+                System.out.println("m");//need to be replaced my power up method in the player class
             }
         }
     }
