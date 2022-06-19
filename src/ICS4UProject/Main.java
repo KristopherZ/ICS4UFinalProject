@@ -41,6 +41,7 @@ public class Main extends Application{
             }
 //            initLevel(stage,"initializer.txt");
         });
+
         VBox vb = new VBox(b);
         Scene start = new Scene(vb);
         stage.setScene(start);
