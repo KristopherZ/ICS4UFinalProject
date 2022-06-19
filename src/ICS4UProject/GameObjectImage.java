@@ -80,11 +80,13 @@ public class GameObjectImage extends GameObject implements KineticsWithSize{
     @Override
     public void setSizeX(double x) {
         sizeX = x;
+        image.setFitWidth(x);
     }
 
     @Override
     public void setSizeY(double y) {
         sizeY = y;
+        image.setFitHeight(y);
     }
 
     @Override

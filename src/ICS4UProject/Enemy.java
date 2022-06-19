@@ -46,7 +46,9 @@ public class Enemy extends CollisionBodyImage {
 
     /**
      * exert forces in the opposite direction of impact to make the enemy go back and forth
-     * closes the player if it touches the enemy
+     * closes the game if player touches the enemy, and it is not powered up
+     * closes the enemy if it is jumped on
+     * gets rid of players power up if ran into with a power up on
      */
     private void collide() {
         for(PlatformImage i : platformImageList) {
@@ -55,11 +57,19 @@ public class Enemy extends CollisionBodyImage {
             }else if(i.collideWith(this).getCollisionPosition()[3]){
                 setVelocity(new Vector(100,0));
             }
-        }
-        for(Player j : players) {
-            if(j.jumpOnEnemy(this)) {
-                this.close();
+            for(Player j : players) {
+                if(j.runIntoEnemy(this) && !j.isPowerUp()) {
+                    System.out.println("game over");
+                }
+                else if(j.runIntoEnemy(this)) {
+                    j.setPowerUp(false);
+                    System.out.println("set sprite to small mario");
+                }
+                if(j.jumpOnEnemy(this)) {
+                    this.close();
+                }
             }
+
         }
     }
 

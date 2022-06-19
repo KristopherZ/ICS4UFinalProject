@@ -104,7 +104,7 @@ public class Mushroom extends CollisionBodyImage{
             if(isCollide(p.getImage())&&!isEaten){
                 this.close();
                 isEaten = true;
-                System.out.println("m");//need to be replaced by power up method in the player class
+                p.consumeMushroom(this);
             }
         }
     }

@@ -13,16 +13,12 @@ public class Player extends CollisionBodyImage {
     private final Vector HORIZONTAL_FORCE = new Vector();
     private final ArrayList<PlatformImage> PLATFORM_IMAGE_LIST = new ArrayList<>();
     private final KeyInput k;
-
-    /**
-     * get the platform list so that player detect if ity is on the ground
-     * @return the platform list
-     */
     public ArrayList<PlatformImage> getPlatformImageList() {
         return PLATFORM_IMAGE_LIST;
     }
     private Image[] playerStates = new Image[5];
     private boolean isUpdate = true;
+    private boolean isPowerUp = false;
 
     /**
      * To construct a player
@@ -36,7 +32,7 @@ public class Player extends CollisionBodyImage {
     public Player(double x, double y, double sizeX, double sizeY, Image image, KeyInput k) {
         super(x, y, sizeX, sizeY, image);
         getForceList().add(HORIZONTAL_FORCE);
-        setElasticity(new double[]{.5,1,1,1});
+        setElasticity(new double[]{1,1,1,1});
         playerStates = new Image[]{image,image,image,image,image};
         this.k = k;
     }
@@ -64,9 +60,27 @@ public class Player extends CollisionBodyImage {
         return this.collideWith(enemy).getCollisionPosition()[1];
     }
 
-//    public boolean killPlayer(Enemy enemy) {
-//        return this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3];
-//    }
+    /**
+     * Checks if the player has run into enemy
+     * @param enemy current enemy
+     * @return if the player is jumping on the enemy
+     */
+    public boolean runIntoEnemy(Enemy enemy) {
+        return this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3];
+    }
+
+    /**
+     * Checks if the player has run into mushroom, and powers the player up
+     * @param mushroom current enemy
+     */
+    public void consumeMushroom(Mushroom mushroom) {
+        if(this.collideWith(mushroom).getCollisionPosition()[0] || this.collideWith(mushroom).getCollisionPosition()[1] || this.collideWith(mushroom).getCollisionPosition()[2] || this.collideWith(mushroom).getCollisionPosition()[3]) {
+            isPowerUp = true;
+            setSizeX(getSizeX()*1.5);
+            setSizeY(getSizeY()*1.5);
+            System.out.println("change the sprite to big mario"); // animation stuff
+        }
+    }
 
     /**
      * exert a forces relative to the respective key press for player movement
@@ -142,5 +156,13 @@ public class Player extends CollisionBodyImage {
      */
     public void setPlayerStates(Image[] playerStates) {
         this.playerStates = playerStates;
+    }
+
+    public boolean isPowerUp() {
+        return isPowerUp;
+    }
+
+    public void setPowerUp(boolean powerUp) {
+        isPowerUp = powerUp;
     }
 }
