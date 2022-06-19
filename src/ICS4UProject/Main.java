@@ -28,6 +28,7 @@ public class Main extends Application{
     private double scaleFactor = 1;
     @Override
     public void start(Stage stage) throws Exception {
+        stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
         Menu menu1 = new Menu("File");
