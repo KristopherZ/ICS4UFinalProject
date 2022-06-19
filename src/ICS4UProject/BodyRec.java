@@ -90,7 +90,7 @@ public class BodyRec extends GameObjectRec implements Body{
 
     /**
      * To set the drag coefficient
-     * @param dragCoe
+     * @param dragCoe the drag coefficient
      */
     @Override
     public void setDragCoe(double dragCoe) {

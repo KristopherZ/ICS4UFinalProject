@@ -1,4 +1,4 @@
 1 300 0 50 100 image.jpg
-4 0 400 2000 100 ground.jpg
-4 300 300 100 100 ground.jpg
+4 0 400 2000 100 smallplatform.jpg
+5 600 200 50 50 questionblock.jpg 50 50 classic_mushroom.jpg
 2 400 0 50 50 Goomba.png

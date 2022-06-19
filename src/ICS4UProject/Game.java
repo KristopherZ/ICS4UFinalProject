@@ -25,11 +25,11 @@ public class Game extends AnimationTimer {
     private final double gravityCoefficient = 2000;
     private static final double cameraOffset = 100;
     private final Camera camera = new Camera();
-
     private final ArrayList<Player> playerList = new ArrayList<>();
     private final ArrayList<Enemy> enemyList = new ArrayList<>();
     private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
+    private final ArrayList<Mushroom> mushroomList = new ArrayList<>();
 
     /**
      * Scans the "Initializer.txt" file contained within the project folder
@@ -52,7 +52,7 @@ public class Game extends AnimationTimer {
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
                 Player p = new Player(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image,k);
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image, k);
                 p.setGravity(new Vector(0, gravityCoefficient));
                 p.setFrictionCoe(1);
                 p.setDragCoe(0.001);
@@ -71,9 +71,11 @@ public class Game extends AnimationTimer {
                 Image image;
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
-                enemyShellList.add(new EnemyShell(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image));
-            } else {
+                EnemyShell e = new EnemyShell(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                e.setGravity(new Vector(0, gravityCoefficient));
+                enemyShellList.add(e);
+            }else if(line.startsWith("4")) {
                 Image image;
                 String[] values = line.split(" ");
                 image = new Image(new File(values[5]).toURI().toURL().toString(), false);
@@ -81,6 +83,20 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 platform.setFrictionCoe(1);
                 platformImageList.add(platform);
+            } else {
+                Image pImage;
+                Image mImage;
+                String[] values = line.split(" ");
+                pImage = new Image(new File(values[5]).toURI().toURL().toString(), false);
+                mImage = new Image(new File(values[8]).toURI().toURL().toString(), false);
+                PlatformImage trigger = new PlatformImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), pImage);
+                Mushroom mushroom = new Mushroom(trigger, Double.parseDouble(values[6]),
+                        Double.parseDouble(values[7]), mImage);
+                mushroom.setGravity(new Vector(0,2000));
+                mushroom.setMovingVelocity(new Vector(300,0));
+                platformImageList.add(trigger);
+                mushroomList.add(mushroom);
             }
         }
 
@@ -93,6 +109,10 @@ public class Game extends AnimationTimer {
             }
             for (Player player : playerList) {
                 platform.addKinetic(player);
+
+            }
+            for (Mushroom mushroom: mushroomList) {
+                platform.addKinetic(mushroom);
             }
         }
 
@@ -107,6 +127,9 @@ public class Game extends AnimationTimer {
         }
         for (PlatformImage platform : platformImageList) {
             camera.add(platform);
+        }
+        for (Mushroom mushroom: mushroomList) {
+            camera.add(mushroom);
         }
 
         for (PlatformImage platform : platformImageList) {
@@ -140,6 +163,23 @@ public class Game extends AnimationTimer {
         for (PlatformImage platform : platformImageList) {
             root.getChildren().add(platform.getImage());
         }
+        for (Mushroom mushroom: mushroomList) {
+            root.getChildren().add(mushroom.getImage());
+        }
+
+        for (Enemy enemy: enemyList) {
+            for (Player p: playerList) {
+                enemy.addPlayer(p);
+            }
+
+        }
+
+        for (Mushroom mushroom: mushroomList) {
+            for (Player p: playerList) {
+                mushroom.addPlayer(p);
+            }
+
+        }
 
     }
 
@@ -164,6 +204,9 @@ public class Game extends AnimationTimer {
             }
             for (PlatformImage platform : platformImageList) {
                 platform.update(elapsedTime);
+            }
+            for (Mushroom mushroom: mushroomList) {
+                mushroom.update(elapsedTime);
             }
         }
         lastUpdatedTime = timestamp;

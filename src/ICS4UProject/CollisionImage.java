@@ -77,7 +77,6 @@ public class CollisionImage extends GameObjectImage{
         }
     }
 
-
     /**
      * Closes the CollisionImage object by setting all of its colliders to null and stopping it from updating
      */

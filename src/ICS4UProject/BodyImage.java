@@ -30,7 +30,7 @@ public class BodyImage extends GameObjectImage implements Body{
     }
 
     /**
-     *
+     * Construct an object with basic forces and image attached to it
      * @param v the position of the object
      * @param sizeX the width of the object
      * @param sizeY the height of the object
@@ -100,7 +100,7 @@ public class BodyImage extends GameObjectImage implements Body{
 
     /**
      * To set the drag coefficient
-     * @param dragCoe
+     * @param dragCoe the drag coefficient
      */
     @Override
     public void setDragCoe(double dragCoe) {

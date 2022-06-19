@@ -21,6 +21,7 @@ public class InteractiveObjectImage extends CollisionBodyImage{
      * @param y the y coordinate of the object
      * @param sizeX the width
      * @param sizeY the height
+     * @param image the image
      */
     public InteractiveObjectImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
@@ -53,7 +54,7 @@ public class InteractiveObjectImage extends CollisionBodyImage{
                 }
             }
             //exert normal force and friction on that side
-            //both force are using the zeroth order term (overlapping distance) and second order term(the relative velocity) so that the system will reach a equilibrium
+            //both force are using the zeroth order term (overlapping distance) and second order term(the relative velocity) so that the system will reach an equilibrium
             //https://math.libretexts.org/Bookshelves/Calculus/Book%3A_Calculus_(OpenStax)/17%3A_Second-Order_Differential_Equations/17.3%3A_Applications_of_Second-Order_Differential_Equations
             switch (minIndex){
                 case 0: normalForceList.get(i).set(
