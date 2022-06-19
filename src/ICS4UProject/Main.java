@@ -25,11 +25,12 @@ import java.util.Arrays;
 public class Main extends Application{
 
 
-    private final double scaleFactor = 1.5;
+    private double scaleFactor = 1;
     @Override
     public void start(Stage stage) throws Exception {
         stage.setWidth(500);
         stage.setHeight(500);
+
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction((e)->{
@@ -48,6 +49,12 @@ public class Main extends Application{
         scale.setPivotY(0);
         scale.setX(scaleFactor);
         scale.setY(scaleFactor);
+
+        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            scaleFactor = newVal.doubleValue()/500;
+            scale.setX(scaleFactor);
+            scale.setY(scaleFactor);
+        });
         group.getTransforms().add(scale);
         root.getChildren().add(group);
         root.getChildren().add(mb);

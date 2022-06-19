@@ -41,14 +41,20 @@ public class Player extends CollisionBodyImage {
         if(k.isaPressed()&&k.isdPressed()){
             horizontalForce.set(new Vector());
         }else if(k.isaPressed()) {
-            horizontalForce.set(new Vector(-2000, 0));
+            if(touchingGround())
+                horizontalForce.set(new Vector(-2000, 0));
+            else
+                horizontalForce.set(new Vector(-600, 0));
         }else if(k.isdPressed()){
-            horizontalForce.set(new Vector(2000,0));
+            if(touchingGround())
+                horizontalForce.set(new Vector(2000, 0));
+            else
+                horizontalForce.set(new Vector(600, 0));
         }else{
             horizontalForce.set(new Vector());
         }
         if(k.iswPressed() && touchingGround()){
-            this.setAppliedForce(new Vector(0,-7000),250);
+            this.setAppliedForce(new Vector(0,-11000),150);
         }
     }
 
