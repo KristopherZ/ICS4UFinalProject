@@ -1,4 +1,3 @@
 1 300 0 50 100 image.jpg
-4 0 400 2000 100 ground.jpg
-4 300 300 100 100 ground.jpg
+4 250 600 300 40 smallplatform.jpg
 2 400 0 50 50 Goomba.png

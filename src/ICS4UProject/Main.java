@@ -35,6 +35,7 @@ public class Main extends Application{
         b.setOnAction(e->{
             initLevel(stage,"initializer.txt");
         });
+
         VBox vb = new VBox(b);
         Scene start = new Scene(vb);
         stage.setScene(start);

@@ -71,6 +71,12 @@ public class Player extends CollisionBodyImage {
                 getImage().setImage(playerStates[2]);
             else
                 getImage().setImage(playerStates[3]);
+            if(getVelocity().getX() > 500) {
+                setVelocity(new Vector(500, getVelocity().getY()));
+            }
+            if(getVelocity().getX() < -500) {
+                setVelocity(new Vector(-500, getVelocity().getY()));
+            }
         }
     }
 
