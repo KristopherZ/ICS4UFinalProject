@@ -1,7 +1,6 @@
 package ICS4UProject;
 
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
