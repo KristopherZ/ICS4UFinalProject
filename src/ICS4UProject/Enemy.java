@@ -59,7 +59,10 @@ public class Enemy extends CollisionBodyImage {
                 setVelocity(new Vector(100,0));
             }
             for(Player j : players) {
-                if(j.jumpOnEnemy(this)) {
+                if(j.runIntoEnemy(this)) {
+                    j.close();
+                }
+                else if(j.jumpOnEnemy(this)) {
                     this.close();
                 }else if(j.runIntoEnemy(this) && !j.isPowerUp()) {
                     System.out.println("game over");
