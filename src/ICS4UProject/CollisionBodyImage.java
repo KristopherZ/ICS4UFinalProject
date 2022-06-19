@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * represents a body with image that can return collision data with other objects
  */
-public class CollisionBodyImage extends BodyImage{
+public class CollisionBodyImage extends BodyImage {
     private final double COLLIDER_WIDTH = 3;
     // The amount subtracted from the edges of the colliders
     private final double WALL_MARGIN = 3;
