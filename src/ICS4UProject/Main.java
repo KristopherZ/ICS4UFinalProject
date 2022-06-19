@@ -28,9 +28,7 @@ public class Main extends Application{
     private double scaleFactor = 1;
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setWidth(500);
-        stage.setHeight(500);
-
+        stage.setFullScreen(true);
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction((e)->{
