@@ -100,7 +100,7 @@ public class Mushroom extends CollisionBodyImage{
             setVelocity(movingVelocity);
             super.setGravity(TempGravity);
         }
-        for(Player p:playerArrayList){
+        for(Player p : playerArrayList){
             if(isCollide(p.getImage())&&!isEaten){
                 this.close();
                 isEaten = true;

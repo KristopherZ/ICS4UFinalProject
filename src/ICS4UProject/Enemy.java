@@ -59,10 +59,14 @@ public class Enemy extends CollisionBodyImage {
                 setVelocity(new Vector(100,0));
             }
             for(Player j : players) {
-                if(j.runIntoEnemy(this)) {
-                    j.close();
+                if(j.runIntoEnemy(this) && !j.isPowerUp) {
+                    System.out.println("game over");
                 }
-                else if(j.jumpOnEnemy(this)) {
+                else if(j.runIntoEnemy(this)) {
+                    j.isPowerUp = false;
+                    System.out.println("set sprite to small mario");
+                }
+                if(j.jumpOnEnemy(this)) {
                     this.close();
                 }else if(j.runIntoEnemy(this) && !j.isPowerUp()) {
                     System.out.println("game over");
