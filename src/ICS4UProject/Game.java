@@ -67,10 +67,10 @@ public class Game extends AnimationTimer {
                 Enemy e = new Enemy(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 e.setGravity(new Vector(0, gravityCoefficient));
-                enemyList.add(e);
                 for(Player i : playerList) {
                     e.addPlayer(i);
                 }
+                enemyList.add(e);
             } else if (line.startsWith("3")) {
                 Image image;
                 String[] values = line.split(" ");
