@@ -164,7 +164,7 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
     }
 
     /**
-     * add a applied force v to the object over duration time
+     * set a applied force v to the object over duration time
      * @param v the force
      * @param duration the length of time you want the force be applied
      */
