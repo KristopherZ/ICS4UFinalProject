@@ -55,12 +55,11 @@ public class Enemy extends CollisionBodyImage {
             }else if(i.collideWith(this).getCollisionPosition()[3]){
                 setVelocity(new Vector(100,0));
             }
-            for(Player j : players) {
-                if(j.jumpOnEnemy(this)) {
-                    this.close();
-                }
+        }
+        for(Player j : players) {
+            if(j.jumpOnEnemy(this)) {
+                this.close();
             }
-
         }
     }
 

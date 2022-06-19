@@ -95,6 +95,7 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[7]), mImage);
                 mushroom.setGravity(new Vector(0,2000));
                 mushroom.setMovingVelocity(new Vector(300,0));
+                trigger.setFrictionCoe(1);
                 platformImageList.add(trigger);
                 mushroomList.add(mushroom);
             }
