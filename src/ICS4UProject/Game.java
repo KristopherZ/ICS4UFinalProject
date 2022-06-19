@@ -31,6 +31,7 @@ public class Game extends AnimationTimer {
     private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private final ArrayList<Mushroom> mushroomList = new ArrayList<>();
+    private Main main;
 
     /**
      * Scans the "Initializer.txt" file contained within the project folder
@@ -42,7 +43,8 @@ public class Game extends AnimationTimer {
      * @throws FileNotFoundException
      * @throws MalformedURLException
      */
-    public Game(String address, Group root, KeyInput k) throws FileNotFoundException, MalformedURLException {
+    public Game(String address, Group root, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
+        main = m;
         File textFile = new File(address);
         Scanner input = new Scanner(textFile);
 
@@ -189,6 +191,7 @@ public class Game extends AnimationTimer {
             }
 
         }
+        start();
 
     }
 
@@ -238,6 +241,11 @@ public class Game extends AnimationTimer {
         for (Mushroom mushroom: mushroomList) {
             mushroom.close();
         }
+    }
+
+    public void gameEnd(boolean isWin){
+        stop();
+        main.gameEnd(isWin);
     }
 
 }
