@@ -20,6 +20,7 @@ public class Player extends CollisionBodyImage {
     private boolean isUpdate = true;
     private boolean isPowerUp = false;
     private boolean isInvisible = false;
+    private Game game;
     /**
      * To construct a player
      * @param x the x coordinate of the player
@@ -29,8 +30,9 @@ public class Player extends CollisionBodyImage {
      * @param image the image of the platform
      * @param k the key detection
      */
-    public Player(double x, double y, double sizeX, double sizeY, Image image, KeyInput k) {
+    public Player(double x, double y, double sizeX, double sizeY, Image image, KeyInput k,Game game) {
         super(x, y, sizeX, sizeY, image);
+        this.game = game;
         getForceList().add(HORIZONTAL_FORCE);
         setElasticity(new double[]{1,1,1,1});
         playerStates = new Image[]{image,image,image,image,image};
@@ -172,6 +174,9 @@ public class Player extends CollisionBodyImage {
 
     public void setIsInvisible(boolean isInvisible) {
         this.isInvisible = isInvisible;
+    }
+    public void gameEnd(boolean isWin){
+        game.gameEnd(isWin);
     }
 
 }

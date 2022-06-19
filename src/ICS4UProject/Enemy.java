@@ -69,7 +69,7 @@ public class Enemy extends CollisionBodyImage {
                 if(j.isPowerUp())
                     System.out.println("1");
                 else
-                    System.out.println("game over");
+                    j.gameEnd(true);
             }
         }
     }

@@ -55,7 +55,7 @@ public class Game extends AnimationTimer {
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
                 Player p = new Player(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image, k);
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image, k,this);
                 p.setGravity(new Vector(0, gravityCoefficient));
                 p.setFrictionCoe(1);
                 p.setDragCoe(0.001);
