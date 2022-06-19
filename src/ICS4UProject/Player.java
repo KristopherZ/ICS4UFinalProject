@@ -42,12 +42,12 @@ public class Player extends CollisionBodyImage {
             horizontalForce.set(new Vector());
         }else if(k.isaPressed()) {
             if(touchingGround())
-                horizontalForce.set(new Vector(-2000, 0));
+                horizontalForce.set(new Vector(-4000, 0));
             else
                 horizontalForce.set(new Vector(-600, 0));
         }else if(k.isdPressed()){
             if(touchingGround())
-                horizontalForce.set(new Vector(2000, 0));
+                horizontalForce.set(new Vector(4000, 0));
             else
                 horizontalForce.set(new Vector(600, 0));
         }else{
@@ -80,4 +80,7 @@ public class Player extends CollisionBodyImage {
         isUpdate = false;
     }
 
+    public void setPlayerStates(Image[] playerStates) {
+        this.playerStates = playerStates;
+    }
 }

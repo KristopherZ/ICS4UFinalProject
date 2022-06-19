@@ -28,7 +28,8 @@ public class Main extends Application{
     private double scaleFactor = 1;
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setFullScreen(true);
+        stage.setHeight(720);
+        stage.setWidth(1280);
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction((e)->{
@@ -40,8 +41,6 @@ public class Main extends Application{
         Group root = new Group();
         Group group = new Group();
 
-        group.minHeight(500);
-        group.minHeight(500);
         Scale scale = new Scale();
         scale.setPivotX(0);
         scale.setPivotY(0);
@@ -49,7 +48,7 @@ public class Main extends Application{
         scale.setY(scaleFactor);
 
         stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            scaleFactor = newVal.doubleValue()/500;
+            scaleFactor = newVal.doubleValue()/720;
             scale.setX(scaleFactor);
             scale.setY(scaleFactor);
         });
