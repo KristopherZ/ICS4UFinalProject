@@ -45,7 +45,7 @@ config=StructureConfiguration;
     "cutConstructors": true
   },
   "graphTraversal": {
-    "forwardDepth": 6,
+    "forwardDepth": 3,
     "backwardDepth": 3,
     "classPackageExcludeFilter": "",
     "classPackageIncludeFilter": "",
@@ -155,25 +155,6 @@ CollisionBodyImage1237709535[
 	fillcolor="#FFFFFF"
 ];
 
-CollisionBodyRec1237709535[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)CollisionBodyRec</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   COLLIDER_WIDTH: double [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   WALL_MARGIN: double [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   colliders: Rectangle[] [0..*]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   isUpdate: boolean [1]</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >+ close()</TD></TR>
-<TR><TD ALIGN="LEFT" >+ collideWith(o: KineticsWithSize): CollisionEvent</TD></TR>
-<TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
 CollisionImage1237709535[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)CollisionImage</TD></TR>
@@ -230,7 +211,10 @@ Enemy1237709535[
 <TR><TD ALIGN="LEFT" >(C)Enemy</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >-   platformImageList: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   players: ArrayList&lt;Player&gt; [0..*]</TD></TR>
 <HR/>
+<TR><TD ALIGN="LEFT" >+ addPlayer(player: Player)</TD></TR>
+<TR><TD ALIGN="LEFT" >- collide()</TD></TR>
 <TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
 </TABLE>>
 	style=filled
@@ -248,6 +232,7 @@ EnemyShell1237709535[
 <TR><TD ALIGN="LEFT" >-   pickUp: boolean [1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ close()</TD></TR>
+<TR><TD ALIGN="LEFT" >- collide()</TD></TR>
 <TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
 </TABLE>>
 	style=filled
@@ -260,6 +245,7 @@ Game1237709535[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)Game</TD></TR>
 <HR/>
+<TR><TD ALIGN="LEFT" >-   addPlayer: ArrayList&lt;Player&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   camera: Camera [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   enemyList: ArrayList&lt;Enemy&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   enemyShellList: ArrayList&lt;EnemyShell&gt; [0..*]</TD></TR>
@@ -384,22 +370,6 @@ InteractiveObjectRec1237709535[
 	fillcolor="#FFFFFF"
 ];
 
-KeyInput1237709535[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)KeyInput</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   aPressed: boolean [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   dPressed: boolean [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   sPressed: boolean [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   spaceBarPressed: boolean [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   wPressed: boolean [1]</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
 Kinetic1237709535[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(I)Kinetic</TD></TR>
@@ -426,6 +396,27 @@ Kinetic1237709535[
 	margin=0
 	shape=plaintext
 	fillcolor="#F1E5FD"
+];
+
+Mushroom1237709535[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Mushroom</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   TempGravity: Vector [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isEaten: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isTriggered: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   movingVelocity: Vector [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   playerArrayList: ArrayList&lt;Player&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   trigger: PlatformImage [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addPlayer(p: Player)</TD></TR>
+<TR><TD ALIGN="LEFT" >- checkTrigger(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
 ];
 
 Platform1237709535[
@@ -470,14 +461,16 @@ Player1237709535[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)Player</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   PlatformImageList: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   horizontalForce: Vector [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   HORIZONTAL_FORCE: Vector [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   PLATFORM_IMAGE_LIST: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   isUpdate: boolean [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >#   k: KeyInput [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   k: KeyInput [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   playerStates: Image[] [0..*]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ close()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ jumpOnEnemy(enemy: Enemy): boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >- keyMovement()</TD></TR>
+<TR><TD ALIGN="LEFT" >- playerStateChange()</TD></TR>
 <TR><TD ALIGN="LEFT" >- touchingGround(): boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
 </TABLE>>
@@ -507,7 +500,6 @@ Vector1237709535[
 } 
 
 'edges    
-BodyImage1237709535 -> CollisionBodyImage1237709535[arrowhead=none, arrowtail=empty, dir=both];
 BodyImage1237709535 -> Drag1237709535[label="drag
 [0..1]"];
 BodyImage1237709535 -> Vector1237709535[label="friction
@@ -516,7 +508,6 @@ BodyImage1237709535 -> Vector1237709535[label="gravity
 [0..1]"];
 BodyImage1237709535 -> Vector1237709535[label="normalForce
 [0..1]"];
-BodyRec1237709535 -> CollisionBodyRec1237709535[arrowhead=none, arrowtail=empty, dir=both];
 BodyRec1237709535 -> Drag1237709535[label="drag
 [0..1]"];
 BodyRec1237709535 -> Vector1237709535[label="friction
@@ -527,22 +518,18 @@ BodyRec1237709535 -> Vector1237709535[label="normalForce
 [0..1]"];
 Camera1237709535 -> GameObject1237709535[label="arr
 [0..*]", arrowhead=none];
+CollisionBodyImage1237709535 -> BodyImage1237709535[arrowhead=none];
+CollisionBodyImage1237709535 -> BodyRec1237709535[arrowhead=none];
 CollisionBodyImage1237709535 -> Enemy1237709535[arrowhead=none, arrowtail=empty, dir=both];
 CollisionBodyImage1237709535 -> EnemyShell1237709535[label="close() -> close()"];
 CollisionBodyImage1237709535 -> GameObjectImage1237709535[label="close() -> close()"];
+CollisionBodyImage1237709535 -> GameObjectRec1237709535[arrowhead=none];
 CollisionBodyImage1237709535 -> InteractiveObjectImage1237709535[arrowhead=none, arrowtail=empty, dir=both];
+CollisionBodyImage1237709535 -> Mushroom1237709535[arrowhead=none, arrowtail=empty, dir=both];
 CollisionBodyImage1237709535 -> Player1237709535[arrowhead=none, arrowtail=empty, dir=both];
-CollisionImage1237709535 -> BodyImage1237709535[arrowhead=none];
-CollisionImage1237709535 -> BodyRec1237709535[arrowhead=none];
-CollisionImage1237709535 -> GameObjectImage1237709535[arrowhead=none];
-CollisionImage1237709535 -> GameObjectRec1237709535[arrowhead=none];
 CollisionImage1237709535 -> PlatformImage1237709535[arrowhead=none, arrowtail=empty, dir=both];
 Drag1237709535 -> Kinetic1237709535[label="obj
 [0..1]"];
-Enemy1237709535 -> EnemyShell1237709535[arrowhead=none, arrowtail=empty, dir=both];
-Enemy1237709535 -> PlatformImage1237709535[label="platformImageList
-[0..*]"];
-EnemyShell1237709535 -> CollisionBodyImage1237709535[label="close() -> close()"];
 Game1237709535 -> Camera1237709535[label="camera
 [0..1]"];
 GameObject1237709535 -> Camera1237709535[arrowhead=none];
@@ -576,11 +563,15 @@ InteractiveObjectRec1237709535 -> GameObjectRec1237709535[label="kineticList
 [0..*]", arrowhead=none];
 InteractiveObjectRec1237709535 -> Vector1237709535[label="normalForceList
 [0..*]"];
-Kinetic1237709535 -> CollisionImage1237709535[arrowhead=none];
+Kinetic1237709535 -> CollisionBodyImage1237709535[arrowhead=none];
 Kinetic1237709535 -> GameObject1237709535[arrowhead=none, arrowtail=empty, dir=both];
 Kinetic1237709535 -> GameObjectImage1237709535[label="isCollide() -> isCollide()"];
 Kinetic1237709535 -> GameObjectRec1237709535[arrowhead=none];
 Kinetic1237709535 -> GameObjectRec1237709535[label="isCollide() -> isCollide()"];
+Mushroom1237709535 -> Vector1237709535[label="TempGravity
+[0..1]"];
+Mushroom1237709535 -> Vector1237709535[label="movingVelocity
+[0..1]"];
 Platform1237709535 -> GameObjectRec1237709535[label="bodyArrayList
 [0..*]", arrowhead=none];
 Platform1237709535 -> Vector1237709535[label="normalForceList
@@ -589,12 +580,7 @@ PlatformImage1237709535 -> GameObjectRec1237709535[label="bodyArrayList
 [0..*]", arrowhead=none];
 PlatformImage1237709535 -> Vector1237709535[label="normalForceList
 [0..*]"];
-Player1237709535 -> CollisionImage1237709535[label="touchingGround() -> collideWith()"];
-Player1237709535 -> KeyInput1237709535[label="k
-[0..1]"];
-Player1237709535 -> PlatformImage1237709535[label="PlatformImageList
-[0..*]"];
-Player1237709535 -> Vector1237709535[label="horizontalForce
+Player1237709535 -> Vector1237709535[label="HORIZONTAL_FORCE
 [0..1]"];
 Vector1237709535 -> Drag1237709535[arrowhead=none, arrowtail=empty, dir=both];
     
