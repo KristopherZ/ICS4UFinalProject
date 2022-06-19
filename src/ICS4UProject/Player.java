@@ -21,6 +21,7 @@ public class Player extends CollisionBodyImage {
     private ArrayList<Platform> getPlatformList() {
         return platformList;
     }
+    private Image[] playerStates = new Image[5];
 
     KeyInput k;
 
@@ -28,6 +29,7 @@ public class Player extends CollisionBodyImage {
         super(x, y, sizeX, sizeY, image);
         getForceList().add(horizontalForce);
         setElasticity(new double[]{1,1,1,1});
+        playerStates = new Image[]{image,image,image,image,image};
         this.k = k;
     }
 
@@ -57,6 +59,14 @@ public class Player extends CollisionBodyImage {
         if(isUpdate){
             super.update(elapsedTime);
             keyMovement();
+            if(getVelocity().getY() < 0)
+                getImage().setImage(playerStates[0]);
+            else if(getVelocity().getX() > 0)
+                getImage().setImage(playerStates[1]);
+            else if(getVelocity().getX() < 0)
+                getImage().setImage(playerStates[2]);
+            else
+                getImage().setImage(playerStates[3]);
         }
     }
 
