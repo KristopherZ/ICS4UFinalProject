@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -23,6 +24,8 @@ import java.util.Arrays;
 
 public class Main extends Application{
 
+
+    private final double scaleFactor = 1.5;
     @Override
     public void start(Stage stage) throws Exception {
         stage.setWidth(500);
@@ -35,12 +38,21 @@ public class Main extends Application{
         menu1.getItems().add(exit);
         MenuBar mb = new MenuBar(menu1);
         mb.prefWidthProperty().bind(stage.widthProperty());
-        Group group = new Group(mb);
+        Group root = new Group();
+        Group group = new Group();
 
         group.minHeight(500);
         group.minHeight(500);
-
-        Scene scene = new Scene(group);
+        Scale scale = new Scale();
+        scale.setPivotX(0);
+        scale.setPivotY(0);
+        scale.setX(scaleFactor);
+        scale.setY(scaleFactor);
+        group.getTransforms().add(scale);
+        root.getChildren().add(group);
+        root.getChildren().add(mb);
+        Scene scene = new Scene(root);
+        group.setTranslateX(group.getScene().getWidth()/2);
         KeyInput k = new KeyInput(scene);
         stage.setScene(scene);
         Game game = new Game("initializer.txt",group,k);

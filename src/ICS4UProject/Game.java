@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -120,6 +121,12 @@ public class Game extends AnimationTimer {
             }
         }
 
+        for (PlatformImage platform : platformImageList) {
+            for (Player player : playerList) {
+                player.getPlatformImageList().add(platform);
+            }
+        }
+
         for (Enemy enemy : enemyList) {
             root.getChildren().add(enemy.getImage());
         }
@@ -133,7 +140,6 @@ public class Game extends AnimationTimer {
         for (PlatformImage platform : platformImageList) {
             root.getChildren().add(platform.getImage());
         }
-
 
     }
 

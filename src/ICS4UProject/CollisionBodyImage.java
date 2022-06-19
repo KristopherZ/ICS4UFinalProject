@@ -45,10 +45,10 @@ public class CollisionBodyImage extends BodyImage{
                     o.isCollide(colliders[2]),
                     o.isCollide(colliders[3])});
             e.setDepth(new double[]{
-                    o.isCollide(colliders[0]) ? ((o.getPosition().getY()+o.getSizeY()) - (getPosition().getY()-COLLIDER_WIDTH)):0,
-                    o.isCollide(colliders[1]) ? (getPosition().getY() + this.getSizeY() + COLLIDER_WIDTH - o.getPosition().getY()):0,
-                    o.isCollide(colliders[2]) ? (o.getPosition().getX()+o.getSizeX() - (getPosition().getX()-COLLIDER_WIDTH)):0,
-                    o.isCollide(colliders[3]) ? (getPosition().getX() + getSizeX() + COLLIDER_WIDTH - o.getPosition().getX()):0});
+                    o.isCollide(colliders[0]) ? ((o.getPosition().getY() + o.getSizeY()) - (getPosition().getY() - COLLIDER_WIDTH)) : 0,
+                    o.isCollide(colliders[1]) ? (getPosition().getY() + this.getSizeY() + COLLIDER_WIDTH - o.getPosition().getY()) : 0,
+                    o.isCollide(colliders[2]) ? (o.getPosition().getX() + o.getSizeX() - (getPosition().getX() - COLLIDER_WIDTH)) : 0,
+                    o.isCollide(colliders[3]) ? (getPosition().getX() + getSizeX() + COLLIDER_WIDTH - o.getPosition().getX()) : 0});
         }
         return e;
     }
