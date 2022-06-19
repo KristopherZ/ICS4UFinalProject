@@ -53,6 +53,8 @@ public class Game extends AnimationTimer {
                 Player p = new Player(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image,k);
                 p.setGravity(new Vector(0, gravityCoefficient));
+                p.setFrictionCoe(.5);
+                p.setDragCoe(0.001);
 //                p.setElasticity(new double[]{0, 0, 0, 0});
                 playerList.add(p);
 
@@ -76,6 +78,7 @@ public class Game extends AnimationTimer {
                 image = new Image(new File(values[5]).toURI().toURL().toString(), false);
                 PlatformImage platform = new PlatformImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                platform.setFrictionCoe(1);
                 platformImageList.add(platform);
             }
         }
