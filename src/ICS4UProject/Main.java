@@ -53,7 +53,7 @@ public class Main extends Application{
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction((e)->{
-            gameEnd(true);
+            gameEnd(false);
         });
         menu1.getItems().add(exit);
         MenuBar mb = new MenuBar(menu1);
