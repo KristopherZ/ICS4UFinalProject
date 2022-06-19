@@ -13,7 +13,7 @@ public class Mushroom extends CollisionBodyImage{
     private PlatformImage trigger;
     private boolean isTriggered = false;
     private ArrayList<Player> playerArrayList = new ArrayList<>();
-    private Vector TempGravity,movingVelocity;
+    private Vector TempGravity = new Vector(),movingVelocity = new Vector();
     private Boolean isEaten = false;
 
 
