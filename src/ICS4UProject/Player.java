@@ -13,6 +13,11 @@ public class Player extends CollisionBodyImage {
     private final Vector HORIZONTAL_FORCE = new Vector();
     private final ArrayList<PlatformImage> PLATFORM_IMAGE_LIST = new ArrayList<>();
     private final KeyInput k;
+
+    /**
+     * get the platform list so that player detect if ity is on the ground
+     * @return the platform list
+     */
     public ArrayList<PlatformImage> getPlatformImageList() {
         return PLATFORM_IMAGE_LIST;
     }

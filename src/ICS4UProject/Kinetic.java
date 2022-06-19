@@ -84,7 +84,7 @@ public interface Kinetic {
 
     /**
      * set the friction coefficient
-     * @param frictionCoefficient
+     * @param frictionCoefficient the friction coefficient
      */
     public void setFrictionCoe(double frictionCoefficient);
 

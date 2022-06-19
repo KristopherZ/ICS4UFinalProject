@@ -39,6 +39,7 @@ public class Game extends AnimationTimer {
      *
      * @param address The address of the "Initializer.txt" file inside the project folder
      * @param root A group - should be empty when passed into parameter
+     * @param k the keyboard input
      * @throws FileNotFoundException
      * @throws MalformedURLException
      */
