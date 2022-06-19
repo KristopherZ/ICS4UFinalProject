@@ -10,6 +10,7 @@ public class Mushroom extends CollisionBodyImage{
     private boolean isTriggered = false;
     private ArrayList<Player> playerArrayList = new ArrayList<>();
     private Vector TempGravity,movingVelocity;
+    private Boolean isEaten = false;
 
 
     /**
@@ -62,7 +63,9 @@ public class Mushroom extends CollisionBodyImage{
             super.setGravity(TempGravity);
         }
         for(Player p:playerArrayList){
-            if(isCollide(p.getImage())){
+            if(isCollide(p.getImage())&&!isEaten){
+                this.close();
+                isEaten = true;
                 System.out.println("m");
             }
         }
