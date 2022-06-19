@@ -61,6 +61,15 @@ public class CollisionBodyRec extends BodyRec {
     public void update(long elapsedTime){
         if(isUpdate){
             updateRelativePosition();
+            colliders[0].setWidth(getSizeX()-WALL_MARGIN*2);
+            colliders[0].setHeight(COLLIDER_WIDTH);
+            colliders[1].setWidth(getSizeX()-WALL_MARGIN*2);
+            colliders[1].setHeight(COLLIDER_WIDTH);
+            colliders[2].setWidth(COLLIDER_WIDTH);
+            colliders[2].setHeight(getSizeY()-WALL_MARGIN*2);
+            colliders[3].setWidth(COLLIDER_WIDTH);
+            colliders[3].setHeight(getSizeY()-WALL_MARGIN*2);
+
             colliders[0].setX(getPosition().getX()+WALL_MARGIN-getCameraPosition().getX());
             colliders[0].setY((getPosition().getY()-COLLIDER_WIDTH)-getCameraPosition().getY());
             colliders[1].setX(getPosition().getX()+WALL_MARGIN-getCameraPosition().getX());

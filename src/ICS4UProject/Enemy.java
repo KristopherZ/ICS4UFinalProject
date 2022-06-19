@@ -59,20 +59,19 @@ public class Enemy extends CollisionBodyImage {
             } else if (i.collideWith(this).getCollisionPosition()[3]) {
                 setVelocity(new Vector(100, 0));
             }
-            for (Player j : players) {
-                if (j.jumpOnEnemy(this)) {
-                    this.close();
-                    System.out.println("kill goomba");
-                }
-                else if (j.runIntoEnemy(this) && !j.isPowerUp()) {
-                        System.out.println("game over");
-                }
-                else if (j.runIntoEnemy(this)) {
-                    System.out.println("set sprite to small mario");
-                    }
-                }
-
+        }
+        for (Player j : players) {
+            if (j.jumpOnEnemy(this)) {
+                this.close();
+                System.out.println("kill goomba");
             }
+            else if (j.runIntoEnemy(this)) {
+                if(j.isPowerUp())
+                    System.out.println("1");
+                else
+                    System.out.println("game over");
+            }
+        }
     }
 
     /**
