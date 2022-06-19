@@ -32,7 +32,6 @@ public class Game extends AnimationTimer {
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private ArrayList<Player> addPlayer = new ArrayList<>();
 
-
     /**
      * Scans the "Initializer.txt" file contained within the project folder
      * Inside the file is a list of all the objects that will be in the scene, with their parameter values
