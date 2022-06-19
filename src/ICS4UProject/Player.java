@@ -19,7 +19,7 @@ public class Player extends CollisionBodyImage {
     private Image[] playerStates = new Image[5];
     private boolean isUpdate = true;
     private boolean isPowerUp = false;
-
+    private boolean isInvisible = false;
     /**
      * To construct a player
      * @param x the x coordinate of the player
@@ -66,7 +66,7 @@ public class Player extends CollisionBodyImage {
      * @return if the player is jumping on the enemy
      */
     public boolean runIntoEnemy(Enemy enemy) {
-        return this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3];
+        return (this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3]) && !isInvisible;
     }
 
     /**
@@ -162,7 +162,16 @@ public class Player extends CollisionBodyImage {
         return isPowerUp;
     }
 
-    public void setPowerUp(boolean powerUp) {
-        isPowerUp = powerUp;
+    public void setIsPowerUp(boolean isPowerUp) {
+        this.isPowerUp = isPowerUp;
     }
+
+    public boolean isInvisible() {
+        return isInvisible;
+    }
+
+    public void setIsInvisible(boolean isInvisible) {
+        this.isInvisible = isInvisible;
+    }
+
 }

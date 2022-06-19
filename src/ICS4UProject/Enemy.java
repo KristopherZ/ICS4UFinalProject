@@ -3,6 +3,7 @@ package ICS4UProject;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * represents the simple enemy object
@@ -52,26 +53,26 @@ public class Enemy extends CollisionBodyImage {
      * gets rid of players power up if ran into with a power up on
      */
     private void collide() {
-        for(PlatformImage i : platformImageList) {
-            if(i.collideWith(this).getCollisionPosition()[2]){
-                setVelocity(new Vector(-100,0));
-            }else if(i.collideWith(this).getCollisionPosition()[3]){
-                setVelocity(new Vector(100,0));
+        for (PlatformImage i : platformImageList) {
+            if (i.collideWith(this).getCollisionPosition()[2]) {
+                setVelocity(new Vector(-100, 0));
+            } else if (i.collideWith(this).getCollisionPosition()[3]) {
+                setVelocity(new Vector(100, 0));
             }
-            for(Player j : players) {
-                if(j.jumpOnEnemy(this)) {
+            for (Player j : players) {
+                if (j.jumpOnEnemy(this)) {
                     this.close();
-                }else if(j.runIntoEnemy(this) && !j.isPowerUp()) {
-                    System.out.println("game over");
+                    System.out.println("kill goomba");
                 }
-                else if(j.runIntoEnemy(this)) {
-                    j.setPowerUp(false);
+                else if (j.runIntoEnemy(this) && !j.isPowerUp()) {
+                        System.out.println("game over");
+                }
+                else if (j.runIntoEnemy(this)) {
                     System.out.println("set sprite to small mario");
+                    }
                 }
 
             }
-
-        }
     }
 
     /**
