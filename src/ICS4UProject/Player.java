@@ -20,6 +20,7 @@ public class Player extends CollisionBodyImage {
     private boolean isUpdate = true;
     private boolean isPowerUp = false;
     private boolean isInvisible = false;
+    private int score = 0;
     private Game game;
     /**
      * To construct a player
@@ -214,6 +215,14 @@ public class Player extends CollisionBodyImage {
      */
     public void gameEnd(boolean isWin){
         game.gameEnd(isWin);
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void addScore(int score) {
+        this.score += score;
     }
 
 }

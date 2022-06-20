@@ -105,6 +105,7 @@ public class Mushroom extends CollisionBodyImage{
                 this.close();
                 isEaten = true;
                 p.consumeMushroom(this);
+                p.addScore(50);
             }
         }
     }
