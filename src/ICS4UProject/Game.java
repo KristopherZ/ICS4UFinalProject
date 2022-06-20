@@ -11,8 +11,13 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +37,7 @@ public class Game extends AnimationTimer {
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private final ArrayList<Mushroom> mushroomList = new ArrayList<>();
     private Main main;
+    private Text score;
 
     /**
      * Scans the "Initializer.txt" file contained within the project folder
@@ -45,6 +51,11 @@ public class Game extends AnimationTimer {
      */
     public Game(String address, Group root, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
         main = m;
+        Font font = new Font(40);
+        score = new Text("Score:0");
+        score.setFont(font);
+        score.setX(10);
+        score.setY(70);
         File textFile = new File(address);
         Scanner input = new Scanner(textFile);
 
@@ -177,6 +188,8 @@ public class Game extends AnimationTimer {
         for (Mushroom mushroom: mushroomList) {
             root.getChildren().add(mushroom.getImage());
         }
+
+        root.getChildren().add(score);
 
         for (Enemy enemy: enemyList) {
             for (Player p: playerList) {
