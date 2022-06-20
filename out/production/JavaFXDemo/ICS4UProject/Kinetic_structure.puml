@@ -210,27 +210,11 @@ Enemy1237709535[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)Enemy</TD></TR>
 <HR/>
+<TR><TD ALIGN="LEFT" >-   isClose: boolean [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   platformImageList: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   players: ArrayList&lt;Player&gt; [0..*]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ addPlayer(player: Player)</TD></TR>
-<TR><TD ALIGN="LEFT" >- collide()</TD></TR>
-<TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
-EnemyShell1237709535[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)EnemyShell</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >+   hit: boolean [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   isUpdate: boolean [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   pickUp: boolean [1]</TD></TR>
-<HR/>
 <TR><TD ALIGN="LEFT" >+ close()</TD></TR>
 <TR><TD ALIGN="LEFT" >- collide()</TD></TR>
 <TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
@@ -245,15 +229,19 @@ Game1237709535[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)Game</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   addPlayer: ArrayList&lt;Player&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   camera: Camera [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   enemyList: ArrayList&lt;Enemy&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   enemyShellList: ArrayList&lt;EnemyShell&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   gravityCoefficient: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isUpdate: boolean [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   lastUpdatedTime: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   main: Main [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mushroomList: ArrayList&lt;Mushroom&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   platformImageList: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   playerList: ArrayList&lt;Player&gt; [0..*]</TD></TR>
 <HR/>
+<TR><TD ALIGN="LEFT" >+ endGame()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ gameEnd(isWin: boolean)</TD></TR>
 <TR><TD ALIGN="LEFT" >+ handle(timestamp: long)</TD></TR>
 </TABLE>>
 	style=filled
@@ -406,11 +394,13 @@ Mushroom1237709535[
 <TR><TD ALIGN="LEFT" >-   isEaten: Boolean [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   isTriggered: boolean [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   movingVelocity: Vector [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   platformImageList: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   playerArrayList: ArrayList&lt;Player&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   trigger: PlatformImage [0..1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ addPlayer(p: Player)</TD></TR>
 <TR><TD ALIGN="LEFT" >- checkTrigger(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >- collide()</TD></TR>
 <TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
 </TABLE>>
 	style=filled
@@ -463,14 +453,20 @@ Player1237709535[
 <HR/>
 <TR><TD ALIGN="LEFT" >-   HORIZONTAL_FORCE: Vector [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   PLATFORM_IMAGE_LIST: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   game: Game [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isInvisible: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isPowerUp: boolean [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   isUpdate: boolean [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   k: KeyInput [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   playerStates: Image[] [0..*]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ close()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ consumeMushroom(mushroom: Mushroom)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ gameEnd(isWin: boolean)</TD></TR>
 <TR><TD ALIGN="LEFT" >+ jumpOnEnemy(enemy: Enemy): boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >- keyMovement()</TD></TR>
 <TR><TD ALIGN="LEFT" >- playerStateChange()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ runIntoEnemy(enemy: Enemy): boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >- touchingGround(): boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ update(elapsedTime: long)</TD></TR>
 </TABLE>>
@@ -521,7 +517,6 @@ Camera1237709535 -> GameObject1237709535[label="arr
 CollisionBodyImage1237709535 -> BodyImage1237709535[arrowhead=none];
 CollisionBodyImage1237709535 -> BodyRec1237709535[arrowhead=none];
 CollisionBodyImage1237709535 -> Enemy1237709535[arrowhead=none, arrowtail=empty, dir=both];
-CollisionBodyImage1237709535 -> EnemyShell1237709535[label="close() -> close()"];
 CollisionBodyImage1237709535 -> GameObjectImage1237709535[label="close() -> close()"];
 CollisionBodyImage1237709535 -> GameObjectRec1237709535[arrowhead=none];
 CollisionBodyImage1237709535 -> InteractiveObjectImage1237709535[arrowhead=none, arrowtail=empty, dir=both];

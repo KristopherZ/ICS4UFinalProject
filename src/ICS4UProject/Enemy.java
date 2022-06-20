@@ -53,7 +53,7 @@ public class Enemy extends CollisionBodyImage {
      * gets rid of players power up if ran into with a power up on
      */
     private void collide() {
-        //check it the enemy collide
+        //check if the enemy collide
         for (PlatformImage i : platformImageList) {
             if (i.collideWith(this).getCollisionPosition()[2]) {
                 setVelocity(new Vector(-100, 0));
@@ -64,7 +64,7 @@ public class Enemy extends CollisionBodyImage {
         for (Player j : players) {
             if (j.jumpOnEnemy(this)&& !j.isInvisible()) {
                 this.close();
-                System.out.println("kill goomba");
+                j.addScore(100);
             }
             else if (j.runIntoEnemy(this)) {
                 if(j.isPowerUp())

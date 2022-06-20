@@ -13,6 +13,7 @@ public class Player extends CollisionBodyImage {
     private final Vector HORIZONTAL_FORCE = new Vector();
     private final ArrayList<PlatformImage> PLATFORM_IMAGE_LIST = new ArrayList<>();
     private final KeyInput k;
+    private GameObjectImage flag;
     public ArrayList<PlatformImage> getPlatformImageList() {
         return PLATFORM_IMAGE_LIST;
     }
@@ -20,6 +21,7 @@ public class Player extends CollisionBodyImage {
     private boolean isUpdate = true;
     private boolean isPowerUp = false;
     private boolean isInvisible = false;
+    private int score = 0;
     private Game game;
     /**
      * To construct a player
@@ -141,6 +143,9 @@ public class Player extends CollisionBodyImage {
             if(getVelocity().getX() < -500) {
                 setVelocity(new Vector(-500,getVelocity().getY()));
             }
+            if(flag!=null&&this.isCollide(flag.getImage())){
+                gameEnd(true);
+            }
         }
     }
 
@@ -216,4 +221,19 @@ public class Player extends CollisionBodyImage {
         game.gameEnd(isWin);
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void addScore(int score) {
+        this.score += score;
+    }
+
+    /**
+     * Set end point
+     * @param flag the end point
+     */
+    public void setFlag(GameObjectImage flag) {
+        this.flag = flag;
+    }
 }

@@ -16,44 +16,40 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
-
+import java.util.Optional;
 
 
 public class Main extends Application{
 
     double scaleFactor = 1;
     Stage stage;
+    StartUp startUp;
+    Game game;
 
     @Override
     public void start(Stage PrimaryStage) throws Exception {
         stage = PrimaryStage;
+        stage.titleProperty().setValue("Mario");
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
-
-        Button b = new Button("start");
-        b.setOnAction(e->{
-//            try {
-//                test(stage);
-//            } catch (MalformedURLException malformedURLException) {
-//                malformedURLException.printStackTrace();
-//            }
-            initLevel("initializer.txt");
-        });
-
-        VBox vb = new VBox(b);
-        Scene start = new Scene(vb);
-        stage.setScene(start);
+        startUp = new StartUp(this);
+        stage.setScene(startUp.getScene());
+//        LevelSelection ls = new LevelSelection();
+//        stage.setScene(ls.getScene());
         stage.show();
-
     }
 
     public void initLevel(String address){
 
         Menu menu1 = new Menu("File");
-        MenuItem exit = new MenuItem("Exit");
+        MenuItem exit = new MenuItem("Back to menu");
         exit.setOnAction((e)->{
-            gameEnd(false);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Progress will not be saved",ButtonType.OK,ButtonType.CANCEL);
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.OK)
+                stage.setScene(startUp.getScene());
+
         });
         menu1.getItems().add(exit);
         MenuBar mb = new MenuBar(menu1);
@@ -79,7 +75,7 @@ public class Main extends Application{
         group.setTranslateX(group.getScene().getWidth()/2);
         KeyInput k = new KeyInput(scene);
         try {
-            Game game = new Game(address,group,k,this);
+            game = new Game(address,group,k,this);
             game.start();
             stage.setScene(scene);
         } catch (FileNotFoundException e) {
@@ -95,6 +91,11 @@ public class Main extends Application{
         Group root = new Group(lb);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        game = null;
+    }
+
+    public Stage getStage(){
+        return stage;
     }
 
 
