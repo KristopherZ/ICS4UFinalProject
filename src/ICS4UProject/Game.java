@@ -22,6 +22,7 @@ public class Game extends AnimationTimer {
 
     private long lastUpdatedTime = 0;
     // coefficient that determines the amount of force from gravity
+    private boolean isUpdate = true;
     private final double gravityCoefficient = 2000;
     private static final double cameraOffset = 100;
     private final Camera camera = new Camera();
@@ -30,6 +31,7 @@ public class Game extends AnimationTimer {
     private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private final ArrayList<Mushroom> mushroomList = new ArrayList<>();
+    private Main main;
 
     /**
      * Scans the "Initializer.txt" file contained within the project folder
@@ -41,7 +43,8 @@ public class Game extends AnimationTimer {
      * @throws FileNotFoundException
      * @throws MalformedURLException
      */
-    public Game(String address, Group root, KeyInput k) throws FileNotFoundException, MalformedURLException {
+    public Game(String address, Group root, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
+        main = m;
         File textFile = new File(address);
         Scanner input = new Scanner(textFile);
 
@@ -52,7 +55,7 @@ public class Game extends AnimationTimer {
                 String[] values = line.split(" ");
                 image = new Image((new File(values[5])).toURI().toURL().toString(), false);
                 Player p = new Player(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image, k);
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image, k,this);
                 p.setGravity(new Vector(0, gravityCoefficient));
                 p.setFrictionCoe(1);
                 p.setDragCoe(0.001);
@@ -93,8 +96,10 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), pImage);
                 Mushroom mushroom = new Mushroom(trigger, Double.parseDouble(values[6]),
                         Double.parseDouble(values[7]), mImage);
+                trigger.setFrictionCoe(1);
                 mushroom.setGravity(new Vector(0,2000));
                 mushroom.setMovingVelocity(new Vector(300,0));
+                trigger.setFrictionCoe(1);
                 platformImageList.add(trigger);
                 mushroomList.add(mushroom);
             }
@@ -150,6 +155,12 @@ public class Game extends AnimationTimer {
             }
         }
 
+        for (PlatformImage platform: platformImageList) {
+            for (Mushroom mushroom: mushroomList) {
+                mushroom.getPlatformImageList().add(platform);
+            }
+        }
+
         for (Enemy enemy : enemyList) {
             root.getChildren().add(enemy.getImage());
         }
@@ -180,6 +191,7 @@ public class Game extends AnimationTimer {
             }
 
         }
+        start();
 
     }
 
@@ -192,6 +204,7 @@ public class Game extends AnimationTimer {
 
         if (lastUpdatedTime > 0) {
             long elapsedTime = timestamp - lastUpdatedTime;
+
             camera.setCameraPosition(new Vector(playerList.get(0).getPosition().getX()-cameraOffset, 0));
             for (Enemy enemy : enemyList) {
                 enemy.update(elapsedTime);
@@ -210,6 +223,29 @@ public class Game extends AnimationTimer {
             }
         }
         lastUpdatedTime = timestamp;
+    }
+
+    public void endGame() {
+        for (Enemy enemy : enemyList) {
+            enemy.close();
+        }
+        for (EnemyShell enemyShell : enemyShellList) {
+            enemyShell.close();
+        }
+        for (Player player : playerList) {
+            player.close();
+        }
+        for (PlatformImage platform : platformImageList) {
+            platform.close();
+        }
+        for (Mushroom mushroom: mushroomList) {
+            mushroom.close();
+        }
+    }
+
+    public void gameEnd(boolean isWin){
+        stop();
+        main.gameEnd(isWin);
     }
 
 }

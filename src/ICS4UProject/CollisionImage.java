@@ -63,6 +63,8 @@ public class CollisionImage extends GameObjectImage{
     public void update(long elapsedTime){
         if(isUpdate){
             updateRelativePosition();
+
+
             colliders[0].setX(getPosition().getX()-getCameraPosition().getX()+WALL_MARGIN);
             colliders[0].setY((getPosition().getY()-COLLIDER_WIDTH)-getCameraPosition().getY());
             colliders[1].setX(getPosition().getX()-getCameraPosition().getX()+WALL_MARGIN);
@@ -85,5 +87,25 @@ public class CollisionImage extends GameObjectImage{
         super.close();
         isUpdate = false;
         colliders = null;
+    }
+
+    @Override
+    public void setSizeX(double x) {
+        super.setSizeX(x);
+        //also change the size of the collider
+        colliders[0].setWidth(getSizeX()-WALL_MARGIN*2);
+        colliders[0].setHeight(COLLIDER_WIDTH);
+        colliders[1].setWidth(getSizeX()-WALL_MARGIN*2);
+        colliders[1].setHeight(COLLIDER_WIDTH);
+    }
+
+    @Override
+    public void setSizeY(double y) {
+        super.setSizeY(y);
+        //also change the size of the collider
+        colliders[2].setWidth(COLLIDER_WIDTH);
+        colliders[2].setHeight(getSizeY()-WALL_MARGIN*2);
+        colliders[3].setWidth(COLLIDER_WIDTH);
+        colliders[3].setHeight(getSizeY()-WALL_MARGIN*2);
     }
 }

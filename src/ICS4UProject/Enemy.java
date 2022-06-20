@@ -3,6 +3,7 @@ package ICS4UProject;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * represents the simple enemy object
@@ -14,6 +15,7 @@ public class Enemy extends CollisionBodyImage {
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
     private final ArrayList<Player> players = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
+    private boolean isClose = false;
 
     /**
      * To construct a player
@@ -46,21 +48,30 @@ public class Enemy extends CollisionBodyImage {
 
     /**
      * exert forces in the opposite direction of impact to make the enemy go back and forth
-     * closes the player if it touches the enemy
+     * closes the game if player touches the enemy, and it is not powered up
+     * closes the enemy if it is jumped on
+     * gets rid of players power up if ran into with a power up on
      */
     private void collide() {
-        for(PlatformImage i : platformImageList) {
-            if(i.collideWith(this).getCollisionPosition()[2]){
-                setVelocity(new Vector(-100,0));
-            }else if(i.collideWith(this).getCollisionPosition()[3]){
-                setVelocity(new Vector(100,0));
+        //check it the enemy collide
+        for (PlatformImage i : platformImageList) {
+            if (i.collideWith(this).getCollisionPosition()[2]) {
+                setVelocity(new Vector(-100, 0));
+            } else if (i.collideWith(this).getCollisionPosition()[3]) {
+                setVelocity(new Vector(100, 0));
             }
-            for(Player j : players) {
-                if(j.jumpOnEnemy(this)) {
-                    this.close();
-                }
+        }
+        for (Player j : players) {
+            if (j.jumpOnEnemy(this)&& !j.isInvisible()) {
+                this.close();
+                System.out.println("kill goomba");
             }
-
+            else if (j.runIntoEnemy(this)) {
+                if(j.isPowerUp())
+                    j.setIsPowerUp(false);
+                else
+                    j.gameEnd(true);
+            }
         }
     }
 
@@ -70,11 +81,18 @@ public class Enemy extends CollisionBodyImage {
      */
     @Override
     public void update(long elapsedTime) {
-        super.update(elapsedTime);
-        for(Player i : players) {
-            this.collideWith(i);
+        if(!isClose){
+            super.update(elapsedTime);
+            for(Player i : players) {
+                this.collideWith(i);
+            }
+            collide();
         }
-        collide();
     }
 
+    @Override
+    public void close() {
+        isClose = true;
+        super.close();
+    }
 }

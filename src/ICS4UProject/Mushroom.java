@@ -13,6 +13,7 @@ public class Mushroom extends CollisionBodyImage{
     private PlatformImage trigger;
     private boolean isTriggered = false;
     private ArrayList<Player> playerArrayList = new ArrayList<>();
+    private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private Vector TempGravity = new Vector(),movingVelocity = new Vector();
     private Boolean isEaten = false;
 
@@ -29,6 +30,14 @@ public class Mushroom extends CollisionBodyImage{
         super(trigger.getPosition().getX(), trigger.getPosition().getY()-1000, sizeX, sizeY, image);
         this.trigger = trigger;
         setElasticity(new double[]{1,1,1,1});
+    }
+
+    /**
+     * To get the current platformImage list
+     * @return the current platformImage list
+     */
+    public ArrayList<PlatformImage> getPlatformImageList() {
+        return platformImageList;
     }
 
     /**
@@ -56,6 +65,15 @@ public class Mushroom extends CollisionBodyImage{
         return false;
     }
 
+    private void collide() {
+        for(PlatformImage i : platformImageList) {
+            if(i.collideWith(this).getCollisionPosition()[2]){
+                setVelocity(new Vector(-Math.abs(movingVelocity.getX()),0));
+            }else if(i.collideWith(this).getCollisionPosition()[3]){
+                setVelocity(new Vector(Math.abs(movingVelocity.getX()),0));
+            }
+        }
+    }
 
     @Override
     public void setGravity(Vector v) {
@@ -74,6 +92,7 @@ public class Mushroom extends CollisionBodyImage{
     @Override
     public void update(long elapsedTime) {
         super.update(elapsedTime);
+        collide();
         if(!isTriggered)
             setPosition(new Vector(trigger.getPosition().getX(), trigger.getPosition().getY()-1000));
         if(checkTrigger()){
@@ -81,11 +100,11 @@ public class Mushroom extends CollisionBodyImage{
             setVelocity(movingVelocity);
             super.setGravity(TempGravity);
         }
-        for(Player p:playerArrayList){
+        for(Player p : playerArrayList){
             if(isCollide(p.getImage())&&!isEaten){
                 this.close();
                 isEaten = true;
-                System.out.println("m");//need to be replaced by power up method in the player class
+                p.consumeMushroom(this);
             }
         }
     }

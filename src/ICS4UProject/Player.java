@@ -13,17 +13,14 @@ public class Player extends CollisionBodyImage {
     private final Vector HORIZONTAL_FORCE = new Vector();
     private final ArrayList<PlatformImage> PLATFORM_IMAGE_LIST = new ArrayList<>();
     private final KeyInput k;
-
-    /**
-     * get the platform list so that player detect if ity is on the ground
-     * @return the platform list
-     */
     public ArrayList<PlatformImage> getPlatformImageList() {
         return PLATFORM_IMAGE_LIST;
     }
     private Image[] playerStates = new Image[5];
     private boolean isUpdate = true;
-
+    private boolean isPowerUp = false;
+    private boolean isInvisible = false;
+    private Game game;
     /**
      * To construct a player
      * @param x the x coordinate of the player
@@ -33,8 +30,10 @@ public class Player extends CollisionBodyImage {
      * @param image the image of the platform
      * @param k the key detection
      */
-    public Player(double x, double y, double sizeX, double sizeY, Image image, KeyInput k) {
+
+    public Player(double x, double y, double sizeX, double sizeY, Image image, KeyInput k,Game game) {
         super(x, y, sizeX, sizeY, image);
+        this.game = game;
         getForceList().add(HORIZONTAL_FORCE);
         setElasticity(new double[]{1,1,1,1});
         playerStates = new Image[]{image,image,image,image,image};
@@ -64,9 +63,27 @@ public class Player extends CollisionBodyImage {
         return this.collideWith(enemy).getCollisionPosition()[1];
     }
 
-//    public boolean killPlayer(Enemy enemy) {
-//        return this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3];
-//    }
+    /**
+     * Checks if the player has run into enemy
+     * @param enemy current enemy
+     * @return if the player is jumping on the enemy
+     */
+    public boolean runIntoEnemy(Enemy enemy) {
+        return (this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3]) && !isInvisible;
+    }
+
+    /**
+     * Checks if the player has run into mushroom, and powers the player up
+     * @param mushroom current enemy
+     */
+    public void consumeMushroom(Mushroom mushroom) {
+        if(this.collideWith(mushroom).getCollisionPosition()[0] || this.collideWith(mushroom).getCollisionPosition()[1] || this.collideWith(mushroom).getCollisionPosition()[2] || this.collideWith(mushroom).getCollisionPosition()[3]) {
+            isPowerUp = true;
+            setSizeX(getSizeX()*1.5);
+            setSizeY(getSizeY()*1.5);
+            System.out.println("change the sprite to big mario"); // animation stuff
+        }
+    }
 
     /**
      * exert a forces relative to the respective key press for player movement
@@ -143,4 +160,60 @@ public class Player extends CollisionBodyImage {
     public void setPlayerStates(Image[] playerStates) {
         this.playerStates = playerStates;
     }
+
+    /**
+     * Check if the player is at power up state
+     * @return if the player is at power up state
+     */
+    public boolean isPowerUp() {
+        return isPowerUp;
+    }
+
+    /**
+     * Set the player's power-up state
+     * @param isPowerUp player's power-up state
+     */
+
+    public void setIsPowerUp(boolean isPowerUp) {
+        this.isPowerUp = isPowerUp;
+        //if it is set to false, the player will decrease the size and invisible for 2s
+        if(!isPowerUp){
+            setSizeX(getSizeX()/1.5);
+            setSizeY(getSizeY()/1.5);
+            setIsInvisible(2000);
+        }
+    }
+
+    /**
+     * Set player to invisible for duration millisecond (It won't react from the enemy)
+     * @param duration time that the player is invisible in millisecond
+     */
+    public void setIsInvisible(long duration) {
+        isInvisible = true;
+        (new Thread(()->{
+            try {
+                Thread.sleep(duration);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            isInvisible = false;
+        })).start();
+    }
+
+    /**
+     * Check if the player is invisible
+     * @return whether the player is invisible or not
+     */
+    public boolean isInvisible(){
+        return isInvisible;
+    }
+
+    /**
+     * To end the game
+     * @param isWin the ending state
+     */
+    public void gameEnd(boolean isWin){
+        game.gameEnd(isWin);
+    }
+
 }
