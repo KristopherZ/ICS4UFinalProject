@@ -25,7 +25,6 @@ public class StartUp  {
     HBox buttonBox;
     Button start, instructions, settings;
     Image startIcon, instructionsIcon, settingsIcon;
-    Group root;
     Scene scene;
     private Main main;
     public StartUp(Main m) throws MalformedURLException, FileNotFoundException {
