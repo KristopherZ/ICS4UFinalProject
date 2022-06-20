@@ -24,18 +24,18 @@ public class Main extends Application{
     double scaleFactor = 1;
     Stage stage;
     StartUp startUp;
+    Game game;
 
     @Override
     public void start(Stage PrimaryStage) throws Exception {
-        startUp = new StartUp(this);
         stage = PrimaryStage;
+        stage.titleProperty().setValue("Mario");
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
-
+        startUp = new StartUp(this);
         stage.setScene(startUp.getScene());
         stage.show();
-
     }
 
     public void initLevel(String address){
@@ -69,7 +69,7 @@ public class Main extends Application{
         group.setTranslateX(group.getScene().getWidth()/2);
         KeyInput k = new KeyInput(scene);
         try {
-            Game game = new Game(address,group,k,this);
+            game = new Game(address,group,k,this);
             game.start();
             stage.setScene(scene);
         } catch (FileNotFoundException e) {
@@ -85,6 +85,7 @@ public class Main extends Application{
         Group root = new Group(lb);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        game = null;
     }
 
     public Stage getStage(){

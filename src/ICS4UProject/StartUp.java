@@ -36,7 +36,7 @@ public class StartUp  {
         background.setImage(backgroundImage);
         background.setX(0);
         background.setY(0);
-        background.setFitWidth(1280);
+        background.fitWidthProperty().bind(main.getStage().widthProperty());
         background.setPreserveRatio(true);
         settingsIcon = new Image((new File("Settings-icon.png")).toURI().toURL().toString(), false);
         ImageView settingsView = new ImageView(settingsIcon);
