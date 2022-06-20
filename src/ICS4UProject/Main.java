@@ -23,24 +23,16 @@ public class Main extends Application{
 
     double scaleFactor = 1;
     Stage stage;
+    StartUp startUp;
 
     @Override
     public void start(Stage PrimaryStage) throws Exception {
+        startUp = new StartUp(this);
         stage = PrimaryStage;
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
 
-        Button b = new Button("start");
-        b.setOnAction(e->{
-//            try {
-//                test(stage);
-//            } catch (MalformedURLException malformedURLException) {
-//                malformedURLException.printStackTrace();
-//            }
-            initLevel("initializer.txt");
-        });
-        StartUp startUp = new StartUp(this);
         stage.setScene(startUp.getScene());
         stage.show();
 
@@ -49,9 +41,9 @@ public class Main extends Application{
     public void initLevel(String address){
 
         Menu menu1 = new Menu("File");
-        MenuItem exit = new MenuItem("Exit");
+        MenuItem exit = new MenuItem("Back to menu");
         exit.setOnAction((e)->{
-            gameEnd(false);
+            stage.setScene(startUp.getScene());
         });
         menu1.getItems().add(exit);
         MenuBar mb = new MenuBar(menu1);
