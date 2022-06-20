@@ -221,4 +221,8 @@ public class Player extends CollisionBodyImage {
         return score;
     }
 
+    public void addScore(int score) {
+        this.score += score;
+    }
+
 }

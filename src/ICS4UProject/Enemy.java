@@ -64,6 +64,7 @@ public class Enemy extends CollisionBodyImage {
         for (Player j : players) {
             if (j.jumpOnEnemy(this)&& !j.isInvisible()) {
                 this.close();
+                j.addScore(100);
             }
             else if (j.runIntoEnemy(this)) {
                 if(j.isPowerUp())
