@@ -33,10 +33,10 @@ public class Main extends Application{
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
-//        startUp = new StartUp(this);
-//        stage.setScene(startUp.getScene());
-        LevelSelection ls = new LevelSelection();
-        stage.setScene(ls.getScene());
+        startUp = new StartUp(this);
+        stage.setScene(startUp.getScene());
+//        LevelSelection ls = new LevelSelection();
+//        stage.setScene(ls.getScene());
         stage.show();
     }
 
