@@ -48,7 +48,7 @@ public class Main extends Application{
 
     }
 
-    private void initLevel(String address){
+    public void initLevel(String address){
 
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Exit");

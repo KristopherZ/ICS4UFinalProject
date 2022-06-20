@@ -30,6 +30,7 @@ public class Player extends CollisionBodyImage {
      * @param image the image of the platform
      * @param k the key detection
      */
+
     public Player(double x, double y, double sizeX, double sizeY, Image image, KeyInput k,Game game) {
         super(x, y, sizeX, sizeY, image);
         this.game = game;
@@ -166,15 +167,29 @@ public class Player extends CollisionBodyImage {
 
     public void setIsPowerUp(boolean isPowerUp) {
         this.isPowerUp = isPowerUp;
+        if(!isPowerUp){
+            setSizeX(getSizeX()/1.5);
+            setSizeY(getSizeY()/1.5);
+            setIsInvisible(3000);
+        }
     }
 
-    public boolean isInvisible() {
+    public void setIsInvisible(long duration) {
+        isInvisible = true;
+        (new Thread(()->{
+            try {
+                Thread.sleep(duration);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            isInvisible = false;
+        })).start();
+    }
+
+    public boolean isInvisible(){
         return isInvisible;
     }
 
-    public void setIsInvisible(boolean isInvisible) {
-        this.isInvisible = isInvisible;
-    }
     public void gameEnd(boolean isWin){
         game.gameEnd(isWin);
     }
