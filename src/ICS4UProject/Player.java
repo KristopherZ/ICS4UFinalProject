@@ -170,7 +170,7 @@ public class Player extends CollisionBodyImage {
         if(!isPowerUp){
             setSizeX(getSizeX()/1.5);
             setSizeY(getSizeY()/1.5);
-            setIsInvisible(3000);
+            setIsInvisible(2000);
         }
     }
 
