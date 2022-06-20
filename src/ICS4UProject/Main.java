@@ -46,6 +46,7 @@ public class Main extends Application{
         MenuItem exit = new MenuItem("Back to menu");
         exit.setOnAction((e)->{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Progress will not be saved",ButtonType.OK,ButtonType.CANCEL);
+            alert.initOwner(stage);
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK)
                 stage.setScene(startUp.getScene());
