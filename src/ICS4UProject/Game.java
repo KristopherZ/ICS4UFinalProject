@@ -51,7 +51,7 @@ public class Game extends AnimationTimer {
      */
     public Game(String address, Group root, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
         main = m;
-        Font font = new Font(40);
+        Font font = new Font(30);
         score = new Text("Score:0");
         score.setFont(font);
         score.setX(10);
@@ -214,7 +214,7 @@ public class Game extends AnimationTimer {
      */
     @Override
     public void handle(long timestamp) {
-
+        score.setText("Score:"+playerList.get(0).getScore());
         if (lastUpdatedTime > 0) {
             long elapsedTime = timestamp - lastUpdatedTime;
 
