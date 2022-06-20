@@ -61,14 +61,15 @@ public class Enemy extends CollisionBodyImage {
             }
         }
         for (Player j : players) {
-            if (j.runIntoEnemy(this)) {
+            if (j.jumpOnEnemy(this)&& !j.isInvisible()) {
+                this.close();
+                System.out.println("kill goomba");
+            }
+            else if (j.runIntoEnemy(this)) {
                 if(j.isPowerUp())
                     j.setIsPowerUp(false);
                 else
                     j.gameEnd(true);
-            } else if (j.jumpOnEnemy(this)&& !j.isInvisible()) {
-                this.close();
-                System.out.println("kill goomba");
             }
         }
     }
