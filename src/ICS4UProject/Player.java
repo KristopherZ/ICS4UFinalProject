@@ -161,12 +161,22 @@ public class Player extends CollisionBodyImage {
         this.playerStates = playerStates;
     }
 
+    /**
+     * Check if the player is at power up state
+     * @return if the player is at power up state
+     */
     public boolean isPowerUp() {
         return isPowerUp;
     }
 
+    /**
+     * Set the player's power-up state
+     * @param isPowerUp player's power-up state
+     */
+
     public void setIsPowerUp(boolean isPowerUp) {
         this.isPowerUp = isPowerUp;
+        //if it is set to false, the player will decrease the size and invisible for 2s
         if(!isPowerUp){
             setSizeX(getSizeX()/1.5);
             setSizeY(getSizeY()/1.5);
@@ -174,6 +184,10 @@ public class Player extends CollisionBodyImage {
         }
     }
 
+    /**
+     * Set player to invisible for duration millisecond (It won't react from the enemy)
+     * @param duration time that the player is invisible in millisecond
+     */
     public void setIsInvisible(long duration) {
         isInvisible = true;
         (new Thread(()->{
@@ -186,10 +200,18 @@ public class Player extends CollisionBodyImage {
         })).start();
     }
 
+    /**
+     * Check if the player is invisible
+     * @return whether the player is invisible or not
+     */
     public boolean isInvisible(){
         return isInvisible;
     }
 
+    /**
+     * To end the game
+     * @param isWin the ending state
+     */
     public void gameEnd(boolean isWin){
         game.gameEnd(isWin);
     }
