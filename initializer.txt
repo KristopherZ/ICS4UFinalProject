@@ -1,5 +1,7 @@
 1 300 0 50 100 image.jpg
 4 0 400 2000 50 longplatform.jpg
+4 0 450 2000 50 longplatform.jpg
+4 2500 450 2000 50 longplatform.jpg
 4 1000 300 100 100 Pipe.png
 5 600 200 50 50 questionblock.jpg 50 50 classic_mushroom.jpg
 2 400 0 50 50 Goomba.png

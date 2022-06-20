@@ -27,7 +27,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage PrimaryStage) throws Exception {
-        startUp = new StartUp(this);
+        StartUp startUp = new StartUp(this);
         stage = PrimaryStage;
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
@@ -35,7 +35,6 @@ public class Main extends Application{
 
         stage.setScene(startUp.getScene());
         stage.show();
-
     }
 
     public void initLevel(String address){

@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 
 public class StartUp  {
     HBox buttonBox;
+    Instructions i;
     Button start, instructions, settings;
     Image startIcon, instructionsIcon, settingsIcon;
     Group root;
@@ -30,6 +31,7 @@ public class StartUp  {
     private Main main;
     public StartUp(Main m) throws MalformedURLException, FileNotFoundException {
         main = m;
+        i = new Instructions(main);
         InputStream stream = new FileInputStream("Startup-background.jpg");
         Image backgroundImage = new Image(stream);
         ImageView background = new ImageView();
@@ -64,17 +66,17 @@ public class StartUp  {
         buttonBox.getChildren().addAll(start, instructions, settings);
         buttonBox.setAlignment(Pos.CENTER);
 //        buttonBox.setPadding(new Insets(10, 20, 10, 20));
+        StackPane sp = new StackPane(background, buttonBox);
+        scene = new Scene(sp);
         start.setOnAction(e -> {
             main.initLevel("initializer.txt");
         });
         instructions.setOnAction(e -> {
-
+            main.getStage().setScene(i.getScene());
         });
         settings.setOnAction(e -> {
 
         });
-        StackPane sp = new StackPane(background, buttonBox);
-        scene = new Scene(sp);
     }
 
     public Scene getScene() {
