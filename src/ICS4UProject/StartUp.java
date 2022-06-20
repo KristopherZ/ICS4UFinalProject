@@ -68,7 +68,7 @@ public class StartUp  {
         StackPane sp = new StackPane(background, buttonBox);
         scene = new Scene(sp);
         start.setOnAction(e -> {
-            main.initLevel("initializer.txt");
+            main.setLevelSelection();
         });
         instructions.setOnAction(e -> {
             main.getStage().setScene(i.getScene());

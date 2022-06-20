@@ -70,7 +70,7 @@ public class Enemy extends CollisionBodyImage {
                 if(j.isPowerUp())
                     j.setIsPowerUp(false);
                 else
-                    j.gameEnd(true);
+                    j.gameEnd(false);
             }
         }
     }

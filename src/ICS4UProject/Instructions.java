@@ -43,12 +43,7 @@ public class Instructions {
         vBox.setAlignment(Pos.CENTER);
         scene = new Scene(vBox);
         back.setOnAction(e -> {
-            try {
-                startUp = new StartUp(main);
-            } catch (MalformedURLException | FileNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
-            m.getStage().setScene(startUp.getScene());
+            main.setStartUp();
         });
     }
 

@@ -1,4 +1,6 @@
 //Main
+//We used J"ava in Two Semester" as GUI components reference
+//https://link.springer.com/book/10.1007/978-3-319-99420-8
 
 package ICS4UProject;
 
@@ -19,16 +21,19 @@ import java.net.MalformedURLException;
 import java.util.Optional;
 
 
-public class Main extends Application{
+public class Main extends Application {
 
     double scaleFactor = 1;
     Stage stage;
     StartUp startUp;
+    LevelSelection levelSelection;
+    int gameLevel = 0;
 
     @Override
     public void start(Stage PrimaryStage) throws Exception {
         stage = PrimaryStage;
         startUp = new StartUp(this);
+        levelSelection = new LevelSelection("LevelSelection.txt",this);
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
@@ -37,8 +42,8 @@ public class Main extends Application{
         stage.show();
     }
 
-    public void initLevel(String address){
-
+    public void initLevel(String address, int level){
+        gameLevel=level;
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Back to menu");
         exit.setOnAction((e)->{
@@ -83,11 +88,10 @@ public class Main extends Application{
     }
 
 
-    public void gameEnd(boolean isWin){
-        Label lb = new Label("Game End");
-        Group root = new Group(lb);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+    public void gameEnd(boolean isWin) {
+        if(isWin)
+            levelSelection.unlock(gameLevel+1);
+        setLevelSelection();
     }
 
     public Stage getStage(){
@@ -99,4 +103,11 @@ public class Main extends Application{
         launch(args);
     }
 
+    public void setStartUp(){
+        stage.setScene(startUp.getScene());
+    }
+
+    public void setLevelSelection() {
+        stage.setScene(levelSelection.getScene());
+    }
 }
