@@ -27,6 +27,7 @@ public class Instructions {
     Main main;
 
     public Instructions(Main m) throws MalformedURLException, FileNotFoundException {
+        main = m;
         back = new Button("Back");
         vBox = new VBox(10);
         ImageView picture1 = new ImageView();
@@ -42,7 +43,6 @@ public class Instructions {
         vBox.setAlignment(Pos.CENTER);
         scene = new Scene(vBox);
         back.setOnAction(e -> {
-            main = m;
             try {
                 startUp = new StartUp(main);
             } catch (MalformedURLException | FileNotFoundException ex) {
