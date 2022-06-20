@@ -53,6 +53,7 @@ public class Enemy extends CollisionBodyImage {
      * gets rid of players power up if ran into with a power up on
      */
     private void collide() {
+        //check it the enemy collide
         for (PlatformImage i : platformImageList) {
             if (i.collideWith(this).getCollisionPosition()[2]) {
                 setVelocity(new Vector(-100, 0));
