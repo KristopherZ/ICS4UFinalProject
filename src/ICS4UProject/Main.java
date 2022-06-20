@@ -27,8 +27,8 @@ public class Main extends Application{
 
     @Override
     public void start(Stage PrimaryStage) throws Exception {
-        StartUp startUp = new StartUp(this);
         stage = PrimaryStage;
+        StartUp startUp = new StartUp(this);
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
