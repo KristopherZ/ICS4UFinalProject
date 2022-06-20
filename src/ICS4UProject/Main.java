@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
-
+import java.util.Optional;
 
 
 public class Main extends Application{
@@ -28,7 +28,7 @@ public class Main extends Application{
     @Override
     public void start(Stage PrimaryStage) throws Exception {
         stage = PrimaryStage;
-        StartUp startUp = new StartUp(this);
+        startUp = new StartUp(this);
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
@@ -42,7 +42,11 @@ public class Main extends Application{
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Back to menu");
         exit.setOnAction((e)->{
-            stage.setScene(startUp.getScene());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Progress will not be saved",ButtonType.OK,ButtonType.CANCEL);
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.OK)
+                stage.setScene(startUp.getScene());
+
         });
         menu1.getItems().add(exit);
         MenuBar mb = new MenuBar(menu1);
