@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
-
+import java.util.Optional;
 
 
 public class Main extends Application{
@@ -45,7 +45,11 @@ public class Main extends Application{
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Back to menu");
         exit.setOnAction((e)->{
-            stage.setScene(startUp.getScene());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Progress will not be saved",ButtonType.OK,ButtonType.CANCEL);
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.OK)
+                stage.setScene(startUp.getScene());
+
         });
         menu1.getItems().add(exit);
         MenuBar mb = new MenuBar(menu1);
