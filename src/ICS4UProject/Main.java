@@ -40,10 +40,8 @@ public class Main extends Application{
 //            }
             initLevel("initializer.txt");
         });
-
-        VBox vb = new VBox(b);
-        Scene start = new Scene(vb);
-        stage.setScene(start);
+        StartUp startUp = new StartUp(this);
+        stage.setScene(startUp.getScene());
         stage.show();
 
     }
@@ -95,6 +93,10 @@ public class Main extends Application{
         Group root = new Group(lb);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+    }
+
+    public Stage getStage(){
+        return stage;
     }
 
 
