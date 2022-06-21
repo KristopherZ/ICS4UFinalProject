@@ -19,6 +19,9 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.Optional;
 
+/**
+ * This class contains the main method that actually run the game
+ */
 
 public class Main extends Application {
 
