@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -56,7 +57,7 @@ public class Game extends AnimationTimer {
 
         main = m;
         Font font = new Font(30);
-        score = new Text("Score:0");
+        score = new Text("Score:000");
         score.setFont(font);
         score.setX(10);
         score.setY(70);
@@ -126,6 +127,9 @@ public class Game extends AnimationTimer {
                 flag = new GameObjectImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), flagImage);
                 camera.add(flag);
+            } else if(line.startsWith("background")) {
+                String[] values = line.split(" ");
+                main.setSceneColor(Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]));
             }
         }
 
@@ -230,7 +234,7 @@ public class Game extends AnimationTimer {
      */
     @Override
     public void handle(long timestamp) {
-        score.setText("Score:"+playerList.get(0).getScore());
+        score.setText("Score:"+ (new DecimalFormat("000")).format(playerList.get(0).getScore()));
         if (lastUpdatedTime > 0) {
             long elapsedTime = timestamp - lastUpdatedTime;
 
