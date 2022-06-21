@@ -9,8 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
@@ -40,6 +39,14 @@ public class Main extends Application {
     @Override
     public void start(Stage PrimaryStage) {
         stage = PrimaryStage;
+        AudioClip music = null;
+        try {
+            music = new AudioClip((new File("SuperMarioBrosThemeSong.mp3")).toURI().toURL().toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        music.setCycleCount(AudioClip.INDEFINITE);
+        music.play();
         startUp = new StartUp(this);
         levelSelection = new LevelSelection("LevelSelection.txt",this);
         try {
