@@ -59,9 +59,10 @@ public class LevelSelection {
             Button levelButton = new Button();
             levelButton.setGraphic(imageView);
             levelButton.setOnAction(e -> {
-                System.out.println(levels.indexOf(e.getSource()));
+//                System.out.println(levels.indexOf(e.getSource()));
                 if (isLock.get(finalI)) {
                     Alert alert = new Alert(Alert.AlertType.WARNING, "This level has not been unlocked yet", ButtonType.OK);
+                    alert.initOwner(main.getStage());
                     alert.showAndWait();
                 } else {
                     main.initLevel(levelNames.get(finalI) + "\\initializer.txt",levels.indexOf(e.getSource()));
@@ -104,6 +105,7 @@ public class LevelSelection {
             levels.get(i).setOnAction(e -> {
                 if (isLock.get(finalI)) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This level has not been unlocked yet", ButtonType.OK);
+                    alert.initOwner(main.getStage());
                     alert.showAndWait();
                 } else {
                     main.initLevel(levelNames.get(finalI) + "\\initializer.txt",levels.indexOf(e.getSource()));

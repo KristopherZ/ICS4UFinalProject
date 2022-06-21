@@ -48,6 +48,7 @@ public class Main extends Application {
         MenuItem exit = new MenuItem("Back to menu");
         exit.setOnAction((e)->{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Progress will not be saved",ButtonType.OK,ButtonType.CANCEL);
+            alert.initOwner(stage);
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK)
                 stage.setScene(startUp.getScene());
@@ -91,6 +92,11 @@ public class Main extends Application {
     public void gameEnd(boolean isWin) {
         if(isWin)
             levelSelection.unlock(gameLevel+1);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, isWin? "You win!":"You lose!",ButtonType.OK);
+        alert.initOwner(stage);
+        alert.show();
+
         setLevelSelection();
     }
 
