@@ -25,7 +25,7 @@ import java.util.StringJoiner;
  * This classed is used for level selection
  */
 public class LevelSelection {
-    private ArrayList<Button> levels = new ArrayList<>(); // all the levels are button so they are stored in a arraylist
+    private ArrayList<Button> levels = new ArrayList<>(); // all the levels are button so they are stored in an arraylist
     private Scene scene; // the scene the level selection
     private ScrollPane scrollPane; //the scroll pane for the level selection
     private HBox hBox; //use a hbox to store all the buttons
