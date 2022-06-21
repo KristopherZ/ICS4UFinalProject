@@ -6,9 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -31,6 +35,7 @@ public class LevelSelection {
     private ArrayList<Boolean> isLock = new ArrayList<>(); //the arraylist that stores whether this level is locked or not
     private Main main;
     private String fileAddress;
+    private BorderPane borderPane;
 
     /**
      * To initialize the level selection pane
@@ -91,8 +96,8 @@ public class LevelSelection {
         hBox = new HBox(40);
         vBox = new VBox(10);
         Label label = new Label("Level Selection");
-        Font font = new Font(40);
-        label.setFont(font);
+
+        label.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, FontPosture.REGULAR, 40));
         hBox.setPadding(new Insets(10, 40, 10, 40));
         hBox.getChildren().addAll(levels);
         scrollPane = new ScrollPane(hBox);
@@ -102,7 +107,24 @@ public class LevelSelection {
             main.setStartUp();
         });
         vBox.getChildren().addAll(label, scrollPane, back);
-        scene = new Scene(vBox);
+        //menu
+        Menu file = new Menu("File");
+        MenuBar mb = new MenuBar(file);
+        MenuItem about = new MenuItem("About");
+        about.setOnAction(e->{
+            Alert info = new Alert(Alert.AlertType.INFORMATION,Main.ABOUT,ButtonType.OK);
+            info.initOwner(main.getStage());
+            info.showAndWait();
+        });
+        MenuItem exit = new MenuItem("Exit");
+        exit.setOnAction(e->{
+            System.exit(0);
+        });
+        file.getItems().addAll(about,exit);
+        borderPane = new BorderPane();
+        borderPane.setTop(mb);
+        borderPane.setCenter(vBox);
+        scene = new Scene(borderPane);
 
     }
 

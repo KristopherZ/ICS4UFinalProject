@@ -19,8 +19,15 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.Optional;
 
+/**
+ * This class contains the main method that actually run the game
+ */
 
 public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     double scaleFactor = 1;
     Stage stage;
@@ -28,13 +35,18 @@ public class Main extends Application {
     Scene scene;
     LevelSelection levelSelection;
     int gameLevel = 0;
+    final static String ABOUT = "Authors:Efe, Kristopher, Ryan\nGithub:https://github.com/KristopherZ/ICS4UFinalProject";
 
     @Override
-    public void start(Stage PrimaryStage) throws Exception {
+    public void start(Stage PrimaryStage) {
         stage = PrimaryStage;
         startUp = new StartUp(this);
         levelSelection = new LevelSelection("LevelSelection.txt",this);
-        stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
+        try {
+            stage.getIcons().add(new Image((new File("Sprites/icon.png").toURI().toURL().toString()),false));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         stage.setHeight(720);
         stage.setWidth(1280);
 
@@ -83,6 +95,7 @@ public class Main extends Application {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            fileDoesNotFound();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -98,7 +111,7 @@ public class Main extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, isWin? "You win!":"You lose!",ButtonType.OK);
         alert.initOwner(stage);
         alert.show();
-
+        System.gc();
         setLevelSelection();
     }
 
@@ -110,16 +123,20 @@ public class Main extends Application {
         return stage;
     }
 
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     public void setStartUp(){
         stage.setScene(startUp.getScene());
     }
 
     public void setLevelSelection() {
         stage.setScene(levelSelection.getScene());
+    }
+
+    /**
+     * Helper method for fileDoesNotFoundException
+     */
+    private void fileDoesNotFound(){
+        Alert alert = new Alert(Alert.AlertType.ERROR,"Essential file CANNOT be found",ButtonType.OK);
+        alert.showAndWait();
+        System.exit(-1);
     }
 }
