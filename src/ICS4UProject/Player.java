@@ -157,6 +157,9 @@ public class Player extends CollisionBodyImage {
             if(flag!=null&&this.isCollide(flag.getImage())){
                 gameEnd(true);
             }
+            if(getPosition().getY()>800){
+                gameEnd(false);
+            }
         }
     }
 
