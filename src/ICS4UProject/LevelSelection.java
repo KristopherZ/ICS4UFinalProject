@@ -173,6 +173,10 @@ public class LevelSelection {
         pw.close();
     }
 
+    /**
+     * get the scene for level selection
+     * @return the scene for level selection
+     */
     public Scene getScene() {
         return scene;
     }
