@@ -16,7 +16,11 @@ public class EnemyShell extends Enemy {
 
     private boolean isClose = false;
     private boolean shellForm = false;
-    Image shellImage = new Image((new File("Sprites/shell.png")).toURI().toURL().toString(), false);
+    Image shellImage;
+
+    public void setShellImage(Image shellImage) {
+        this.shellImage = shellImage;
+    }
 
     /**
      * To construct an enemy shell
