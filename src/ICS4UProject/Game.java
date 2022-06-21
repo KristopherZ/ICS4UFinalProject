@@ -60,6 +60,7 @@ public class Game extends AnimationTimer {
         Font font = new Font(30);
         score = new Text("Score:000");
         score.setFont(font);
+        score.setStroke(Color.WHITE);
         score.setX(10);
         score.setY(70);
         File textFile = new File(address);
