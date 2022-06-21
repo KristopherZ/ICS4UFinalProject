@@ -32,6 +32,8 @@ public class Game extends AnimationTimer {
     // coefficient that determines the amount of force from gravity
     private boolean isUpdate = true;
     private GameObjectImage flag;
+
+    private ArrayList<GameObjectImage> decorations = new ArrayList<>();
     private final double gravityCoefficient = 2000;
     private static final double cameraOffset = 100;
     private final Camera camera = new Camera();
@@ -142,6 +144,20 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]),50,50, image);
                 platform.setFrictionCoe(1);
                 platformImageList.add(platform);
+            } else if(line.startsWith("8")) {
+                Image image;
+                String[] values = line.split(" ");
+                image = new Image(new File(values[5]).toURI().toURL().toString(), false);
+                GameObjectImage decoration = new GameObjectImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                decorations.add(decoration);
+            } else if (line.startsWith("9")) {
+                Image image;
+                String[] values = line.split(" ");
+                image = new Image(new File(values[5]).toURI().toURL().toString(), false);
+                MovingPlatformImage mpi = new MovingPlatformImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                platformImageList.add(mpi);
             }
         }
 
@@ -177,6 +193,9 @@ public class Game extends AnimationTimer {
         for (Mushroom mushroom: mushroomList) {
             camera.add(mushroom);
         }
+        for (GameObjectImage decoration: decorations) {
+            camera.add(decoration);
+        }
 
         for (PlatformImage platform : platformImageList) {
             for (Enemy enemy : enemyList) {
@@ -204,6 +223,9 @@ public class Game extends AnimationTimer {
         if(flag!=null)
             root.getChildren().add(flag.getImage());
 
+        for (GameObjectImage g: decorations) {
+            root.getChildren().add(g.getImage());
+        }
         for (Enemy enemy : enemyList) {
             root.getChildren().add(enemy.getImage());
         }
@@ -272,6 +294,9 @@ public class Game extends AnimationTimer {
             }
             for (Mushroom mushroom: mushroomList) {
                 mushroom.update(elapsedTime);
+            }
+            for (GameObjectImage decoration: decorations) {
+                decoration.update(elapsedTime);
             }
             if(flag!=null)
                 flag.update(elapsedTime);
