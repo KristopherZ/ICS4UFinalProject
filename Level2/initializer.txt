@@ -1,3 +1,4 @@
+background 0 0 0
 1 0 0 50 100 Sprites/image.jpg
 4 0 630 2000 50 Sprites/longplatform.jpg
 4 2500 450 2000 50 Sprites/longplatform.jpg
