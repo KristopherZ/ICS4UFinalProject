@@ -88,7 +88,7 @@ public class Player extends CollisionBodyImage {
      * @param mushroom current enemy
      */
     public void consumeMushroom(Mushroom mushroom) {
-        if(this.collideWith(mushroom).getCollisionPosition()[0] || this.collideWith(mushroom).getCollisionPosition()[1] || this.collideWith(mushroom).getCollisionPosition()[2] || this.collideWith(mushroom).getCollisionPosition()[3]) {
+        if(!isPowerUp&&(this.collideWith(mushroom).getCollisionPosition()[0] || this.collideWith(mushroom).getCollisionPosition()[1] || this.collideWith(mushroom).getCollisionPosition()[2] || this.collideWith(mushroom).getCollisionPosition()[3])) {
             isPowerUp = true;
             setSizeX(getSizeX()*1.5);
             setSizeY(getSizeY()*1.5);
