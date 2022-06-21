@@ -35,13 +35,14 @@ public class Game extends AnimationTimer {
     private final double gravityCoefficient = 2000;
     private static final double cameraOffset = 100;
     private final Camera camera = new Camera();
-    private final ArrayList<Player> playerList = new ArrayList<>();
-    private final ArrayList<Enemy> enemyList = new ArrayList<>();
-    private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
-    private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
-    private final ArrayList<Mushroom> mushroomList = new ArrayList<>();
+    private ArrayList<Player> playerList = new ArrayList<>();
+    private ArrayList<Enemy> enemyList = new ArrayList<>();
+    private ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
+    private ArrayList<PlatformImage> platformImageList = new ArrayList<>();
+    private ArrayList<Mushroom> mushroomList = new ArrayList<>();
     private Main main;
     private Text score;
+    Group root;
 
     /**
      * Scans the "Initializer.txt" file contained within the project folder
@@ -49,12 +50,12 @@ public class Game extends AnimationTimer {
      * This simplifies the process of creating Kinetic objects and PlatformImage objects
      *
      * @param address The address of the "Initializer.txt" file inside the project folder
-     * @param root A group - should be empty when passed into parameter
+     * @param group A group - should be empty when passed into parameter
      * @throws FileNotFoundException
      * @throws MalformedURLException
      */
-    public Game(String address, Group root, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
-
+    public Game(String address, Group group, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
+        root = group;
         main = m;
         Font font = new Font(30);
         score = new Text("Score:000");
@@ -289,7 +290,14 @@ public class Game extends AnimationTimer {
     }
 
     public void gameEnd(boolean isWin){
+        endGame();
         stop();
+        root.getChildren().clear();
+        playerList=new ArrayList<>();
+        enemyList=new ArrayList<>();
+        enemyShellList=new ArrayList<>();
+        platformImageList=new ArrayList<>();
+        mushroomList=new ArrayList<>();
         main.gameEnd(isWin);
     }
 

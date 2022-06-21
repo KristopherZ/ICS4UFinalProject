@@ -111,7 +111,7 @@ public class Main extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, isWin? "You win!":"You lose!",ButtonType.OK);
         alert.initOwner(stage);
         alert.show();
-
+        System.gc();
         setLevelSelection();
     }
 
