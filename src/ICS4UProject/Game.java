@@ -74,7 +74,7 @@ public class Game extends AnimationTimer {
                 Player p = new Player(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image, k,this);
                 p.setGravity(new Vector(0, gravityCoefficient));
-                p.setFrictionCoe(1);
+                p.setFrictionCoe(0.4);
                 p.setDragCoe(0.001);
 //                p.setElasticity(new double[]{0, 0, 0, 0});
                 playerList.add(p);
