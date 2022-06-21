@@ -239,6 +239,7 @@ Game1237709535[
 <TR><TD ALIGN="LEFT" >-   mushroomList: ArrayList&lt;Mushroom&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   platformImageList: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   playerList: ArrayList&lt;Player&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   score: Text [0..1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ endGame()</TD></TR>
 <TR><TD ALIGN="LEFT" >+ gameEnd(isWin: boolean)</TD></TR>
@@ -453,13 +454,16 @@ Player1237709535[
 <HR/>
 <TR><TD ALIGN="LEFT" >-   HORIZONTAL_FORCE: Vector [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   PLATFORM_IMAGE_LIST: ArrayList&lt;PlatformImage&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   flag: GameObjectImage [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   game: Game [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   isInvisible: boolean [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   isPowerUp: boolean [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   isUpdate: boolean [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   k: KeyInput [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   playerStates: Image[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   score: int [1]</TD></TR>
 <HR/>
+<TR><TD ALIGN="LEFT" >+ addScore(score: int)</TD></TR>
 <TR><TD ALIGN="LEFT" >+ close()</TD></TR>
 <TR><TD ALIGN="LEFT" >+ consumeMushroom(mushroom: Mushroom)</TD></TR>
 <TR><TD ALIGN="LEFT" >+ gameEnd(isWin: boolean)</TD></TR>

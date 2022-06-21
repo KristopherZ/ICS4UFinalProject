@@ -1,4 +1,6 @@
 //Main
+//We used J"ava in Two Semester" as GUI components reference
+//https://link.springer.com/book/10.1007/978-3-319-99420-8
 
 package ICS4UProject;
 
@@ -19,33 +21,34 @@ import java.net.MalformedURLException;
 import java.util.Optional;
 
 
-public class Main extends Application{
+public class Main extends Application {
 
     double scaleFactor = 1;
     Stage stage;
     StartUp startUp;
-    Game game;
+    LevelSelection levelSelection;
+    int gameLevel = 0;
 
     @Override
     public void start(Stage PrimaryStage) throws Exception {
         stage = PrimaryStage;
-        stage.titleProperty().setValue("Mario");
+        startUp = new StartUp(this);
+        levelSelection = new LevelSelection("LevelSelection.txt",this);
         stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
-        startUp = new StartUp(this);
+
         stage.setScene(startUp.getScene());
-//        LevelSelection ls = new LevelSelection();
-//        stage.setScene(ls.getScene());
         stage.show();
     }
 
-    public void initLevel(String address){
-
+    public void initLevel(String address, int level){
+        gameLevel=level;
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Back to menu");
         exit.setOnAction((e)->{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Progress will not be saved",ButtonType.OK,ButtonType.CANCEL);
+            alert.initOwner(stage);
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK)
                 stage.setScene(startUp.getScene());
@@ -75,7 +78,7 @@ public class Main extends Application{
         group.setTranslateX(group.getScene().getWidth()/2);
         KeyInput k = new KeyInput(scene);
         try {
-            game = new Game(address,group,k,this);
+            Game game = new Game(address,group,k,this);
             game.start();
             stage.setScene(scene);
         } catch (FileNotFoundException e) {
@@ -86,12 +89,15 @@ public class Main extends Application{
     }
 
 
-    public void gameEnd(boolean isWin){
-        Label lb = new Label("Game End");
-        Group root = new Group(lb);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        game = null;
+    public void gameEnd(boolean isWin) {
+        if(isWin)
+            levelSelection.unlock(gameLevel+1);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, isWin? "You win!":"You lose!",ButtonType.OK);
+        alert.initOwner(stage);
+        alert.show();
+
+        setLevelSelection();
     }
 
     public Stage getStage(){
@@ -103,4 +109,11 @@ public class Main extends Application{
         launch(args);
     }
 
+    public void setStartUp(){
+        stage.setScene(startUp.getScene());
+    }
+
+    public void setLevelSelection() {
+        stage.setScene(levelSelection.getScene());
+    }
 }
