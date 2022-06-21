@@ -1,5 +1,5 @@
 //Main
-//We used J"ava in Two Semester" as GUI components reference
+//We used "Java in Two Semester" as GUI components reference
 //https://link.springer.com/book/10.1007/978-3-319-99420-8
 
 package ICS4UProject;
