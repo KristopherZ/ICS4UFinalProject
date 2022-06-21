@@ -1,6 +1,5 @@
 package ICS4UProject;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -96,7 +94,7 @@ public class StartUp  {
         MenuBar mb = new MenuBar(file);
         MenuItem about = new MenuItem("About");
         about.setOnAction(e->{
-            Alert info = new Alert(Alert.AlertType.INFORMATION,Main.about,ButtonType.OK);
+            Alert info = new Alert(Alert.AlertType.INFORMATION,Main.ABOUT,ButtonType.OK);
             info.initOwner(main.getStage());
             info.showAndWait();
         });

@@ -27,7 +27,7 @@ public class Enemy extends CollisionBodyImage {
      */
     public Enemy(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
-        setElasticity(new double[]{1,1,1,1});
+        setElasticity(new double[]{1,1,.5,.5});
     }
 
     /**

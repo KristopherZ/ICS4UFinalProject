@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
 /**
@@ -58,7 +57,7 @@ public class Instructions {
         MenuBar mb = new MenuBar(file);
         MenuItem about = new MenuItem("About");
         about.setOnAction(e->{
-            Alert info = new Alert(Alert.AlertType.INFORMATION,Main.about,ButtonType.OK);
+            Alert info = new Alert(Alert.AlertType.INFORMATION,Main.ABOUT,ButtonType.OK);
             info.initOwner(main.getStage());
             info.showAndWait();
         });

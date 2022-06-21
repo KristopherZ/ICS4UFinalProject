@@ -112,7 +112,7 @@ public class LevelSelection {
         MenuBar mb = new MenuBar(file);
         MenuItem about = new MenuItem("About");
         about.setOnAction(e->{
-            Alert info = new Alert(Alert.AlertType.INFORMATION,Main.about,ButtonType.OK);
+            Alert info = new Alert(Alert.AlertType.INFORMATION,Main.ABOUT,ButtonType.OK);
             info.initOwner(main.getStage());
             info.showAndWait();
         });
