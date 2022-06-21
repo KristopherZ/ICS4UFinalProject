@@ -20,14 +20,14 @@ import java.net.MalformedURLException;
  */
 public class Instructions {
 
-    Button back;
-    Scene scene;
-    StartUp startUp;
-    VBox vBox;
+    private Button back;
+    private Scene scene;
+    private StartUp startUp;
+    private VBox vBox;
 
-    Group root;
+    private Group root;
 
-    Main main;
+    private Main main;
 
     /**
      * Create a new instruction pane

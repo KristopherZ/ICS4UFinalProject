@@ -21,11 +21,11 @@ import java.net.MalformedURLException;
  * This class shows the start up scene
  */
 public class StartUp  {
-    HBox buttonBox;
-    Instructions instructionsScene;
-    Button start, instructions, settings;
-    Image startIcon, instructionsIcon, settingsIcon;
-    Scene scene;
+    private HBox buttonBox;
+    private Instructions instructionsScene;
+    private Button start, instructions, settings;
+    private Image startIcon, instructionsIcon, settingsIcon;
+    private Scene scene;
     private Main main;
 
     /**
