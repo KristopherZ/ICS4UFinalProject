@@ -2,6 +2,11 @@ package ICS4UProject;
 
 import javafx.scene.image.Image;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * represents the shell enemy object
  * better known as the "koopa troopa"
@@ -9,9 +14,9 @@ import javafx.scene.image.Image;
 
 public class EnemyShell extends Enemy {
 
-    private boolean pickUp = false;
-    public boolean hit = false;
-    private boolean isUpdate = true;
+    private boolean isClose = false;
+    private boolean shellForm = false;
+    Image shellImage = new Image((new File("Sprites/shell.png")).toURI().toURL().toString(), false);
 
     /**
      * To construct an enemy shell
@@ -21,8 +26,13 @@ public class EnemyShell extends Enemy {
      * @param sizeY the height
      * @param image the image of the enemy shell
      */
-    public EnemyShell(double x, double y, double sizeX, double sizeY, Image image) {
+    public EnemyShell(double x, double y, double sizeX, double sizeY, Image image) throws MalformedURLException {
         super(x, y, sizeX, sizeY, image);
+    }
+
+    private boolean getRandomBoolean() {
+        Random random = new Random();
+        return random.nextBoolean();
     }
 
     /**
@@ -31,23 +41,45 @@ public class EnemyShell extends Enemy {
      * if the shell enemy is jumped on (while it is not in shell form), it will harm the player
      * if the shell enemy is jumped on, or ran into while in shell form, it will go back and forth and can harm the player
      */
-    private void collide() {
+    @Override
+    public void collide() {
         for(PlatformImage i : getPlatformImageList()) {
-            if( (i.collideWith(this).getCollisionPosition()[2]) && !pickUp){
+            if( (i.collideWith(this).getCollisionPosition()[2]) && !shellForm){
                 setVelocity(new Vector(-500,0));
-                hit = true;
-            }else if( (i.collideWith(this).getCollisionPosition()[3]) && !pickUp){
+            }else if( (i.collideWith(this).getCollisionPosition()[3]) && !shellForm){
                 setVelocity(new Vector(500,0));
-                hit = true;
-            } else if( (i.collideWith(this).getCollisionPosition()[1]) && !pickUp) {
-                setVelocity(new Vector(0,0));
-                pickUp = true;
-            } else if ( (i.collideWith(this).getCollisionPosition()[2]) && pickUp) {
-                setVelocity(new Vector(-500,0));
-            } else if( (i.collideWith(this).getCollisionPosition()[3]) && pickUp){
-                setVelocity(new Vector(500,0));
+            } else if( (i.collideWith(this).getCollisionPosition()[2]) && shellForm) {
+                setVelocity(new Vector(-600, 0));
+            } else if( (i.collideWith(this).getCollisionPosition()[3]) && shellForm) {
+                setVelocity(new Vector(600,0));
             }
         }
+        System.out.println(getPlayers());
+        for(Player i : getPlayers()) {
+            if (i.jumpOnEnemy(this) && !shellForm && !i.isInvisible()) {
+                this.getImage().setImage(shellImage);
+                shellForm = true;
+                i.setAppliedForce(new Vector(0,-11000),150);
+            }
+            else if(i.runIntoEnemyRight(this) || i.runIntoEnemyLeft(this)){
+                if(!shellForm) {
+                    if(i.isPowerUp())
+                        i.setIsPowerUp(false);
+                    else
+                        i.gameEnd(true);
+                }
+            }
+            else if(i.runIntoEnemyLeft(this) && shellForm)
+                setVelocity(new Vector(-500,0));
+            else if(i.runIntoEnemyRight(this) && shellForm)
+                setVelocity(new Vector(500, 0));
+            else if(i.jumpOnEnemy(this) && shellForm && !i.isInvisible())
+                if(getRandomBoolean())
+                    setVelocity(new Vector(-500,0));
+                else
+                    setVelocity(new Vector(500, 0));
+        }
+
     }
 
     /**
@@ -56,8 +88,9 @@ public class EnemyShell extends Enemy {
      */
     @Override
     public void update(long elapsedTime) {
-        if(isUpdate) {
+        if(!isClose) {
             super.update(elapsedTime);
+//            this.collideWith(player);
             collide();
         }
     }
@@ -65,9 +98,10 @@ public class EnemyShell extends Enemy {
     /**
      * Closes the shell enemy object by stopping it from updating
      */
+    @Override
     public void close() {
+        isClose = true;
         super.close();
-        isUpdate = false;
     }
 
 }

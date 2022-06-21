@@ -218,6 +218,13 @@ public class Game extends AnimationTimer {
 
         }
 
+        for (EnemyShell enemy: enemyShellList) {
+            for (Player p: playerList) {
+                enemy.addPlayer(p);
+            }
+
+        }
+
         for (Mushroom mushroom: mushroomList) {
             for (Player p: playerList) {
                 mushroom.addPlayer(p);

@@ -75,6 +75,14 @@ public class Player extends CollisionBodyImage {
         return (this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3]) && !isInvisible;
     }
 
+    public boolean runIntoEnemyLeft(Enemy enemy) {
+        return this.collideWith(enemy).getCollisionPosition()[2]  && !isInvisible;
+    }
+
+    public boolean runIntoEnemyRight(Enemy enemy) {
+        return this.collideWith(enemy).getCollisionPosition()[3] && !isInvisible;
+    }
+
     /**
      * Checks if the player has run into mushroom, and powers the player up
      * @param mushroom current enemy
