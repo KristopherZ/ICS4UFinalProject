@@ -52,7 +52,7 @@ public class Enemy extends CollisionBodyImage {
      * closes the enemy if it is jumped on
      * gets rid of players power up if ran into with a power up on
      */
-    private void collide() {
+    public void collide() {
         //check if the enemy collide
         for (PlatformImage i : platformImageList) {
             if (i.collideWith(this).getCollisionPosition()[2]) {
@@ -83,9 +83,6 @@ public class Enemy extends CollisionBodyImage {
     public void update(long elapsedTime) {
         if(!isClose){
             super.update(elapsedTime);
-            for(Player i : players) {
-                this.collideWith(i);
-            }
             collide();
         }
     }
@@ -94,5 +91,9 @@ public class Enemy extends CollisionBodyImage {
     public void close() {
         isClose = true;
         super.close();
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 }

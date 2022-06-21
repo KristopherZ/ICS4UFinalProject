@@ -46,14 +46,7 @@ public class Main extends Application {
         gameLevel=level;
         Menu menu1 = new Menu("File");
         MenuItem exit = new MenuItem("Back to menu");
-        exit.setOnAction((e)->{
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Progress will not be saved",ButtonType.OK,ButtonType.CANCEL);
-            alert.initOwner(stage);
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == ButtonType.OK)
-                stage.setScene(startUp.getScene());
 
-        });
         menu1.getItems().add(exit);
         MenuBar mb = new MenuBar(menu1);
         mb.prefWidthProperty().bind(stage.widthProperty());
@@ -75,17 +68,26 @@ public class Main extends Application {
         root.getChildren().add(group);
         root.getChildren().add(mb);
         scene = new Scene(root);
-        group.setTranslateX(group.getScene().getWidth()/2);
         KeyInput k = new KeyInput(scene);
         try {
             Game game = new Game(address,group,k,this);
             game.start();
             stage.setScene(scene);
+            exit.setOnAction((e)->{
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Progress will not be saved",ButtonType.OK,ButtonType.CANCEL);
+                alert.initOwner(stage);
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get() == ButtonType.OK)
+                    game.gameEnd(false);
+
+            });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
+
     }
 
 
