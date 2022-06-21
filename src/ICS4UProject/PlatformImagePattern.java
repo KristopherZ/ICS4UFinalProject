@@ -3,6 +3,9 @@ package ICS4UProject;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
+/**
+ * This class represents a platform with repeating pattern
+ */
 public class PlatformImagePattern extends PlatformImage{
 
     private Image image;
