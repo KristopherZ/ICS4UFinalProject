@@ -66,6 +66,10 @@ public class Player extends CollisionBodyImage {
         return this.collideWith(enemy).getCollisionPosition()[1];
     }
 
+    public boolean contactLavaBall(Lavaball lb) {
+        return (this.collideWith(lb).getCollisionPosition()[0] || this.collideWith(lb).getCollisionPosition()[1] || this.collideWith(lb).getCollisionPosition()[2] || this.collideWith(lb).getCollisionPosition()[3]);
+    }
+
     /**
      * Checks if the player has run into enemy
      * @param enemy current enemy
@@ -90,8 +94,7 @@ public class Player extends CollisionBodyImage {
     public void consumeMushroom(Mushroom mushroom) {
         if(!isPowerUp&&(this.collideWith(mushroom).getCollisionPosition()[0] || this.collideWith(mushroom).getCollisionPosition()[1] || this.collideWith(mushroom).getCollisionPosition()[2] || this.collideWith(mushroom).getCollisionPosition()[3])) {
             isPowerUp = true;
-            setSizeX(getSizeX()*1.5);
-            setSizeY(getSizeY()*1.5);
+            setSizeY(getSizeY()*2.0);
             System.out.println("change the sprite to big mario"); // animation stuff
         }
     }
@@ -175,6 +178,7 @@ public class Player extends CollisionBodyImage {
             if(flag!=null&&this.isCollide(flag.getImage())){
                 gameEnd(true);
             }
+
             if(getPosition().getY()>800){
                 gameEnd(false);
             }
@@ -215,8 +219,7 @@ public class Player extends CollisionBodyImage {
         this.isPowerUp = isPowerUp;
         //if it is set to false, the player will decrease the size and invisible for 2s
         if(!isPowerUp){
-            setSizeX(getSizeX()/1.5);
-            setSizeY(getSizeY()/1.5);
+            setSizeY(getSizeY()/2.0);
             setIsInvisible(2000);
         }
     }

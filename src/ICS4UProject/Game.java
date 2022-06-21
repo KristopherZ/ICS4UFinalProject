@@ -80,7 +80,6 @@ public class Game extends AnimationTimer {
                 p.setDragCoe(0.001);
 //                p.setElasticity(new double[]{0, 0, 0, 0});
                 playerList.add(p);
-
             } else if (line.startsWith("2")) {
                 Image image;
                 String[] values = line.split(" ");
