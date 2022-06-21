@@ -42,7 +42,7 @@ public class Main extends Application {
         startUp = new StartUp(this);
         levelSelection = new LevelSelection("LevelSelection.txt",this);
         try {
-            stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
+            stage.getIcons().add(new Image((new File("Sprites/icon.png").toURI().toURL().toString()),false));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

@@ -3,11 +3,10 @@ package ICS4UProject;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -24,6 +23,7 @@ public class Instructions {
     private Scene scene;
     private StartUp startUp;
     private VBox vBox;
+    private BorderPane borderPane;
 
     private Group root;
 
@@ -53,7 +53,24 @@ public class Instructions {
         }
         vBox.getChildren().addAll(sentence, picture3, picture1, picture2, back);
         vBox.setAlignment(Pos.CENTER);
-        scene = new Scene(vBox);
+        //menu
+        Menu file = new Menu("File");
+        MenuBar mb = new MenuBar(file);
+        MenuItem about = new MenuItem("About");
+        about.setOnAction(e->{
+            Alert info = new Alert(Alert.AlertType.INFORMATION,"Authors:Efe, Kristopher, Ryan",ButtonType.OK);
+            info.initOwner(main.getStage());
+            info.showAndWait();
+        });
+        MenuItem exit = new MenuItem("Exit");
+        exit.setOnAction(e->{
+            System.exit(0);
+        });
+        file.getItems().addAll(about,exit);
+        borderPane = new BorderPane();
+        borderPane.setTop(mb);
+        borderPane.setCenter(vBox);
+        scene = new Scene(borderPane);
         back.setOnAction(e -> {
             main.setStartUp();
         });

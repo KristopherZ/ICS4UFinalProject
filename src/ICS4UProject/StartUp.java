@@ -1,12 +1,15 @@
 package ICS4UProject;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -22,6 +25,7 @@ import java.net.MalformedURLException;
  */
 public class StartUp  {
     private HBox buttonBox;
+    private BorderPane borderPane;
     private Instructions instructionsScene;
     private Button start, instructions, settings;
     private Image startIcon, instructionsIcon, settingsIcon;
@@ -87,8 +91,25 @@ public class StartUp  {
         settings.setFont(font);
         buttonBox.getChildren().addAll(start, instructions);
         buttonBox.setAlignment(Pos.CENTER);
-//        buttonBox.setPadding(new Insets(10, 20, 10, 20));
-        StackPane sp = new StackPane(background, buttonBox);
+        //menu
+        Menu file = new Menu("File");
+        MenuBar mb = new MenuBar(file);
+        MenuItem about = new MenuItem("About");
+        about.setOnAction(e->{
+            Alert info = new Alert(Alert.AlertType.INFORMATION,"Authors:Efe, Kristopher, Ryan",ButtonType.OK);
+            info.initOwner(main.getStage());
+            info.showAndWait();
+        });
+        MenuItem exit = new MenuItem("Exit");
+        exit.setOnAction(e->{
+            System.exit(0);
+        });
+        file.getItems().addAll(about,exit);
+        borderPane = new BorderPane();
+        borderPane.setTop(mb);
+        borderPane.setCenter(buttonBox);
+
+        StackPane sp = new StackPane(background,borderPane);
         scene = new Scene(sp);
         start.setOnAction(e -> {
             main.setLevelSelection();
