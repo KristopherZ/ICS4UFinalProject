@@ -125,6 +125,9 @@ public class Game extends AnimationTimer {
                 flag = new GameObjectImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), flagImage);
                 camera.add(flag);
+            } else if(line.startsWith("background")) {
+                String[] values = line.split(" ");
+                main.setSceneColor(Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]));
             }
         }
 

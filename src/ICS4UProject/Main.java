@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import java.io.File;
@@ -26,6 +27,7 @@ public class Main extends Application {
     double scaleFactor = 1;
     Stage stage;
     StartUp startUp;
+    Scene scene;
     LevelSelection levelSelection;
     int gameLevel = 0;
 
@@ -74,7 +76,7 @@ public class Main extends Application {
         group.getTransforms().add(scale);
         root.getChildren().add(group);
         root.getChildren().add(mb);
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         group.setTranslateX(group.getScene().getWidth()/2);
         KeyInput k = new KeyInput(scene);
         try {
@@ -98,6 +100,10 @@ public class Main extends Application {
         alert.show();
 
         setLevelSelection();
+    }
+
+    public void setSceneColor(int a, int b, int c) {
+        scene.setFill(Color.rgb(a, b, c));
     }
 
     public Stage getStage(){
