@@ -134,6 +134,14 @@ public class Game extends AnimationTimer {
             } else if(line.startsWith("background")) {
                 String[] values = line.split(" ");
                 main.setSceneColor(Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]));
+            }else if (line.startsWith("7")){
+                Image image;
+                String[] values = line.split(" ");
+                image = new Image(new File(values[5]).toURI().toURL().toString(), false);
+                PlatformImagePattern platform = new PlatformImagePattern(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]),50,50, image);
+                platform.setFrictionCoe(1);
+                platformImageList.add(platform);
             }
         }
 
@@ -207,7 +215,7 @@ public class Game extends AnimationTimer {
         }
 
         for (PlatformImage platform : platformImageList) {
-            root.getChildren().add(platform.getImage());
+            root.getChildren().add(platform.getRectangle());
         }
         for (Mushroom mushroom: mushroomList) {
             root.getChildren().add(mushroom.getImage());
