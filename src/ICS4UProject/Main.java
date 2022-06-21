@@ -22,6 +22,10 @@ import java.util.Optional;
 
 public class Main extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     double scaleFactor = 1;
     Stage stage;
     StartUp startUp;
@@ -30,11 +34,15 @@ public class Main extends Application {
     int gameLevel = 0;
 
     @Override
-    public void start(Stage PrimaryStage) throws Exception {
+    public void start(Stage PrimaryStage) {
         stage = PrimaryStage;
         startUp = new StartUp(this);
         levelSelection = new LevelSelection("LevelSelection.txt",this);
-        stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
+        try {
+            stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         stage.setHeight(720);
         stage.setWidth(1280);
 
@@ -83,6 +91,7 @@ public class Main extends Application {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            fileDoesNotFound();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -110,16 +119,20 @@ public class Main extends Application {
         return stage;
     }
 
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     public void setStartUp(){
         stage.setScene(startUp.getScene());
     }
 
     public void setLevelSelection() {
         stage.setScene(levelSelection.getScene());
+    }
+
+    /**
+     * Helper method for fileDoesNotFoundException
+     */
+    private void fileDoesNotFound(){
+        Alert alert = new Alert(Alert.AlertType.ERROR,"Essential file CANNOT be found",ButtonType.OK);
+        alert.showAndWait();
+        System.exit(-1);
     }
 }
