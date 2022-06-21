@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * This represent a rectangular interactive object with javafx rectangular so that objects can collide with each other
+ * This represents a rectangular interactive object with javafx rectangular so that objects can collide with each other
  */
 
 public class InteractiveObjectRec extends CollisionBodyRec {
