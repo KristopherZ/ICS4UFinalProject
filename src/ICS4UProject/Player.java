@@ -19,6 +19,7 @@ public class Player extends CollisionBodyImage {
     }
     private Image[] playerStates = new Image[5];
     private boolean isUpdate = true;
+    private boolean isCrouching = false;
     private boolean isPowerUp = false;
     private boolean isInvisible = false;
     private int score = 0;
@@ -177,6 +178,16 @@ public class Player extends CollisionBodyImage {
             }
             if(flag!=null&&this.isCollide(flag.getImage())){
                 gameEnd(true);
+            }
+
+            if(isPowerUp && k.issPressed() && !isCrouching && touchingGround()) {
+                setSizeY(50);
+                setPosition(new Vector(getPosition().getX(), getPosition().getY()+50));
+                isCrouching = true;
+            } else if(isPowerUp && !k.issPressed() && isCrouching && touchingGround()) {
+                setPosition(new Vector(getPosition().getX(), getPosition().getY()-50));
+                setSizeY(100);
+                isCrouching = false;
             }
 
             if(getPosition().getY()>800){
