@@ -36,9 +36,9 @@ public class Instructions {
         Label sentence = new Label("Move left and right with the A and D keys.\n" +
                 "                   Press W to jump");
         sentence.setFont(new Font("Arial", 24));
-        picture1.setImage(new Image((new File("game-description.png")).toURI().toURL().toString(), false));
-        picture2.setImage(new Image((new File("enemy-descriptions.png")).toURI().toURL().toString(), false));
-        picture3.setImage(new Image((new File("jumping-description.png")).toURI().toURL().toString(), false));
+        picture1.setImage(new Image((new File("Sprites/game-description.png")).toURI().toURL().toString(), false));
+        picture2.setImage(new Image((new File("Sprites/enemy-descriptions.png")).toURI().toURL().toString(), false));
+        picture3.setImage(new Image((new File("Sprites/jumping-description.png")).toURI().toURL().toString(), false));
         vBox.getChildren().addAll(sentence, picture3, picture1, picture2, back);
         vBox.setAlignment(Pos.CENTER);
         scene = new Scene(vBox);

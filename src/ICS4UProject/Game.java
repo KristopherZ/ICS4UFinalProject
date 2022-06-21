@@ -53,6 +53,7 @@ public class Game extends AnimationTimer {
      * @throws MalformedURLException
      */
     public Game(String address, Group root, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
+
         main = m;
         Font font = new Font(30);
         score = new Text("Score:0");
