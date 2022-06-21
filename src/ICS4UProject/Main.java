@@ -35,7 +35,7 @@ public class Main extends Application {
     Scene scene;
     LevelSelection levelSelection;
     int gameLevel = 0;
-    final static String about = "Authors:Efe, Kristopher, Ryan\n Github:https://github.com/KristopherZ/ICS4UFinalProject";
+    final static String about = "Authors:Efe, Kristopher, Ryan\nGithub:https://github.com/KristopherZ/ICS4UFinalProject";
 
     @Override
     public void start(Stage PrimaryStage) {
