@@ -2,7 +2,10 @@ package ICS4UProject;
 
 
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 /**
@@ -104,6 +107,14 @@ public class Mushroom extends CollisionBodyImage{
             if(isCollide(p.getImage())&&!isEaten){
                 this.close();
                 isEaten = true;
+                AudioClip music = null;
+                try {
+                    music = new AudioClip((new File("Sounds\\Mushroom.mp3")).toURI().toURL().toString());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                music.setCycleCount(1);
+                music.play();
                 p.consumeMushroom(this);
                 p.addScore(50);
             }
