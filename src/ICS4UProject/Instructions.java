@@ -58,7 +58,7 @@ public class Instructions {
         MenuBar mb = new MenuBar(file);
         MenuItem about = new MenuItem("About");
         about.setOnAction(e->{
-            Alert info = new Alert(Alert.AlertType.INFORMATION,"Authors:Efe, Kristopher, Ryan",ButtonType.OK);
+            Alert info = new Alert(Alert.AlertType.INFORMATION,Main.about,ButtonType.OK);
             info.initOwner(main.getStage());
             info.showAndWait();
         });
