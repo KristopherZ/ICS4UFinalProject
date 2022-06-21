@@ -28,6 +28,7 @@ public class Game extends AnimationTimer {
     private long lastUpdatedTime = 0;
     // coefficient that determines the amount of force from gravity
     private boolean isUpdate = true;
+    private GameObjectImage flag;
     private final double gravityCoefficient = 2000;
     private static final double cameraOffset = 100;
     private final Camera camera = new Camera();
@@ -59,6 +60,7 @@ public class Game extends AnimationTimer {
         File textFile = new File(address);
         Scanner input = new Scanner(textFile);
 
+
         while (input.hasNextLine()) {
             String line = input.nextLine();
             if (line.startsWith("1")) {
@@ -80,6 +82,7 @@ public class Game extends AnimationTimer {
                 Enemy e = new Enemy(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 e.setGravity(new Vector(0, gravityCoefficient));
+                e.setVelocity(new Vector(((Math.random()<.5)? -1:1)*100, 0));
                 enemyList.add(e);
             } else if (line.startsWith("3")) {
                 Image image;
@@ -97,7 +100,7 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 platform.setFrictionCoe(1);
                 platformImageList.add(platform);
-            } else {
+            } else if(line.startsWith("5")) {
                 Image pImage;
                 Image mImage;
                 String[] values = line.split(" ");
@@ -113,6 +116,13 @@ public class Game extends AnimationTimer {
                 trigger.setFrictionCoe(1);
                 platformImageList.add(trigger);
                 mushroomList.add(mushroom);
+            } else if(line.startsWith("6")) {
+                Image flagImage;
+                String[] values = line.split(" ");
+                flagImage = new Image(new File(values[5]).toURI().toURL().toString(), false);
+                flag = new GameObjectImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), flagImage);
+                camera.add(flag);
             }
         }
 
@@ -125,6 +135,7 @@ public class Game extends AnimationTimer {
             }
             for (Player player : playerList) {
                 platform.addKinetic(player);
+                player.setFlag(flag);
 
             }
             for (Mushroom mushroom: mushroomList) {
@@ -171,6 +182,8 @@ public class Game extends AnimationTimer {
                 mushroom.getPlatformImageList().add(platform);
             }
         }
+        if(flag!=null)
+            root.getChildren().add(flag.getImage());
 
         for (Enemy enemy : enemyList) {
             root.getChildren().add(enemy.getImage());
@@ -234,6 +247,8 @@ public class Game extends AnimationTimer {
             for (Mushroom mushroom: mushroomList) {
                 mushroom.update(elapsedTime);
             }
+            if(flag!=null)
+                flag.update(elapsedTime);
         }
         lastUpdatedTime = timestamp;
     }

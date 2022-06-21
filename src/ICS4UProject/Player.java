@@ -138,10 +138,20 @@ public class Player extends CollisionBodyImage {
             super.update(elapsedTime);
             keyMovement();
             playerStateChange();
-            if(getVelocity().getX() > 500)
-                setVelocity(new Vector(500, getVelocity().getY()));
-            if(getVelocity().getX() < -500) {
-                setVelocity(new Vector(-500,getVelocity().getY()));
+            if(!k.isShiftPressed()) {
+                if(getVelocity().getX() > 500) {
+                    setVelocity(new Vector(500, getVelocity().getY()));
+                }
+                if(getVelocity().getX() < -500) {
+                    setVelocity(new Vector(-500,getVelocity().getY()));
+                }
+            } else {
+                if(getVelocity().getX() > 700) {
+                    setVelocity(new Vector(700, getVelocity().getY()));
+                }
+                if(getVelocity().getX() < -700) {
+                    setVelocity(new Vector(-700,getVelocity().getY()));
+                }
             }
             if(flag!=null&&this.isCollide(flag.getImage())){
                 gameEnd(true);

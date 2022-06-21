@@ -31,7 +31,7 @@ public class StartUp  {
     public StartUp(Main m) throws MalformedURLException, FileNotFoundException {
         main = m;
         i = new Instructions(main);
-        InputStream stream = new FileInputStream("Startup-background.jpg");
+        InputStream stream = new FileInputStream("Sprites/Startup-background.jpg");
         Image backgroundImage = new Image(stream);
         ImageView background = new ImageView();
         background.setImage(backgroundImage);
@@ -39,15 +39,15 @@ public class StartUp  {
         background.setY(0);
         background.fitWidthProperty().bind(main.getStage().widthProperty());
         background.setPreserveRatio(true);
-        settingsIcon = new Image((new File("Settings-icon.png")).toURI().toURL().toString(), false);
+        settingsIcon = new Image((new File("Sprites/Settings-icon.png")).toURI().toURL().toString(), false);
         ImageView settingsView = new ImageView(settingsIcon);
         settingsView.setFitHeight(120);
         settingsView.setPreserveRatio(true);
-        startIcon = new Image((new File("play-button.png")).toURI().toURL().toString(), false);
+        startIcon = new Image((new File("Sprites/play-button.png")).toURI().toURL().toString(), false);
         ImageView startView = new ImageView(startIcon);
         startView.setFitHeight(120);
         startView.setPreserveRatio(true);
-        instructionsIcon = new Image((new File("instructions-icon.png")).toURI().toURL().toString(), false);
+        instructionsIcon = new Image((new File("Sprites/instructions-icon.png")).toURI().toURL().toString(), false);
         ImageView instructionsView = new ImageView(instructionsIcon);
         instructionsView.setFitHeight(120);
         instructionsView.setPreserveRatio(true);

@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import java.io.File;
@@ -29,7 +30,7 @@ public class Main extends Application{
     public void start(Stage PrimaryStage) throws Exception {
         stage = PrimaryStage;
         startUp = new StartUp(this);
-        stage.getIcons().add(new Image((new File("icon.png").toURI().toURL().toString()),false));
+        stage.getIcons().add(new Image((new File("Sprites/icon.png").toURI().toURL().toString()),false));
         stage.setHeight(720);
         stage.setWidth(1280);
 
@@ -69,6 +70,7 @@ public class Main extends Application{
         root.getChildren().add(group);
         root.getChildren().add(mb);
         Scene scene = new Scene(root);
+        scene.setFill(Color.rgb(144, 145, 252));
         group.setTranslateX(group.getScene().getWidth()/2);
         KeyInput k = new KeyInput(scene);
         try {
@@ -86,8 +88,12 @@ public class Main extends Application{
     public void gameEnd(boolean isWin){
         Label lb = new Label("Game End");
         Group root = new Group(lb);
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root);;
         stage.setScene(scene);
+    }
+
+    public void startUp() {
+        stage.setScene(startUp.getScene());
     }
 
     public Stage getStage(){

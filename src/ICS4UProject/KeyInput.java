@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class KeyInput {
 
     // Boolean values indicating whether a button is pressed or not
-    private boolean wPressed, aPressed, sPressed, dPressed, spaceBarPressed;
+    private boolean wPressed, aPressed, sPressed, dPressed, spaceBarPressed, shiftPressed;
 
     /**
      * Sets boolean fields to true when their respective buttons are pressed
@@ -36,6 +36,9 @@ public class KeyInput {
             if(e.getCode().equals(KeyCode.SPACE)) {
                 spaceBarPressed = true;
             }
+            if(e.getCode().equals(KeyCode.SHIFT)) {
+                shiftPressed = true;
+            }
         });
 
         scene.setOnKeyReleased(e ->{
@@ -53,6 +56,9 @@ public class KeyInput {
             }
             if(e.getCode().equals(KeyCode.SPACE)) {
                 spaceBarPressed = false;
+            }
+            if(e.getCode().equals(KeyCode.SHIFT)) {
+                shiftPressed = false;
             }
 
         });
@@ -97,5 +103,9 @@ public class KeyInput {
      */
     public boolean isSpaceBarPressed() {
         return spaceBarPressed;
+    }
+
+    public boolean isShiftPressed() {
+        return shiftPressed;
     }
 }
