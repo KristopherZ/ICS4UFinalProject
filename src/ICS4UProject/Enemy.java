@@ -27,7 +27,7 @@ public class Enemy extends CollisionBodyImage {
      */
     public Enemy(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
-        setElasticity(new double[]{1,1,1,1});
+        setElasticity(new double[]{0,1,0,0});
     }
 
     /**
@@ -56,9 +56,9 @@ public class Enemy extends CollisionBodyImage {
         //check if the enemy collide
         for (PlatformImage i : platformImageList) {
             if (i.collideWith(this).getCollisionPosition()[2]) {
-                setVelocity(new Vector(-100, 0));
+                setVelocity(new Vector(-200,0));
             } else if (i.collideWith(this).getCollisionPosition()[3]) {
-                setVelocity(new Vector(100, 0));
+                setVelocity(new Vector(200,0));
             }
         }
         for (Player j : players) {
