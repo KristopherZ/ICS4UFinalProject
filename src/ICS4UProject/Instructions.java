@@ -15,6 +15,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
+/**
+ * This class shows the instruction scene
+ */
 public class Instructions {
 
     Button back;
@@ -26,7 +29,11 @@ public class Instructions {
 
     Main main;
 
-    public Instructions(Main m) throws MalformedURLException, FileNotFoundException {
+    /**
+     * Create a new instruction pane
+     * @param m the main class so that the go back button works
+     */
+    public Instructions(Main m){
         main = m;
         back = new Button("Back");
         vBox = new VBox(10);
@@ -36,9 +43,14 @@ public class Instructions {
         Label sentence = new Label("Move left and right with the A and D keys.\n" +
                 "                   Press W to jump");
         sentence.setFont(new Font("Arial", 24));
-        picture1.setImage(new Image((new File("Sprites/game-description.png")).toURI().toURL().toString(), false));
-        picture2.setImage(new Image((new File("Sprites/enemy-descriptions.png")).toURI().toURL().toString(), false));
-        picture3.setImage(new Image((new File("Sprites/jumping-description.png")).toURI().toURL().toString(), false));
+        try {
+            picture1.setImage(new Image((new File("Sprites/game-description.png")).toURI().toURL().toString(), false));
+            picture2.setImage(new Image((new File("Sprites/enemy-descriptions.png")).toURI().toURL().toString(), false));
+            picture3.setImage(new Image((new File("Sprites/jumping-description.png")).toURI().toURL().toString(), false));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
         vBox.getChildren().addAll(sentence, picture3, picture1, picture2, back);
         vBox.setAlignment(Pos.CENTER);
         scene = new Scene(vBox);
@@ -47,6 +59,10 @@ public class Instructions {
         });
     }
 
+    /**
+     * Return the instruction scene
+     * @return the instruction scene
+     */
     public Scene getScene() {
         return scene;
     }

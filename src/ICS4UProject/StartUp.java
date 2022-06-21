@@ -1,18 +1,15 @@
 package ICS4UProject;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,18 +17,30 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 
-
+/**
+ * This class shows the start up scene
+ */
 public class StartUp  {
     HBox buttonBox;
-    Instructions i;
+    Instructions instructionsScene;
     Button start, instructions, settings;
     Image startIcon, instructionsIcon, settingsIcon;
     Scene scene;
     private Main main;
-    public StartUp(Main m) throws MalformedURLException, FileNotFoundException {
+
+    /**
+     * To create a start up scene
+     * @param m the main class
+     */
+    public StartUp(Main m){
         main = m;
-        i = new Instructions(main);
-        InputStream stream = new FileInputStream("Sprites/Startup-background.jpg");
+        instructionsScene = new Instructions(main);
+        InputStream stream = null;
+        try {
+            stream = new FileInputStream("Sprites/Startup-background.jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Image backgroundImage = new Image(stream);
         ImageView background = new ImageView();
         background.setImage(backgroundImage);
@@ -39,15 +48,27 @@ public class StartUp  {
         background.setY(0);
         background.fitWidthProperty().bind(main.getStage().widthProperty());
         background.setPreserveRatio(true);
-        settingsIcon = new Image((new File("Sprites/Settings-icon.png")).toURI().toURL().toString(), false);
+        try {
+            settingsIcon = new Image((new File("Sprites/Settings-icon.png")).toURI().toURL().toString(), false);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         ImageView settingsView = new ImageView(settingsIcon);
         settingsView.setFitHeight(120);
         settingsView.setPreserveRatio(true);
-        startIcon = new Image((new File("Sprites/play-button.png")).toURI().toURL().toString(), false);
+        try {
+            startIcon = new Image((new File("Sprites/play-button.png")).toURI().toURL().toString(), false);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         ImageView startView = new ImageView(startIcon);
         startView.setFitHeight(120);
         startView.setPreserveRatio(true);
-        instructionsIcon = new Image((new File("Sprites/instructions-icon.png")).toURI().toURL().toString(), false);
+        try {
+            instructionsIcon = new Image((new File("Sprites/instructions-icon.png")).toURI().toURL().toString(), false);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         ImageView instructionsView = new ImageView(instructionsIcon);
         instructionsView.setFitHeight(120);
         instructionsView.setPreserveRatio(true);
@@ -58,7 +79,7 @@ public class StartUp  {
         start.setGraphic(startView);
         instructions.setGraphic(instructionsView);
         settings.setGraphic(settingsView);
-        Font font = new Font(40);
+        Font font = Font.font("Verdana", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 40);
         start.setFont(font);
         start.setMinWidth(400);
         instructions.setFont(font);
@@ -73,12 +94,17 @@ public class StartUp  {
             main.setLevelSelection();
         });
         instructions.setOnAction(e -> {
-            main.getStage().setScene(i.getScene());
+            main.getStage().setScene(instructionsScene.getScene());
         });
         settings.setOnAction(e -> {
 
         });
     }
+
+    /**
+     * Return the start up scene
+     * @return the start up scene
+     */
 
     public Scene getScene() {
         return scene;

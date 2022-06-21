@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -91,8 +94,8 @@ public class LevelSelection {
         hBox = new HBox(40);
         vBox = new VBox(10);
         Label label = new Label("Level Selection");
-        Font font = new Font(40);
-        label.setFont(font);
+
+        label.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, FontPosture.REGULAR, 40));
         hBox.setPadding(new Insets(10, 40, 10, 40));
         hBox.getChildren().addAll(levels);
         scrollPane = new ScrollPane(hBox);
