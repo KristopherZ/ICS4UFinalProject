@@ -60,9 +60,11 @@ public class StartUp  {
         settings.setGraphic(settingsView);
         Font font = new Font(40);
         start.setFont(font);
+        start.setMinWidth(400);
         instructions.setFont(font);
+        instructions.setMinWidth(400);
         settings.setFont(font);
-        buttonBox.getChildren().addAll(start, instructions, settings);
+        buttonBox.getChildren().addAll(start, instructions);
         buttonBox.setAlignment(Pos.CENTER);
 //        buttonBox.setPadding(new Insets(10, 20, 10, 20));
         StackPane sp = new StackPane(background, buttonBox);

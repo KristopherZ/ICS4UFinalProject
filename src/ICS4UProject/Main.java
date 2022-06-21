@@ -75,7 +75,6 @@ public class Main extends Application {
         root.getChildren().add(group);
         root.getChildren().add(mb);
         scene = new Scene(root);
-        group.setTranslateX(group.getScene().getWidth()/2);
         KeyInput k = new KeyInput(scene);
         try {
             Game game = new Game(address,group,k,this);
