@@ -16,7 +16,7 @@ public class EnemyShell extends Enemy {
 
     private boolean isClose = false;
     private boolean shellForm = false;
-    Image shellImage;
+    private Image shellImage;
 
     public void setShellImage(Image shellImage) {
         this.shellImage = shellImage;
