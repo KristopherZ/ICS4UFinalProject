@@ -215,7 +215,12 @@ public class Game extends AnimationTimer {
             for (Player p: playerList) {
                 enemy.addPlayer(p);
             }
+        }
 
+        for (EnemyShell enemyShell: enemyShellList) {
+            for (Player p: playerList) {
+                enemyShell.addPlayer(p);
+            }
         }
 
         for (EnemyShell enemy: enemyShellList) {

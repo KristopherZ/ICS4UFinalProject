@@ -13,12 +13,12 @@ import java.util.concurrent.TimeUnit;
 public class Enemy extends CollisionBodyImage {
 
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
-    private final ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private boolean isClose = false;
 
     /**
-     * To construct a player
+     * To construct an enemy
      * @param x the x coordinate of the enemy
      * @param y the y coordinate of the enemy
      * @param sizeX the width
@@ -46,6 +46,8 @@ public class Enemy extends CollisionBodyImage {
         players.add(player);
     }
 
+    public ArrayList<Player> getPlayers (){ return players; }
+
     /**
      * exert forces in the opposite direction of impact to make the enemy go back and forth
      * closes the game if player touches the enemy, and it is not powered up
@@ -62,11 +64,13 @@ public class Enemy extends CollisionBodyImage {
             }
         }
         for (Player j : players) {
-            if (j.jumpOnEnemy(this)&& !j.isInvisible()) {
-                this.close();
+            if (j.jumpOnEnemy(this) && !j.isInvisible()) {
                 j.addScore(100);
+                j.setAppliedForce(new Vector(0,-11000),150);
+                j.setAppliedForce(new Vector(0,-11000),150);
+                this.close();
             }
-            else if (j.runIntoEnemy(this)) {
+            else if (j.runIntoEnemyLeft(this) || j.runIntoEnemyRight(this)) {
                 if(j.isPowerUp())
                     j.setIsPowerUp(false);
                 else
@@ -81,6 +85,7 @@ public class Enemy extends CollisionBodyImage {
      */
     @Override
     public void update(long elapsedTime) {
+        System.out.println(players.size());
         if(!isClose){
             super.update(elapsedTime);
             collide();
