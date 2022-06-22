@@ -104,11 +104,11 @@ public class Enemy extends CollisionBodyImage {
 
         for (CollisionBodyImage i : allCollision) {
             if (i != this) {
-                if(this.runIntoEnemyLeft(i)) {
+                if(runIntoEnemyLeft(i)) {
                     setVelocity(new Vector(100,0));
                 }
-                else if(this.runIntoEnemyRight(i)) {
-                    setVelocity(new Vector(100,0));
+                else if(runIntoEnemyRight(i)) {
+                    setVelocity(new Vector(-100,0));
                 }
 
             }
