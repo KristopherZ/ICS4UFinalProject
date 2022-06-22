@@ -109,7 +109,7 @@ public class Mushroom extends CollisionBodyImage{
                 isEaten = true;
                 AudioClip music = null;
                 try {
-                    music = new AudioClip((new File("Sounds\\Mushroom.mp3")).toURI().toURL().toString());
+                    music = new AudioClip((new File("Sounds/Mushroom.mp3")).toURI().toURL().toString());
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }

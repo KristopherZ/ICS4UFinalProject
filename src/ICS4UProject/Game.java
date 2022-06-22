@@ -104,6 +104,7 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 e.setShellImage(shellImage);
                 e.setGravity(new Vector(0, gravityCoefficient));
+                e.setVelocity(new Vector(((Math.random()<.5)? -1:1)*100, 0));
                 enemyShellList.add(e);
             }else if(line.startsWith("4")) {
                 Image image;
@@ -243,13 +244,11 @@ public class Game extends AnimationTimer {
 
         if(flag!=null)
             root.getChildren().add(flag.getImage());
-
-        for (GameObjectImage g: decorations) {
-            root.getChildren().add(g.getImage());
-        }
-
         for (Lavaball l: lavaball) {
             root.getChildren().add(l.getImage());
+        }
+        for (GameObjectImage g: decorations) {
+            root.getChildren().add(g.getImage());
         }
         for (Enemy enemy : enemyList) {
             root.getChildren().add(enemy.getImage());
@@ -282,12 +281,6 @@ public class Game extends AnimationTimer {
             }
         }
 
-        for (EnemyShell enemy: enemyShellList) {
-            for (Player p: playerList) {
-                enemy.addPlayer(p);
-            }
-
-        }
 
         for (Mushroom mushroom: mushroomList) {
             for (Player p: playerList) {

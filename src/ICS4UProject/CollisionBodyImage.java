@@ -76,11 +76,11 @@ public class CollisionBodyImage extends BodyImage {
         }
     }
 
-    public boolean runIntoEnemyLeft(CollisionBodyImage i) {
+    public boolean runIntoLeft(CollisionBodyImage i) {
         return this.collideWith(i).getCollisionPosition()[2];
     }
 
-    public boolean runIntoEnemyRight(CollisionBodyImage i) {
+    public boolean runIntoRight(CollisionBodyImage i) {
         return this.collideWith(i).getCollisionPosition()[3];
     }
 
@@ -112,5 +112,9 @@ public class CollisionBodyImage extends BodyImage {
         colliders[2].setHeight(getSizeY()-WALL_MARGIN*2);
         colliders[3].setWidth(COLLIDER_WIDTH);
         colliders[3].setHeight(getSizeY()-WALL_MARGIN*2);
+    }
+
+    public Rectangle[] getColliders() {
+        return colliders;
     }
 }
