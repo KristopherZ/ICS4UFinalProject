@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
+/**
+ * It represents a lavaball
+ */
 public class Lavaball extends CollisionBodyImage {
 
 
