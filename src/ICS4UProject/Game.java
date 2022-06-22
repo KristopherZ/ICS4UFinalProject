@@ -20,6 +20,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -59,7 +61,7 @@ public class Game extends AnimationTimer {
     public Game(String address, Group group, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
         root = group;
         main = m;
-        Font font = new Font(30);
+        Font font = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 40);
         score = new Text("Score:000");
         score.setFont(font);
         score.setStroke(Color.WHITE);
