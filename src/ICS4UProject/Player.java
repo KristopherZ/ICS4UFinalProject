@@ -39,7 +39,7 @@ public class Player extends CollisionBodyImage {
         super(x, y, sizeX, sizeY, image);
         this.game = game;
         getForceList().add(HORIZONTAL_FORCE);
-        setElasticity(new double[]{1,1,1,1});
+        setElasticity(new double[]{.5,1,1,1});
         playerStates = new Image[]{image,image,image,image,image};
         this.k = k;
     }
