@@ -1,7 +1,10 @@
 package ICS4UProject;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -63,6 +66,14 @@ public class Enemy extends CollisionBodyImage {
         }
         for (Player j : players) {
             if (j.jumpOnEnemy(this)&& !j.isInvisible()) {
+                AudioClip music = null;
+                try {
+                    music = new AudioClip((new File("Sounds\\Goomba.mp3")).toURI().toURL().toString());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                music.setCycleCount(1);
+                music.play();
                 this.close();
                 j.addScore(100);
             }
