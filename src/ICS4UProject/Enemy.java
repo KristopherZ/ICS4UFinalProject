@@ -83,7 +83,7 @@ public class Enemy extends CollisionBodyImage {
             if (j.jumpOnEnemy(this)&& !j.isInvisible()) {
                 AudioClip music = null;
                 try {
-                    music = new AudioClip((new File("Sounds\\Goomba.mp3")).toURI().toURL().toString());
+                    music = new AudioClip((new File("Sounds/Goomba.mp3")).toURI().toURL().toString());
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }

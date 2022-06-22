@@ -42,7 +42,7 @@ public class Main extends Application {
         stage.setTitle("Mario");
         AudioClip music = null;
         try {
-            music = new AudioClip((new File("Sounds\\SuperMarioBrosThemeSong.mp3")).toURI().toURL().toString());
+            music = new AudioClip((new File("Sounds/SuperMarioBrosThemeSong.mp3")).toURI().toURL().toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
