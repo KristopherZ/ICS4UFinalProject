@@ -14,8 +14,8 @@ public class Lavaball extends CollisionBodyImage {
     /**
      * Constructs a LavaBall object
      *
-     * @param x     position in x-axis
-     * @param y     position in y-axis
+     * @param x   initial position in x-axis
+     * @param y   initial position in y-axis
      * @param sizeX the width of the object
      * @param sizeY the height of the object
      * @param image the image of the object
@@ -25,6 +25,10 @@ public class Lavaball extends CollisionBodyImage {
         initY = y;
     }
 
+    /**
+     * Add player to detect collision
+     * @param player the player
+     */
     public void addPlayer(Player player) {
         players.add(player);
     }
