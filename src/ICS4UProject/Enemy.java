@@ -124,7 +124,6 @@ public class Enemy extends CollisionBodyImage {
         if(!isClose){
             super.update(elapsedTime);
             collide();
-            System.out.println(allCollision.size());
         }
     }
 

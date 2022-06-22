@@ -21,13 +21,10 @@ public class MovingPlatformImage extends PlatformImage{
     }
 
     public void update(long elapsedTime) {
-        System.out.println(1);
-
         if(isUpdate){
             super.update(elapsedTime);
             if (getPosition().getY() > 800) {
                 setPosition(new Vector(getPosition().getX(), 0));
-                System.out.println("loop");
             }
         }
     }

@@ -321,7 +321,8 @@ public class Game extends AnimationTimer {
         score.setText("Score:"+ (new DecimalFormat("000")).format(playerList.get(0).getScore()));
         if (lastUpdatedTime > 0) {
             long elapsedTime = timestamp - lastUpdatedTime;
-
+            double elapsedSeconds = elapsedTime / 1_000_000_000.0;
+            System.out.println("fps:"+1/elapsedSeconds);
             camera.setCameraPosition(new Vector(playerList.get(0).getPosition().getX()-cameraOffset, 0));
             for (Enemy enemy : enemyList) {
                 enemy.update(elapsedTime);
@@ -379,5 +380,4 @@ public class Game extends AnimationTimer {
         mushroomList=new ArrayList<>();
         main.gameEnd(isWin);
     }
-
 }
