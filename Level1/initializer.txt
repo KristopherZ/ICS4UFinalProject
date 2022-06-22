@@ -1,7 +1,5 @@
 background 80 128 255
 1 40 0 50 50 Sprites/mario_sprite_idle.png
-2 200 0 50 50 Sprites/Goomba.png (Goomba)
-3 100 100 50 50 Sprites/turtle.png Sprites/shell.png
 8 100 50 100 75 Sprites/mario_cloud.png
 8 300 70 225 175 Sprites/mario_long_cloud.png
 8 775 50 100 75 Sprites/mario_cloud.png
@@ -14,7 +12,7 @@ background 80 128 255
 7 950 600 1150 500 Sprites/rock_block.png (Platform with two pipes)
 4 1200 500 100 100 Sprites/Pipe.png (Pipe 1)
 4 1700 500 100 100 Sprites/Pipe.png (Pipe 2)
-2 1500 0 50 50 Sprites/Goomba.png (Goomba)
+3 1500 100 50 50 Sprites/turtle.png Sprites/shell.png
 7 2500 450 700 500 Sprites/rock_block.png (Platform with question block and pipe)
 4 3100 350 100 100 Sprites/Pipe.png
 5 2800 200 50 50 Sprites/questionblock.jpg 50 50 Sprites/mushroom.png (Question block)

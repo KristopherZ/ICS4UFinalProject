@@ -104,6 +104,7 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 e.setShellImage(shellImage);
                 e.setGravity(new Vector(0, gravityCoefficient));
+                e.setVelocity(new Vector(((Math.random()<.5)? -1:1)*100, 0));
                 enemyShellList.add(e);
             }else if(line.startsWith("4")) {
                 Image image;
