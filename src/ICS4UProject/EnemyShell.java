@@ -53,9 +53,9 @@ public class EnemyShell extends Enemy {
     public void collide() {
         for(PlatformImage i : getPlatformImageList()) {
             if( (i.collideWith(this).getCollisionPosition()[2]) && !shellForm){
-                setVelocity(new Vector(-500,0));
+                setVelocity(new Vector(-300,0));
             }else if( (i.collideWith(this).getCollisionPosition()[3]) && !shellForm){
-                setVelocity(new Vector(500,0));
+                setVelocity(new Vector(300,0));
             } else if( (i.collideWith(this).getCollisionPosition()[2]) && shellForm) {
                 setVelocity(new Vector(-600, 0));
             } else if( (i.collideWith(this).getCollisionPosition()[3]) && shellForm) {
@@ -87,9 +87,9 @@ public class EnemyShell extends Enemy {
             }
             else if(i.jumpOnEnemy(this) && shellForm && !isMoving && !i.isInvisible()) {
                 if(getRandomBoolean())
-                    setVelocity(new Vector(-500,0));
+                    setVelocity(new Vector(-300,0));
                 else
-                    setVelocity(new Vector(500, 0));
+                    setVelocity(new Vector(300, 0));
                 i.setAppliedForce(new Vector(0,-12000),150);
                 isMoving = true;
             }
@@ -102,12 +102,12 @@ public class EnemyShell extends Enemy {
 
             }
             else if(i.runIntoEnemyLeft(this) && shellForm && !isMoving && !i.isInvisible()) {
-                setVelocity(new Vector(-500,0));
+                setVelocity(new Vector(-300,0));
                 isMoving = true;
                 i.setIsInvisible(1000);
             }
             else if(i.runIntoEnemyRight(this) && shellForm && !isMoving && !i.isInvisible()) {
-                setVelocity(new Vector(500, 0));
+                setVelocity(new Vector(300, 0));
                 isMoving = true;
                 i.setIsInvisible(1000);
             }
@@ -115,10 +115,10 @@ public class EnemyShell extends Enemy {
         for(CollisionBodyImage i : getAllCollision()) {
             if(i!=this) {
                 if((runIntoEnemyLeft(i) && !shellForm) ) {
-                    setVelocity(new Vector(100,0));
+                    setVelocity(new Vector(300,0));
                 }
                 if((runIntoEnemyRight(i) && !shellForm) ) {
-                    setVelocity(new Vector(-100,0));
+                    setVelocity(new Vector(-300,0));
                 }
                 else if((this.runIntoEnemyLeft(i) || this.runIntoEnemyRight(i)) && shellForm && isMoving) {
                     i.close();
@@ -136,6 +136,7 @@ public class EnemyShell extends Enemy {
      */
     @Override
     public void update(long elapsedTime) {
+        System.out.println(getVelocity());
         if(!isClose) {
             super.update(elapsedTime);
         }
