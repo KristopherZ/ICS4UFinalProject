@@ -251,7 +251,12 @@ public class Game extends AnimationTimer {
             for (Player p: playerList) {
                 enemy.addPlayer(p);
             }
+        }
 
+        for (EnemyShell enemyShell: enemyShellList) {
+            for (Player p: playerList) {
+                enemyShell.addPlayer(p);
+            }
         }
 
         for (EnemyShell enemy: enemyShellList) {
@@ -266,6 +271,35 @@ public class Game extends AnimationTimer {
                 mushroom.addPlayer(p);
             }
 
+        }
+
+        for (Enemy enemy: enemyList) {
+            for (Mushroom mush: mushroomList) {
+                enemy.addAllCollisions(mush);
+            }
+            for(EnemyShell es : enemyShellList) {
+                enemy.addAllCollisions(es);
+            }
+            enemy.addAllCollisions(enemy);
+        }
+
+        for (EnemyShell enemyShell: enemyShellList) {
+            for (Mushroom mush: mushroomList) {
+                enemyShell.addAllCollisions(mush);
+            }
+            for(Enemy e : enemyList) {
+                enemyShell.addAllCollisions(e);
+            }
+            enemyShell.addAllCollisions(enemyShell);
+        }
+        for (Mushroom mush: mushroomList) {
+            for (EnemyShell es: enemyShellList) {
+                mush.addAllCollisions(es);
+            }
+            for(Enemy e : enemyList) {
+                mush.addAllCollisions(e);
+            }
+            mush.addAllCollisions(mush);
         }
         start();
 

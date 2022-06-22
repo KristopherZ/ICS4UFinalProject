@@ -19,6 +19,7 @@ public class Mushroom extends CollisionBodyImage{
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private Vector TempGravity = new Vector(),movingVelocity = new Vector();
     private Boolean isEaten = false;
+    private ArrayList<CollisionBodyImage> allCollision = new ArrayList<>();
 
 
     /**
@@ -28,11 +29,14 @@ public class Mushroom extends CollisionBodyImage{
      * @param sizeY the height of the object
      * @param image the image of the object
      */
-
     public Mushroom(PlatformImage trigger, double sizeX, double sizeY, Image image) {
         super(trigger.getPosition().getX(), trigger.getPosition().getY()-1000, sizeX, sizeY, image);
         this.trigger = trigger;
         setElasticity(new double[]{1,1,1,1});
+    }
+
+    public void addAllCollisions(CollisionBodyImage cb) {
+        allCollision.add(cb);
     }
 
     /**
@@ -76,6 +80,17 @@ public class Mushroom extends CollisionBodyImage{
                 setVelocity(new Vector(Math.abs(movingVelocity.getX()),0));
             }
         }
+        for (CollisionBodyImage i : allCollision) {
+            if (i != this) {
+                if(this.runIntoEnemyLeft(i)) {
+                    setVelocity(new Vector(100,0));
+                }
+                else if(this.runIntoEnemyRight(i)) {
+                    setVelocity(new Vector(100,0));
+                }
+
+            }
+        }
     }
 
     @Override
@@ -91,6 +106,8 @@ public class Mushroom extends CollisionBodyImage{
     public void setMovingVelocity(Vector v){
         movingVelocity = v;
     }
+
+
 
     @Override
     public void update(long elapsedTime) {
