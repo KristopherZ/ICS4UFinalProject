@@ -39,6 +39,7 @@ public class Main extends Application {
     @Override
     public void start(Stage PrimaryStage) {
         stage = PrimaryStage;
+        stage.setTitle("Mario");
         AudioClip music = null;
         try {
             music = new AudioClip((new File("Sounds\\SuperMarioBrosThemeSong.mp3")).toURI().toURL().toString());
