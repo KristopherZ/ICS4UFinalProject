@@ -135,8 +135,6 @@ public class EnemyShell extends Enemy {
      */
     @Override
     public void update(long elapsedTime) {
-        System.out.println(getVelocity());
-//        System.out.println(Arrays.toString(getColliders()));
         if(!isClose) {
             super.update(elapsedTime);
         }
