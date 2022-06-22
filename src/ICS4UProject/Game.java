@@ -244,13 +244,11 @@ public class Game extends AnimationTimer {
 
         if(flag!=null)
             root.getChildren().add(flag.getImage());
-
-        for (GameObjectImage g: decorations) {
-            root.getChildren().add(g.getImage());
-        }
-
         for (Lavaball l: lavaball) {
             root.getChildren().add(l.getImage());
+        }
+        for (GameObjectImage g: decorations) {
+            root.getChildren().add(g.getImage());
         }
         for (Enemy enemy : enemyList) {
             root.getChildren().add(enemy.getImage());

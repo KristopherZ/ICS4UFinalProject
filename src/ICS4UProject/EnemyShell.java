@@ -53,10 +53,10 @@ public class EnemyShell extends Enemy {
         for(CollisionBodyImage i : getAllCollision()) {
             if(i!=this&&!i.isClose()) {
                 if((runIntoLeft(i) && !shellForm) ) {
-                    setVelocity(new Vector(300,0));
+                    setVelocity(new Vector(200,0));
                 }
                 if((runIntoRight(i) && !shellForm) ) {
-                    setVelocity(new Vector(-300,0));
+                    setVelocity(new Vector(-200,0));
                 }
                 else if((this.runIntoLeft(i) || this.runIntoRight(i)) && shellForm && isMoving) {
                     i.close();
@@ -65,13 +65,13 @@ public class EnemyShell extends Enemy {
         }
         for(PlatformImage i : getPlatformImageList()) {
             if( (i.collideWith(this).getCollisionPosition()[2]) && !shellForm){
-                setVelocity(new Vector(-300,0));
+                setVelocity(new Vector(-200,0));
             }else if( (i.collideWith(this).getCollisionPosition()[3]) && !shellForm){
-                setVelocity(new Vector(300,0));
+                setVelocity(new Vector(200,0));
             } else if( (i.collideWith(this).getCollisionPosition()[2]) && shellForm) {
-                setVelocity(new Vector(-600, 0));
+                setVelocity(new Vector(-300, 0));
             } else if( (i.collideWith(this).getCollisionPosition()[3]) && shellForm) {
-                setVelocity(new Vector(600,0));
+                setVelocity(new Vector(300,0));
             }
         }
         for(Player i : getPlayers()) {
@@ -90,17 +90,15 @@ public class EnemyShell extends Enemy {
                 }
             }
             else if(i.jumpOnEnemy(this) && shellForm && isMoving && !i.isInvisible()) {
-                if(i.isPowerUp())
-                    i.setIsPowerUp(false);
-                else {
-                    i.gameEnd(false);
-                }
+                isMoving = false;
+                setVelocity(new Vector());
+                i.setAppliedForce(new Vector(0,-12000),150);
             }
             else if(i.jumpOnEnemy(this) && shellForm && !isMoving && !i.isInvisible()) {
                 if(getRandomBoolean())
-                    setVelocity(new Vector(-300,0));
+                    setVelocity(new Vector(-600,0));
                 else
-                    setVelocity(new Vector(300, 0));
+                    setVelocity(new Vector(600, 0));
                 i.setAppliedForce(new Vector(0,-12000),150);
                 i.setIsInvisible(1000);
                 shellForm = true;
@@ -115,12 +113,12 @@ public class EnemyShell extends Enemy {
 
             }
             else if(i.runIntoEnemyLeft(this) && shellForm && !isMoving && !i.isInvisible()) {
-                setVelocity(new Vector(-300,0));
+                setVelocity(new Vector(-600,0));
                 isMoving = true;
                 i.setIsInvisible(1000);
             }
             else if(i.runIntoEnemyRight(this) && shellForm && !isMoving && !i.isInvisible()) {
-                setVelocity(new Vector(300, 0));
+                setVelocity(new Vector(600, 0));
                 isMoving = true;
                 i.setIsInvisible(1000);
             }
