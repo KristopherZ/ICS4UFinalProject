@@ -230,7 +230,8 @@ public class Player extends CollisionBodyImage {
         this.isPowerUp = isPowerUp;
         //if it is set to false, the player will decrease the size and invisible for 2s
         if(!isPowerUp){
-            setSizeY(getSizeY()/2.0);
+            if(!isCrouching)
+                setSizeY(getSizeY()/2.0);
             setIsInvisible(2000);
         }
     }

@@ -44,6 +44,7 @@ public class Game extends AnimationTimer {
     private ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
     private ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private ArrayList<Mushroom> mushroomList = new ArrayList<>();
+    private ArrayList<Lavaball> lavaball = new ArrayList<>();
     private Main main;
     private Text score;
     Group root;
@@ -161,6 +162,14 @@ public class Game extends AnimationTimer {
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
                 mpi.setFrictionCoe(1);
                 platformImageList.add(mpi);
+            } else if (line.startsWith("l")){
+                Image image;
+                String[] values = line.split(" ");
+                image = new Image(new File(values[5]).toURI().toURL().toString(), false);
+                Lavaball l = new Lavaball(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                l.setGravity(new Vector(0, gravityCoefficient));
+                lavaball.add(l);
             }
         }
 
@@ -199,6 +208,9 @@ public class Game extends AnimationTimer {
         for (GameObjectImage decoration: decorations) {
             camera.add(decoration);
         }
+        for(Lavaball l : lavaball){
+            camera.add(l);
+        }
 
         for (PlatformImage platform : platformImageList) {
             for (Enemy enemy : enemyList) {
@@ -223,11 +235,21 @@ public class Game extends AnimationTimer {
                 mushroom.getPlatformImageList().add(platform);
             }
         }
+        for (Lavaball l:lavaball) {
+            for (Player player : playerList) {
+                l.addPlayer(player);
+            }
+        }
+
         if(flag!=null)
             root.getChildren().add(flag.getImage());
 
         for (GameObjectImage g: decorations) {
             root.getChildren().add(g.getImage());
+        }
+
+        for (Lavaball l: lavaball) {
+            root.getChildren().add(l.getImage());
         }
         for (Enemy enemy : enemyList) {
             root.getChildren().add(enemy.getImage());
@@ -318,6 +340,9 @@ public class Game extends AnimationTimer {
             }
             for (GameObjectImage decoration: decorations) {
                 decoration.update(elapsedTime);
+            }
+            for (Lavaball l: lavaball) {
+                l.update(elapsedTime);
             }
             if(flag!=null)
                 flag.update(elapsedTime);
