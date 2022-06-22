@@ -1,5 +1,7 @@
 background 80 128 255
 1 40 0 50 50 Sprites/mario_sprite_idle.png
+2 200 0 50 50 Sprites/Goomba.png (Goomba)
+3 100 100 50 50 Sprites/turtle.png Sprites/shell.png
 8 100 50 100 75 Sprites/mario_cloud.png
 8 300 70 225 175 Sprites/mario_long_cloud.png
 8 775 50 100 75 Sprites/mario_cloud.png
