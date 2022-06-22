@@ -282,5 +282,4 @@ public class Player extends CollisionBodyImage {
     public void setFlag(GameObjectImage flag) {
         this.flag = flag;
     }
-
 }

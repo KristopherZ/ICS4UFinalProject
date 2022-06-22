@@ -76,6 +76,14 @@ public class CollisionBodyImage extends BodyImage {
         }
     }
 
+    public boolean runIntoEnemyLeft(CollisionBodyImage i) {
+        return this.collideWith(i).getCollisionPosition()[2];
+    }
+
+    public boolean runIntoEnemyRight(CollisionBodyImage i) {
+        return this.collideWith(i).getCollisionPosition()[3];
+    }
+
     /**
      * Closes the CollisionBodyImage object by setting all of its colliders to null and stopping it from updating
      */

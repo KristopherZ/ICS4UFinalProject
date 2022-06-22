@@ -20,6 +20,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -59,7 +61,7 @@ public class Game extends AnimationTimer {
     public Game(String address, Group group, KeyInput k,Main m) throws FileNotFoundException, MalformedURLException {
         root = group;
         main = m;
-        Font font = new Font(30);
+        Font font = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 40);
         score = new Text("Score:000");
         score.setFont(font);
         score.setStroke(Color.WHITE);
@@ -157,6 +159,7 @@ public class Game extends AnimationTimer {
                 image = new Image(new File(values[5]).toURI().toURL().toString(), false);
                 MovingPlatformImage mpi = new MovingPlatformImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                mpi.setFrictionCoe(1);
                 platformImageList.add(mpi);
             }
         }
@@ -249,7 +252,12 @@ public class Game extends AnimationTimer {
             for (Player p: playerList) {
                 enemy.addPlayer(p);
             }
+        }
 
+        for (EnemyShell enemyShell: enemyShellList) {
+            for (Player p: playerList) {
+                enemyShell.addPlayer(p);
+            }
         }
 
         for (EnemyShell enemy: enemyShellList) {
@@ -265,8 +273,21 @@ public class Game extends AnimationTimer {
             }
 
         }
-        start();
 
+        for (Enemy enemy: enemyList) {
+            for(EnemyShell es : enemyShellList) {
+                enemy.addAllCollisions(es);
+            }
+            enemy.addAllCollisions(enemy);
+        }
+
+        for (EnemyShell enemyShell: enemyShellList) {
+            for(Enemy e : enemyList) {
+                enemyShell.addAllCollisions(e);
+            }
+            enemyShell.addAllCollisions(enemyShell);
+        }
+        start();
     }
 
     /**

@@ -17,7 +17,7 @@ public class MovingPlatformImage extends PlatformImage{
      */
     public MovingPlatformImage(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
-        setVelocity(new Vector(0, 50));
+        setVelocity(new Vector(0, 150));
     }
 
     public void update(long elapsedTime) {
@@ -25,13 +25,9 @@ public class MovingPlatformImage extends PlatformImage{
 
         if(isUpdate){
             super.update(elapsedTime);
-            if(getPosition().getY() > 800) {
-                setVelocity(new Vector(0, -50));
-                System.out.println("bounced up");
-            }
-            if (getPosition().getY() < 0) {
-                setVelocity(new Vector(0, 50));
-                System.out.println("Bounced down");
+            if (getPosition().getY() > 800) {
+                setPosition(new Vector(getPosition().getX(), 0));
+                System.out.println("loop");
             }
         }
     }

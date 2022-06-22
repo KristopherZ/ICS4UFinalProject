@@ -28,7 +28,6 @@ public class Mushroom extends CollisionBodyImage{
      * @param sizeY the height of the object
      * @param image the image of the object
      */
-
     public Mushroom(PlatformImage trigger, double sizeX, double sizeY, Image image) {
         super(trigger.getPosition().getX(), trigger.getPosition().getY()-1000, sizeX, sizeY, image);
         this.trigger = trigger;
@@ -57,7 +56,6 @@ public class Mushroom extends CollisionBodyImage{
      * @return the whether the trigger is activate
      */
     private boolean checkTrigger(){
-//        System.out.println(isTriggered);
         if(!isTriggered){
             for (Player p :
                     playerArrayList) {
@@ -91,6 +89,8 @@ public class Mushroom extends CollisionBodyImage{
     public void setMovingVelocity(Vector v){
         movingVelocity = v;
     }
+
+
 
     @Override
     public void update(long elapsedTime) {

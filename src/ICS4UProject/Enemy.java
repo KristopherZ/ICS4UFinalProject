@@ -16,12 +16,14 @@ import java.util.concurrent.TimeUnit;
 public class Enemy extends CollisionBodyImage {
 
     private final static double coefficientOfZerothTerm = 100, coefficientOfFirstTerm = 50, exponent= 1.7;
-    private final ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private boolean isClose = false;
+    private  ArrayList<Enemy> enemies = new ArrayList<>();
+    private ArrayList<CollisionBodyImage> allCollision = new ArrayList<>();
 
     /**
-     * To construct a player
+     * To construct an enemy
      * @param x the x coordinate of the enemy
      * @param y the y coordinate of the enemy
      * @param sizeX the width
@@ -41,12 +43,25 @@ public class Enemy extends CollisionBodyImage {
         return platformImageList;
     }
 
+    public void addAllCollisions(CollisionBodyImage cb) {
+        allCollision.add(cb);
+    }
+
+    public ArrayList<CollisionBodyImage> getAllCollision() {
+        return allCollision;
+    }
+
+
     /**
      * To add to the list of players
      * @param player the player
      */
     public void addPlayer(Player player) {
         players.add(player);
+    }
+
+    public boolean runIntoEnemy(Enemy enemy) {
+        return (this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3]);
     }
 
     /**
@@ -74,14 +89,28 @@ public class Enemy extends CollisionBodyImage {
                 }
                 music.setCycleCount(1);
                 music.play();
-                this.close();
                 j.addScore(100);
+                j.setAppliedForce(new Vector(0,-11000),150);
+                j.setAppliedForce(new Vector(0,-11000),150);
+                this.close();
             }
-            else if (j.runIntoEnemy(this)) {
+            else if (j.runIntoEnemyLeft(this) || j.runIntoEnemyRight(this)) {
                 if(j.isPowerUp())
                     j.setIsPowerUp(false);
                 else
                     j.gameEnd(false);
+            }
+        }
+
+        for (CollisionBodyImage i : allCollision) {
+            if (i != this) {
+                if(runIntoEnemyLeft(i)) {
+                    setVelocity(new Vector(100,0));
+                }
+                else if(runIntoEnemyRight(i)) {
+                    setVelocity(new Vector(-100,0));
+                }
+
             }
         }
     }
@@ -95,6 +124,7 @@ public class Enemy extends CollisionBodyImage {
         if(!isClose){
             super.update(elapsedTime);
             collide();
+            System.out.println(allCollision.size());
         }
     }
 
@@ -102,6 +132,7 @@ public class Enemy extends CollisionBodyImage {
     public void close() {
         isClose = true;
         super.close();
+
     }
 
     public ArrayList<Player> getPlayers() {
