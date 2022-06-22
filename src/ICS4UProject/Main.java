@@ -46,6 +46,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
         music.setCycleCount(AudioClip.INDEFINITE);
+        music.play();
         startUp = new StartUp(this);
         levelSelection = new LevelSelection("LevelSelection.txt",this);
         try {
