@@ -16,7 +16,10 @@ public class EnemyShell extends Enemy {
 
     private boolean isClose = false;
     private boolean shellForm = false;
-    Image shellImage;
+    private boolean isMoving = false;
+
+
+    Image shellImage = new Image((new File("Sprites/shell.png")).toURI().toURL().toString(),false);
 
     public void setShellImage(Image shellImage) {
         this.shellImage = shellImage;
@@ -39,6 +42,7 @@ public class EnemyShell extends Enemy {
         return random.nextBoolean();
     }
 
+
     /**
      * exert forces in the opposite direction of impact to make the enemy go back and forth
      * if the shell enemy is jumped on, it will turn into a shell
@@ -58,33 +62,73 @@ public class EnemyShell extends Enemy {
                 setVelocity(new Vector(600,0));
             }
         }
-        System.out.println(getPlayers());
         for(Player i : getPlayers()) {
             if (i.jumpOnEnemy(this) && !shellForm && !i.isInvisible()) {
                 this.getImage().setImage(shellImage);
                 shellForm = true;
-                i.setAppliedForce(new Vector(0,-11000),150);
+                i.setAppliedForce(new Vector(0,-12000),150);
+                i.setIsInvisible(1000);
+                setVelocity(new Vector());
             }
-            else if(i.runIntoEnemyRight(this) || i.runIntoEnemyLeft(this)){
-                if(!shellForm) {
-                    if(i.isPowerUp())
-                        i.setIsPowerUp(false);
-                    else
-                        i.gameEnd(true);
+            else if( (i.runIntoEnemyRight(this) || i.runIntoEnemyLeft(this)) && !i.isInvisible() && !shellForm && !isMoving){
+                if(i.isPowerUp())
+                    i.setIsPowerUp(false);
+                else {
+                    i.gameEnd(false);
+                }
+                    i.gameEnd(false);
+            }
+            else if(i.jumpOnEnemy(this) && shellForm && isMoving && !i.isInvisible()) {
+                if(i.isPowerUp())
+                    i.setIsPowerUp(false);
+                else {
+                    i.gameEnd(false);
                 }
             }
-            else if(i.runIntoEnemyLeft(this) && shellForm)
-                setVelocity(new Vector(-500,0));
-            else if(i.runIntoEnemyRight(this) && shellForm)
-                setVelocity(new Vector(500, 0));
-            else if(i.jumpOnEnemy(this) && shellForm && !i.isInvisible())
+            else if(i.jumpOnEnemy(this) && shellForm && !isMoving && !i.isInvisible()) {
                 if(getRandomBoolean())
                     setVelocity(new Vector(-500,0));
                 else
                     setVelocity(new Vector(500, 0));
-        }
+                i.setAppliedForce(new Vector(0,-12000),150);
+                isMoving = true;
+            }
+            else if((i.runIntoEnemyRight(this) || i.runIntoEnemyLeft(this)) && !i.isInvisible() && shellForm && isMoving) {
+                if(i.isPowerUp())
+                    i.setIsPowerUp(false);
+                else {
+                    i.gameEnd(false);
+                }
 
+            }
+            else if(i.runIntoEnemyLeft(this) && shellForm && !isMoving && !i.isInvisible()) {
+                setVelocity(new Vector(-500,0));
+                isMoving = true;
+                i.setIsInvisible(1000);
+            }
+            else if(i.runIntoEnemyRight(this) && shellForm && !isMoving && !i.isInvisible()) {
+                setVelocity(new Vector(500, 0));
+                isMoving = true;
+                i.setIsInvisible(1000);
+            }
+        }
+        for(CollisionBodyImage i : getAllCollision()) {
+            if(i!=this) {
+                if((this.runIntoEnemyLeft(i) && !shellForm) ) {
+                    setVelocity(new Vector(-100,0));
+                }
+                if((this.runIntoEnemyRight(i) && !shellForm) ) {
+                    setVelocity(new Vector(-100,0));
+                }
+                else if((this.runIntoEnemyLeft(i) || this.runIntoEnemyRight(i)) && shellForm && isMoving) {
+                    i.close();
+                }
+            }
+        }
     }
+
+
+
 
     /**
      * updates the shell enemy's collision
@@ -94,8 +138,6 @@ public class EnemyShell extends Enemy {
     public void update(long elapsedTime) {
         if(!isClose) {
             super.update(elapsedTime);
-//            this.collideWith(player);
-            collide();
         }
     }
 

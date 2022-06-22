@@ -16,6 +16,8 @@ public class Enemy extends CollisionBodyImage {
     private ArrayList<Player> players = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private boolean isClose = false;
+    private  ArrayList<Enemy> enemies = new ArrayList<>();
+    private ArrayList<CollisionBodyImage> allCollision = new ArrayList<>();
 
     /**
      * To construct an enemy
@@ -38,6 +40,15 @@ public class Enemy extends CollisionBodyImage {
         return platformImageList;
     }
 
+    public void addAllCollisions(CollisionBodyImage cb) {
+        allCollision.add(cb);
+    }
+
+    public ArrayList<CollisionBodyImage> getAllCollision() {
+        return allCollision;
+    }
+
+
     /**
      * To add to the list of players
      * @param player the player
@@ -46,7 +57,9 @@ public class Enemy extends CollisionBodyImage {
         players.add(player);
     }
 
-    public ArrayList<Player> getPlayers (){ return players; }
+    public boolean runIntoEnemy(Enemy enemy) {
+        return (this.collideWith(enemy).getCollisionPosition()[2] || this.collideWith(enemy).getCollisionPosition()[3]);
+    }
 
     /**
      * exert forces in the opposite direction of impact to make the enemy go back and forth
@@ -77,6 +90,18 @@ public class Enemy extends CollisionBodyImage {
                     j.gameEnd(false);
             }
         }
+
+        for (CollisionBodyImage i : allCollision) {
+            if (i != this) {
+                if(this.runIntoEnemyLeft(i)) {
+                    setVelocity(new Vector(100,0));
+                }
+                else if(this.runIntoEnemyRight(i)) {
+                    setVelocity(new Vector(100,0));
+                }
+
+            }
+        }
     }
 
     /**
@@ -85,10 +110,10 @@ public class Enemy extends CollisionBodyImage {
      */
     @Override
     public void update(long elapsedTime) {
-        System.out.println(players.size());
         if(!isClose){
             super.update(elapsedTime);
             collide();
+            System.out.println(allCollision.size());
         }
     }
 
@@ -96,6 +121,7 @@ public class Enemy extends CollisionBodyImage {
     public void close() {
         isClose = true;
         super.close();
+
     }
 
     public ArrayList<Player> getPlayers() {

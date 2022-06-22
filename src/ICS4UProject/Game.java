@@ -32,7 +32,7 @@ public class Game extends AnimationTimer {
     // coefficient that determines the amount of force from gravity
     private boolean isUpdate = true;
     private GameObjectImage flag;
-    private final double gravityCoefficient = 2000;
+    private final double gravityCoefficient = 2500;
     private static final double cameraOffset = 100;
     private final Camera camera = new Camera();
     private final ArrayList<Player> playerList = new ArrayList<>();
@@ -40,6 +40,7 @@ public class Game extends AnimationTimer {
     private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private final ArrayList<Mushroom> mushroomList = new ArrayList<>();
+
     private Main main;
     private Text score;
 
@@ -235,6 +236,35 @@ public class Game extends AnimationTimer {
                 mushroom.addPlayer(p);
             }
 
+        }
+
+        for (Enemy enemy: enemyList) {
+            for (Mushroom mush: mushroomList) {
+                enemy.addAllCollisions(mush);
+            }
+            for(EnemyShell es : enemyShellList) {
+                enemy.addAllCollisions(es);
+            }
+            enemy.addAllCollisions(enemy);
+        }
+
+        for (EnemyShell enemyShell: enemyShellList) {
+            for (Mushroom mush: mushroomList) {
+                enemyShell.addAllCollisions(mush);
+            }
+            for(Enemy e : enemyList) {
+                enemyShell.addAllCollisions(e);
+            }
+            enemyShell.addAllCollisions(enemyShell);
+        }
+        for (Mushroom mush: mushroomList) {
+            for (EnemyShell es: enemyShellList) {
+                mush.addAllCollisions(es);
+            }
+            for(Enemy e : enemyList) {
+                mush.addAllCollisions(e);
+            }
+            mush.addAllCollisions(mush);
         }
         start();
 
