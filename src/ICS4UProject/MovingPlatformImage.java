@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 public class MovingPlatformImage extends PlatformImage{
 
     boolean isUpdate = true;
-    double yVelocity;
 
     /**
      * To construct a moving platform
@@ -22,12 +21,15 @@ public class MovingPlatformImage extends PlatformImage{
     }
 
     public void update(long elapsedTime) {
+        System.out.println(1);
+
         if(isUpdate){
+            super.update(elapsedTime);
             if(getPosition().getY() > 800) {
                 setVelocity(new Vector(0, -50));
                 System.out.println("bounced up");
             }
-            if (getPosition().getY() < -200) {
+            if (getPosition().getY() < 0) {
                 setVelocity(new Vector(0, 50));
                 System.out.println("Bounced down");
             }
