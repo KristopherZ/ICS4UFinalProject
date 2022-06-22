@@ -159,6 +159,7 @@ public class Game extends AnimationTimer {
                 image = new Image(new File(values[5]).toURI().toURL().toString(), false);
                 MovingPlatformImage mpi = new MovingPlatformImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), image);
+                mpi.setFrictionCoe(1);
                 platformImageList.add(mpi);
             }
         }
