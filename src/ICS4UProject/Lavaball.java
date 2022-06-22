@@ -9,7 +9,7 @@ public class Lavaball extends CollisionBodyImage {
 
     private final ArrayList<Player> players = new ArrayList<>();
 
-    private boolean isClose = false;
+    private double initY;
 
     /**
      * Constructs a LavaBall object
@@ -22,6 +22,7 @@ public class Lavaball extends CollisionBodyImage {
      */
     public Lavaball(double x, double y, double sizeX, double sizeY, Image image) {
         super(x, y, sizeX, sizeY, image);
+        initY = y;
     }
 
     public void addPlayer(Player player) {
@@ -32,6 +33,18 @@ public class Lavaball extends CollisionBodyImage {
 
     public void update(long elapsedTime) {
         super.update(elapsedTime);
+        if(getPosition().getY()>initY&&getAppliedForce().equals(new Vector())){
+            setVelocity(new Vector());
+            setAppliedForce(new Vector(0,-8000),200);
+        }
+        for (Player p:players) {
+            if(p.isCollide(getImage())&&!p.isInvisible()){
+                if(p.isPowerUp())
+                    p.setIsPowerUp(false);
+                else
+                    p.gameEnd(false);
+            }
+        }
     }
 
 
