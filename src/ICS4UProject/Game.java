@@ -40,6 +40,7 @@ public class Game extends AnimationTimer {
     private final ArrayList<EnemyShell> enemyShellList = new ArrayList<>();
     private final ArrayList<PlatformImage> platformImageList = new ArrayList<>();
     private final ArrayList<Mushroom> mushroomList = new ArrayList<>();
+    private final ArrayList<Fireball> fireballList = new ArrayList<>();
 
     private Main main;
     private Text score;
@@ -128,7 +129,16 @@ public class Game extends AnimationTimer {
                 flag = new GameObjectImage(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), flagImage);
                 camera.add(flag);
-            } else if(line.startsWith("background")) {
+            } else if(line.startsWith("7")) {
+                Image fireballImage;
+                String[] values = line.split(" ");
+                fireballImage = new Image(new File(values[5]).toURI().toURL().toString(),false);
+                Fireball fireball = new Fireball(Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), fireballImage);
+                fireball.setGravity(new Vector(0, gravityCoefficient));
+                fireballList.add(fireball);
+            }
+            else if(line.startsWith("background")) {
                 String[] values = line.split(" ");
                 main.setSceneColor(Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]));
             }
@@ -149,6 +159,9 @@ public class Game extends AnimationTimer {
             for (Mushroom mushroom: mushroomList) {
                 platform.addKinetic(mushroom);
             }
+            for(Fireball fireball : fireballList) {
+                platform.addKinetic(fireball);
+            }
         }
 
         for (Enemy enemy : enemyList) {
@@ -165,6 +178,9 @@ public class Game extends AnimationTimer {
         }
         for (Mushroom mushroom: mushroomList) {
             camera.add(mushroom);
+        }
+        for(Fireball fireball : fireballList) {
+            camera.add(fireball);
         }
 
         for (PlatformImage platform : platformImageList) {
@@ -190,6 +206,13 @@ public class Game extends AnimationTimer {
                 mushroom.getPlatformImageList().add(platform);
             }
         }
+
+        for (PlatformImage platform : platformImageList) {
+            for (Fireball fireball : fireballList) {
+                fireball.getPlatformImageList().add(platform);
+            }
+        }
+
         if(flag!=null)
             root.getChildren().add(flag.getImage());
 
@@ -208,6 +231,9 @@ public class Game extends AnimationTimer {
         }
         for (Mushroom mushroom: mushroomList) {
             root.getChildren().add(mushroom.getImage());
+        }
+        for(Fireball fireball : fireballList) {
+            root.getChildren().add(fireball.getImage());
         }
 
         root.getChildren().add(score);
@@ -235,7 +261,6 @@ public class Game extends AnimationTimer {
             for (Player p: playerList) {
                 mushroom.addPlayer(p);
             }
-
         }
 
         for (Enemy enemy: enemyList) {
@@ -256,15 +281,6 @@ public class Game extends AnimationTimer {
                 enemyShell.addAllCollisions(e);
             }
             enemyShell.addAllCollisions(enemyShell);
-        }
-        for (Mushroom mush: mushroomList) {
-            for (EnemyShell es: enemyShellList) {
-                mush.addAllCollisions(es);
-            }
-            for(Enemy e : enemyList) {
-                mush.addAllCollisions(e);
-            }
-            mush.addAllCollisions(mush);
         }
         start();
 
@@ -296,6 +312,9 @@ public class Game extends AnimationTimer {
             for (Mushroom mushroom: mushroomList) {
                 mushroom.update(elapsedTime);
             }
+            for (Fireball fireball : fireballList) {
+                fireball.update(elapsedTime);
+            }
             if(flag!=null)
                 flag.update(elapsedTime);
         }
@@ -317,6 +336,9 @@ public class Game extends AnimationTimer {
         }
         for (Mushroom mushroom: mushroomList) {
             mushroom.close();
+        }
+        for(Fireball fireball : fireballList) {
+            fireball.close();
         }
     }
 

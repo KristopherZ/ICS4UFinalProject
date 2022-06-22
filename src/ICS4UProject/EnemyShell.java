@@ -114,14 +114,15 @@ public class EnemyShell extends Enemy {
         }
         for(CollisionBodyImage i : getAllCollision()) {
             if(i!=this) {
-                if((this.runIntoEnemyLeft(i) && !shellForm) ) {
-                    setVelocity(new Vector(-100,0));
+                if((i.runIntoEnemyLeft(this) && !shellForm) ) {
+                    this.setVelocity(new Vector(100,0));
                 }
-                if((this.runIntoEnemyRight(i) && !shellForm) ) {
-                    setVelocity(new Vector(-100,0));
+                if((i.runIntoEnemyRight(this) && !shellForm) ) {
+                    this.setVelocity(new Vector(-100,0));
                 }
-                else if((this.runIntoEnemyLeft(i) || this.runIntoEnemyRight(i)) && shellForm && isMoving) {
+                else if((i.runIntoEnemyLeft(this) || i.runIntoEnemyRight(this)) && shellForm && isMoving) {
                     i.close();
+                    break;
                 }
             }
         }

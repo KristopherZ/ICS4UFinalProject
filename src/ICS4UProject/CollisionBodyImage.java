@@ -77,11 +77,15 @@ public class CollisionBodyImage extends BodyImage {
     }
 
     public boolean runIntoEnemyLeft(CollisionBodyImage i) {
-        return this.collideWith(i).getCollisionPosition()[2];
+        return i.collideWith(this).getCollisionPosition()[2];
     }
 
     public boolean runIntoEnemyRight(CollisionBodyImage i) {
-        return this.collideWith(i).getCollisionPosition()[3];
+        return i.collideWith(this).getCollisionPosition()[3];
+    }
+
+    public boolean runIntoEnemyBottomOrTop(CollisionBodyImage i) {
+        return i.collideWith(this).getCollisionPosition()[0] || i.collideWith(this).getCollisionPosition()[0];
     }
 
     /**

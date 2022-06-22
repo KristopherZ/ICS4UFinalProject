@@ -4,5 +4,5 @@ background 50 50 40
 4 2500 450 2000 50 Sprites/longplatform.jpg
 4 1000 530 100 100 Sprites/Pipe.png
 5 600 200 50 50 Sprites/questionblock.jpg 50 50 Sprites/mushroom.png
-2 400 0 50 50 Sprites/Goomba.png
-3 500 0
+2 700 0 50 50 Sprites/Goomba.png
+3 300 0 50 50 Sprites/turtle.png
