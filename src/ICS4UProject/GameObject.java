@@ -245,4 +245,8 @@ public abstract class GameObject implements PhysicsUpdate, Kinetic, CameraView{
         this.elasticity = elasticity;
     }
 
+    public boolean isClose(){
+        return !isUpdate;
+    }
+
 }

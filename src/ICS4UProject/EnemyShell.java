@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -51,6 +50,19 @@ public class EnemyShell extends Enemy {
      */
     @Override
     public void collide() {
+        for(CollisionBodyImage i : getAllCollision()) {
+            if(i!=this&&!i.isClose()) {
+                if((runIntoLeft(i) && !shellForm) ) {
+                    setVelocity(new Vector(300,0));
+                }
+                if((runIntoRight(i) && !shellForm) ) {
+                    setVelocity(new Vector(-300,0));
+                }
+                else if((this.runIntoLeft(i) || this.runIntoRight(i)) && shellForm && isMoving) {
+                    i.close();
+                }
+            }
+        }
         for(PlatformImage i : getPlatformImageList()) {
             if( (i.collideWith(this).getCollisionPosition()[2]) && !shellForm){
                 setVelocity(new Vector(-300,0));
@@ -76,7 +88,6 @@ public class EnemyShell extends Enemy {
                 else {
                     i.gameEnd(false);
                 }
-                    i.gameEnd(false);
             }
             else if(i.jumpOnEnemy(this) && shellForm && isMoving && !i.isInvisible()) {
                 if(i.isPowerUp())
@@ -91,6 +102,8 @@ public class EnemyShell extends Enemy {
                 else
                     setVelocity(new Vector(300, 0));
                 i.setAppliedForce(new Vector(0,-12000),150);
+                i.setIsInvisible(1000);
+                shellForm = true;
                 isMoving = true;
             }
             else if((i.runIntoEnemyRight(this) || i.runIntoEnemyLeft(this)) && !i.isInvisible() && shellForm && isMoving) {
@@ -112,19 +125,7 @@ public class EnemyShell extends Enemy {
                 i.setIsInvisible(1000);
             }
         }
-        for(CollisionBodyImage i : getAllCollision()) {
-            if(i!=this) {
-                if((runIntoEnemyLeft(i) && !shellForm) ) {
-                    setVelocity(new Vector(300,0));
-                }
-                if((runIntoEnemyRight(i) && !shellForm) ) {
-                    setVelocity(new Vector(-300,0));
-                }
-                else if((this.runIntoEnemyLeft(i) || this.runIntoEnemyRight(i)) && shellForm && isMoving) {
-                    i.close();
-                }
-            }
-        }
+
     }
 
 
@@ -137,6 +138,7 @@ public class EnemyShell extends Enemy {
     @Override
     public void update(long elapsedTime) {
         System.out.println(getVelocity());
+//        System.out.println(Arrays.toString(getColliders()));
         if(!isClose) {
             super.update(elapsedTime);
         }

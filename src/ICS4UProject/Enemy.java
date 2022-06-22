@@ -6,7 +6,6 @@ import javafx.scene.media.AudioClip;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * represents the simple enemy object
@@ -71,6 +70,18 @@ public class Enemy extends CollisionBodyImage {
      * gets rid of players power up if ran into with a power up on
      */
     public void collide() {
+
+        for (CollisionBodyImage i : allCollision) {
+            if (i != this&&!i.isClose()) {
+                if(runIntoLeft(i)) {
+                    setVelocity(new Vector(100,0));
+                }
+                else if(runIntoRight(i)) {
+                    setVelocity(new Vector(-100,0));
+                }
+
+            }
+        }
         //check if the enemy collide
         for (PlatformImage i : platformImageList) {
             if (i.collideWith(this).getCollisionPosition()[2]) {
@@ -102,17 +113,7 @@ public class Enemy extends CollisionBodyImage {
             }
         }
 
-        for (CollisionBodyImage i : allCollision) {
-            if (i != this) {
-                if(runIntoEnemyLeft(i)) {
-                    setVelocity(new Vector(100,0));
-                }
-                else if(runIntoEnemyRight(i)) {
-                    setVelocity(new Vector(-100,0));
-                }
 
-            }
-        }
     }
 
     /**
@@ -121,6 +122,8 @@ public class Enemy extends CollisionBodyImage {
      */
     @Override
     public void update(long elapsedTime) {
+        if(isClose)
+            System.out.println("closed");
         if(!isClose){
             super.update(elapsedTime);
             collide();
