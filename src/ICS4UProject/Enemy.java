@@ -122,8 +122,6 @@ public class Enemy extends CollisionBodyImage {
      */
     @Override
     public void update(long elapsedTime) {
-        if(isClose)
-            System.out.println("closed");
         if(!isClose){
             super.update(elapsedTime);
             collide();
